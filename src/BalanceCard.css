@@ -1,0 +1,20 @@
+.content-text {
+	margin: 10px 0;
+	font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+	font-weight: 400;
+	color: white !important;
+	font-size: 3rem !important;
+}
+
+.avater-image--size {
+	transform: translateY(-10px);
+	width: 80px;
+	height: 80px;
+}
+
+.content-text--white {
+	color: white;
+}
+
+.content-stick-right {
+}

@@ -1,0 +1,38 @@
+.body-title {
+	font-size: 3rem !important;
+	font-weight: 400;
+	padding: 0;
+	text-transform: uppercase;
+	font-family: 'Roboto, Helvetica, Arial, sans-serif';
+	color: rgba(118, 118, 118, 1);
+	margin-bottom: 15px;
+}
+
+.paper-text--1 {
+	box-shadow: 0 1px 28px rgb(255 152 0 / 66%) !important;
+	background-image: linear-gradient(to right bottom, #e8962e, #e45131) !important;
+
+	line-height: 1.1;
+	overflow-x: auto;
+}
+.container-flex {
+	padding-top: 32px;
+	padding-bottom: 32;
+	justify-content: space-between;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
+.card-container {
+	height: 240;
+	display: 'flex';
+	overflow: 'auto';
+	flex-direction: 'column';
+}
+
+.container-chart {
+	min-height: 1000px !important;
+	display: 'flex';
+	overflow: 'auto';
+	flex-direction: 'column';
+}

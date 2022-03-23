@@ -1,0 +1,19 @@
+.card-border--rounded {
+	border: 1px solid #ccc;
+	border-radius: 24px;
+	padding: 8.5px, 10px;
+	width: 44%;
+	background-image: linear-gradient(to right bottom, #e8962e, #e45131) !important;
+	margin-top: 1.25rem !important;
+	margin-left: 10px;
+}
+
+.avatar-responsive {
+	margin-left: 0.5rem !important;
+}
+
+.text-margin {
+	margin-left: 1.25rem !important;
+
+	color: white;
+}

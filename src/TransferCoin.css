@@ -1,0 +1,10 @@
+.transfer-button {
+	background-image: linear-gradient(to right bottom, #e8962e, #e45131) !important;
+	outline: none;
+	padding-top: 10px;
+}
+
+.btn-text {
+	color: white;
+	text-transform: capitalize;
+}
