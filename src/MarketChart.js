@@ -56,39 +56,38 @@ for (let i = 0; i < 7; i++) {
   dates.push(d.toLocaleString().slice(0, 10).replaceAll("/", "-"));
 
 }
-console.log(dates);
 
 let dataPrices = [];
 
-export const data = {
-  dates,
-  datasets: [
-    {
-      label: "Dataset 2",
-      data: dates.map((el) => Math.random()),
-      borderColor: "rgb(53, 162, 235)",
-      backgroundColor: "rgba(53, 162, 235, 0.5)"
-    }
-  ]
-};
+
 
 const MarketChart = () => {
   const [dataPrices, setDataPrices] = useState([]);
-  console.log(dataPrices);
-  useEffect(() => {
-    for(let i=0; i < dates.length; i++) {
-      axios
-      .get(
-        `https://api.coingecko.com/api/v3/coins/bitcoin/history?date=${dates[i]}`
-      )
-      .then((res) => {
-        console.log(res.data);
-        setDataPrices( dates[i] + res.data);
-      })
-      .catch((error) => console.log(error));
-    }
-   
-  },[]);
+  if(dataPrices.length != 0){
+    console.log(dataPrices[0][1])
+  }
+  const data = {
+    dates,
+    datasets: [
+      {
+        label: "Dataset 2",
+        data: dataPrices?.map((el) => el[1]),
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)"
+      }
+    ]
+  };
+  // useEffect(() => {
+  //     axios
+  //     .get(
+  //       'https://api.coingecko.com/api/v3/coins/cardano/ohlc?vs_currency=usd&days=30'
+  //     )
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setDataPrices(res.data);
+  //     })
+  //     .catch((error) => console.log(error));
+  //   },[]);
 
   return (
     <div

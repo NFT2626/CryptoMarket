@@ -20,6 +20,7 @@ import TableSection from "./TableSection";
 
 const CoinMarketPrices = () => {
   const [crypto, setCrypto] = useState("");
+  const [isWatchingList, setIsWatchingList] = useState(false);
 
   const [coins, setCoins] = useState([]);
   useEffect(() => {
@@ -105,21 +106,23 @@ const CoinMarketPrices = () => {
       <Box style={{ marginTop: "2.5rem" }}>
         <Chip
           avatar={<StarBorderIcon />}
+          style ={{color: isWatchingList ? 'rgb(56, 97, 251)' : 'inherit', background: isWatchingList ? 'rgb(240, 246, 255)' : 'rgb(239, 242, 245)'}}
           label="WatchList"
           component="a"
           href="#basic-chip"
           clickable
+          onClick={() => {setIsWatchingList(!isWatchingList)}}
         />
         <Chip
           avatar={<MarkunreadMailboxIcon />}
-          style={{ marginLeft: 6 }}
+          style={{ marginLeft: 6, background: 'rgb(239, 242, 245)' }}
           label="Portfolio"
           component="a"
           href="#basic-chip"
           clickable
         />
       </Box>
-      <TableSection coins={filteredCoins} />
+      <TableSection coins={filteredCoins} isWatchingList={isWatchingList} />
     </div>
   );
 };

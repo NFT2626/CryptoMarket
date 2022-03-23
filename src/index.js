@@ -4,8 +4,11 @@ import { StyledEngineProvider } from '@mui/material/styles';
 import Demo from './demo';
 
 ReactDOM.render(
+  <React.StrictMode>
   <StyledEngineProvider injectFirst>
     <Demo />
-  </StyledEngineProvider>,
+  </StyledEngineProvider>
+  </React.StrictMode>,
+  
   document.querySelector("#root")
 );
