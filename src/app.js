@@ -29,6 +29,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
 import ProfilePage from "./ProfilePage";
 import CoinMarketPrices from "./CoinMarketPrices";
+import ChartForm from "./Chart_Form/ChartForm"
 
 const drawerWidth = 240;
 
@@ -235,6 +236,7 @@ export default function PermanentDrawerLeft() {
             <Route path="/" element={<BodySection />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/CoinMarketPrices" element={<CoinMarketPrices />} />
+            <Route path="/ChartForm" element={<ChartForm />} />
           </Routes>
         </Box>
       </BrowserRouter>
