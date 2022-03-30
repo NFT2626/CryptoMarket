@@ -1,40 +1,41 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import ChartAndOrderBook from './ChartAndOrderBook';
-import { Box, Container } from '@material-ui/core';
+import { Box, Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import OrderBook from './OrderBook';
-import { AddBoxRounded } from '@mui/icons-material';
+import BuyForm from './BuyForm/BuyForm'
+import {
+	useParams
+  } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		[theme.breakpoints.down('sm')]: {
-			fontSize: '2.5rem',
-		},
-		[theme.breakpoints.up('sm')]: {
-			fontSize: '5rem',
-		},
-		[theme.breakpoints.up('lg')]: {
-			fontSize: '7rem',
-		},
-	},
-}));
+
+// useEffect(() => {
+//     axios
+//       .get(
+//         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+//       )
+//       .then((res) => {
+//         setCoins(res.data);
+
+//       })
+//       .catch((error) => console.log(error));
+//   });
 
 function ChartForm() {
-	const classes = useStyles();
+
+	let { coin } = useParams();
+
 	return (
-		<Box
-			sx={{
-				display: 'flex',
-				flexDirection: 'row',
-				justifyContent: 'space-between',
-				minWidth: '100%',
-				minHeight: '100%',
-				overflow: 'visible',
-			}}
+		<Grid
+		container
 		>
+			 <Grid item xs={8}>
 			<Container sx={{ flex: 1, flexBasis: '30vw' }} fixed>
-				<ChartAndOrderBook />
+				<ChartAndOrderBook coinName={coin} />
 			</Container>
+			</Grid>
+
+			<Grid item xs={2}>
 			<Box
 				maxWidth='md'
 				sx={{
@@ -44,10 +45,15 @@ function ChartForm() {
 			>
 				<OrderBook />
 			</Box>
+			</Grid>
+
+			<Grid item xs={2}>
 			<Container maxWidth='md' sx={{ flex: 1 }}>
-				Hello world
+				<BuyForm />
 			</Container>
-		</Box>
+
+			</Grid>
+		</Grid>
 	);
 }
 

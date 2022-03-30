@@ -233,10 +233,12 @@ export default function PermanentDrawerLeft() {
           <Toolbar />
 
           <Routes>
+  
             <Route path="/" element={<BodySection />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/CoinMarketPrices" element={<CoinMarketPrices />} />
-            <Route path="/ChartForm" element={<ChartForm />} />
+            <Route exact path="/CoinMarketPrices/ChartForm" element={<ChartForm />} />
+            <Route exact path="/CoinMarketPrices/ChartForm/:coin" element={<ChartForm />} />
           </Routes>
         </Box>
       </BrowserRouter>

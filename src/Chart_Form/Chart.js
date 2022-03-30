@@ -29,11 +29,11 @@ const Chart = () => {
 
 	useEffect(() => {
 		chart.current = createChart(chartContainerRef.current, {
-			width: 1072,
-			height: 522,
+			width: 1200,
+			height: 350,
 			layout: {
-				backgroundColor: 'rgb(22,26,30)',
-				textColor: 'rgba(255, 255, 255, 0.9)',
+				backgroundColor: 'white',
+				textColor: 'black',
 			},
 			grid: {
 				vertLines: {
@@ -103,7 +103,7 @@ const Chart = () => {
 		<div className='chart'>
 			<Typography>
 				. open{' '}
-				<span style={{ color: 'pink' }}>{testingValue ? testingValue.open : 'N/A'} working</span>
+				<span style={{ color: 'black' }}>{testingValue ? testingValue.open : 'N/A'} working</span>
 			</Typography>
 			<div ref={chartContainerRef} className='chart-container' />
 		</div>

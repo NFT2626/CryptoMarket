@@ -18,22 +18,23 @@ const rows = [
 ];
 
 function OrderBook() {
-	return (
-		<Box styles={{ borderRight: 'double' }}>
-			<Typography variant='h4'>Order Book</Typography>
+	return ( 
+		<Box styles={{ borderRight: 'double', overflow: 'hidden', maxWidth: '50%', boxSizing: 'border-box' }}>
+			<Typography style={{fontSize:'1.5rem'}} variant='h4'>Order Book</Typography>
 			<TableContainer component={Box}>
 				<Table
-					style={{ minWidth: 700 }}
 					size='large'
+					fixedHeader={false}
 					sx={{
 						[`& .${tableCellClasses.root}`]: {
 							borderBottom: 'none',
 						},
+						tableLayout: 'auto' 
 					}}
 				>
 					<TableHead>
-						<TableRow>
-							<TableCell>Fat&nbsp;(g)</TableCell>
+						<TableRow sx={{width: `calc(100% - 100px)`, margin: 0}}>
+							<TableCell style={{fontSize:'0.8rem'}}>Fat&nbsp;(g)</TableCell>
 							<TableCell>Carbs&nbsp;(g)</TableCell>
 							<TableCell>Protein&nbsp;(g)</TableCell>
 						</TableRow>

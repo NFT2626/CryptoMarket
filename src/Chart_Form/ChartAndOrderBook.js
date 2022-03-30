@@ -10,7 +10,7 @@ import Chart from './Chart';
 
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-function ChartAndOrderBook() {
+function ChartAndOrderBook({coinName}) {
 	const [isSectioned, setSectioned] = useState(false);
 	return (
 		<div>
@@ -30,7 +30,7 @@ function ChartAndOrderBook() {
 					<Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', px: 5 }}>
 						<Typography variant='h4' color='textPrimary'>
 							{' '}
-							Coin
+							{coinName}
 						</Typography>
 						<KeyboardArrowUpIcon
 							sx={{ ml: 3 }}

@@ -4,15 +4,21 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import Avatar from "@mui/material/Avatar";
 import { Typography, Box, Button} from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarRateIcon from '@mui/icons-material/StarRate';
 
 //Importing components
+
+
 import MarketChart from "./MarketChart";
+
+
 
 function TableRowCoin({coin, isWatchingList}) {
    const [isStar, setIsStar] = useState(false)
+
+  
    console.log(isWatchingList);
 
   return (
@@ -24,7 +30,7 @@ function TableRowCoin({coin, isWatchingList}) {
               key={coin.name}
             >
               <TableCell component="th" scope="row">
-                <Box component={Link} to="#" sx={{display:'flex', textDecoration: 'none', color: "black", marginTop:'auto', marginBottom: 'auto', alignItems: 'center'}}>
+                <Box component={Link} onClick={() => handleClick()}to= {`ChartForm/${coin.name}`} sx={{display:'flex', textDecoration: 'none', color: "black", marginTop:'auto', marginBottom: 'auto', alignItems: 'center'}}>
                   <Avatar alt="Some cryptocurrency icon" src={coin.image} />{" "}
                   <Typography style={{marginLeft: '2.5rem'}} >
                     {" "}
