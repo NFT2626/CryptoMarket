@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,7 +14,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Avatar from "@mui/material/Avatar";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import BodySection from "./BodySection";
+
 import { IconButton, Badge } from "@material-ui/core";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Paper } from "@material-ui/core";
@@ -27,13 +27,27 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
-import ProfilePage from "./ProfilePage";
-import CoinMarketPrices from "./CoinMarketPrices";
+
+import axios from "axios";
 
 const drawerWidth = 240;
 
-export default function PermanentDrawerLeft() {
+export default function DashBoard(props) {
+
   const [open, setOpen] = useState(false);
+
+  const [coins, setCoins] = useState([]);
+  useEffect(() => {
+    axios
+      .get(
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+      )
+      .then((res) => {
+        setCoins(res.data);
+
+      })
+      .catch((error) => console.log(error));
+  });
   const anchorRef = useRef(null);
 
   const handleToggle = () => {
@@ -69,7 +83,6 @@ export default function PermanentDrawerLeft() {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <BrowserRouter>
         <CssBaseline />
         <AppBar
           position="fixed"
@@ -155,14 +168,19 @@ export default function PermanentDrawerLeft() {
                           <MenuItem onClick={handleClose}>
                             <Link
                               style={{ textDecoration: "none" }}
-                              to="/Profile"
+                              to="/DashBoard/Profile"
                             >
                               Profile
                             </Link>
                           </MenuItem>
                           <MenuItem onClick={handleClose}>Settings</MenuItem>
                           <MenuItem onClick={handleClose}>My account</MenuItem>
-                          <MenuItem onClick={handleClose}>Logout</MenuItem>
+                          <MenuItem onClick={handleClose}><Link
+                              style={{ textDecoration: "none" }}
+                              to="/"
+                            >
+                              Logout
+                            </Link></MenuItem>
                         </MenuList>
                       </ClickAwayListener>
                     </Paper>
@@ -205,7 +223,7 @@ export default function PermanentDrawerLeft() {
             <ListItem
               button
               component={Link}
-              to="/CoinMarketPrices"
+              to="/DashBoard/CoinMarketPrices"
               key={"coinmarketprices"}
             >
               <ListItemIcon>
@@ -230,14 +248,8 @@ export default function PermanentDrawerLeft() {
           sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
         >
           <Toolbar />
-
-          <Routes>
-            <Route path="/" element={<BodySection />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/CoinMarketPrices" element={<CoinMarketPrices />} />
-          </Routes>
+          {props.children}
         </Box>
-      </BrowserRouter>
     </Box>
   );
 }

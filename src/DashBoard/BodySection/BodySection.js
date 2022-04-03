@@ -1,16 +1,16 @@
 import React from "react";
 import { Paper, Grid, Container, Typography } from "@material-ui/core";
 
-import Chart from "./Chart";
+import Chart from "../Chart";
 
 import "./BodySection.css";
-import TotalBalance from "./TotalBalance";
-import TableCard from "./TableCard";
-import TransferCoin from "./TransferCoin";
+import TotalBalance from "../TotalBalance/TotalBalance";
+import TableCard from "../TableCard/TableCard";
+import TransferCoin from "../TransferCoin/TransferCoin";
 
-import BalanceCard from "./BalanceCard";
-import RecentTransaction from "./RecentTransaction";
-import WalletAddresses from "./WalletAddresses";
+import BalanceCard from "../BalanceCard/BalanceCard";
+import RecentTransaction from "../RecentTransaction/RecentTransaction";
+import WalletAddresses from "../WalletAddresses/WalletAddresses";
 
 const BodySection = () => {
   return (

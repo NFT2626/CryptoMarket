@@ -1,53 +1,42 @@
 //Importing react libraries
-import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
+import React, {useState} from "react";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
-import { Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Typography, Box, Button} from "@material-ui/core";
+import { Link} from "react-router-dom";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-
-//Importing css files
+import StarRateIcon from '@mui/icons-material/StarRate';
 
 //Importing components
-import MarketChart from "./MarketChart";
 
-export default function AcccessibleTable({ coins }) {
+
+import MarketChart from "../../DashBoard/MarketChart";
+
+
+
+function TableRowCoin({coin, isWatchingList}) {
+   const [isStar, setIsStar] = useState(false)
+
+  
+   console.log(isWatchingList);
+
   return (
-    <TableContainer component={Paper} elevation={0}>
-      <Table aria-label="caption table">
-        <caption>A basic table example with a caption</caption>
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Last Price</TableCell>
-            <TableCell align="right">24h change</TableCell>
-            <TableCell align="right">Market Cap </TableCell>
-            <TableCell align="right">Volume(24h)</TableCell>
-            <TableCell>Last 7 days</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {coins.map((coin) => (
-            <TableRow
-              component={Link}
-              sx={{ textDecoration: "none" }}
-              to="#"
+    <TableRow
+              sx={{ textDecoration: "none", display: (!isWatchingList) || (isWatchingList && isStar) ? '' : 'none' }
+            
+            }
+
               key={coin.name}
             >
               <TableCell component="th" scope="row">
-                <>
+                <Box component={Link} onClick={() => handleClick()}to= {`/DashBoard/ChartForm/${coin.name}`} sx={{display:'flex', textDecoration: 'none', color: "black", marginTop:'auto', marginBottom: 'auto', alignItems: 'center'}}>
                   <Avatar alt="Some cryptocurrency icon" src={coin.image} />{" "}
-                  <Typography sx={{ display: "inline" }}>
+                  <Typography style={{marginLeft: '2.5rem'}} >
                     {" "}
                     {coin.name}{" "}
                   </Typography>
-                </>
+                </Box>
               </TableCell>
               <TableCell align="right">
                 {" "}
@@ -78,17 +67,16 @@ export default function AcccessibleTable({ coins }) {
                 {" "}
                 <MarketChart coinName={coin.name} />{" "}
               </TableCell>
-              <TableCell>
+              <TableCell component={Button} onClick={() =>{setIsStar(!isStar)}}>
+                <div style={{ display: isStar ? 'none' : ''}}>
                 <StarBorderIcon />
+                </div>
+                <div style={{color: 'yellow', display: isStar ? '' : 'none'}}>
+                <StarRateIcon />
+                </div>
               </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+  )
 }
-// market_cap: 896106818
-// market_cap_rank: 101
-// fully_diluted_valuation: null
-// total_volume: 14128875
+
+export default TableRowCoin

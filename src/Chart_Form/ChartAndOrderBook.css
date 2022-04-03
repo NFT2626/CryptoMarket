@@ -1,0 +1,30 @@
+.box-keyboard--hover {
+	transform: rotate(180deg);
+}
+
+.invisible {
+	visibility: hidden;
+	overflow: hidden;
+	background-color: aquamarine;
+}
+
+.section-box {
+	visibility: visible;
+	position: fixed;
+	background-color: rgb(211,211,211);
+	max-height: 100vh;
+	box-shadow: rgb(20, 21 26);
+	border-radius: 4px;
+	min-width: 0px;
+	box-sizing: border-box;
+	transform: translate3d(20px, 70px, 0px); /* change to rem */
+	z-index: 11;
+}
+
+.outofPage {
+	visibility: hidden;
+}
+
+.chart {
+	margin: 0 40px;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, Button } from '@material-ui/core';
-import InputBox from './InputBox';
+import InputBox from '../InputBox';
 
 function WalletAddresses() {
 	return (
