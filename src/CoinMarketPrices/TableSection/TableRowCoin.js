@@ -11,7 +11,7 @@ import StarRateIcon from '@mui/icons-material/StarRate';
 //Importing components
 
 
-import MarketChart from "./MarketChart";
+import MarketChart from "../../DashBoard/MarketChart";
 
 
 
@@ -30,7 +30,7 @@ function TableRowCoin({coin, isWatchingList}) {
               key={coin.name}
             >
               <TableCell component="th" scope="row">
-                <Box component={Link} onClick={() => handleClick()}to= {`ChartForm/${coin.name}`} sx={{display:'flex', textDecoration: 'none', color: "black", marginTop:'auto', marginBottom: 'auto', alignItems: 'center'}}>
+                <Box component={Link} onClick={() => handleClick()}to= {`/DashBoard/ChartForm/${coin.name}`} sx={{display:'flex', textDecoration: 'none', color: "black", marginTop:'auto', marginBottom: 'auto', alignItems: 'center'}}>
                   <Avatar alt="Some cryptocurrency icon" src={coin.image} />{" "}
                   <Typography style={{marginLeft: '2.5rem'}} >
                     {" "}

@@ -1,5 +1,5 @@
 import React from 'react';
-import InputBox from './InputBox';
+import InputBox from '../InputBox';
 import { Box, Typography, Button, Divider } from '@material-ui/core';
 import './TransferCoin.css';
 

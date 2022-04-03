@@ -3,7 +3,7 @@ import { Card, CardContent, Typography } from '@mui/material'
 
 function NumberCard({content, number, variant}) {
     return (
-        <Card sx={{ boxShadow: 0, bgcolor: "rgba(255, 0, 0, 0)" }}>
+        <Card sx={{ boxShadow: 0, bgcolor: "rgba(255, 0, 0, 0)" }} elevation={0}>
         <CardContent>
           <Typography variant= {variant} component="div">
             {content}

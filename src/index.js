@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { StyledEngineProvider } from '@mui/material/styles';
-import App from './app';
+import App from './App.js';
 
 ReactDOM.render(
   <React.StrictMode>

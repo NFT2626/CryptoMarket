@@ -29,7 +29,7 @@ const Chart = () => {
 
 	useEffect(() => {
 		chart.current = createChart(chartContainerRef.current, {
-			width: 1200,
+			width: 350,
 			height: 350,
 			layout: {
 				backgroundColor: 'white',

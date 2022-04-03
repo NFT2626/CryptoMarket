@@ -9,31 +9,16 @@ import {
   Chip
 } from "@material-ui/core";
 
-import axios from "axios";
-import "./BodySection.css";
 import HomeIcon from "@mui/icons-material/Home";
 import { Link } from "react-router-dom";
-import ListPaper from "./ListPaper";
+import ListPaper from "../DashBoard/ListPaper";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import MarkunreadMailboxIcon from "@mui/icons-material/MarkunreadMailbox";
-import TableSection from "./TableSection";
+import TableSection from "./TableSection/TableSection";
 
-const CoinMarketPrices = () => {
+const CoinMarketPrices = ({coins}) => {
   const [crypto, setCrypto] = useState("");
   const [isWatchingList, setIsWatchingList] = useState(false);
-
-  const [coins, setCoins] = useState([]);
-  useEffect(() => {
-    axios
-      .get(
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-      )
-      .then((res) => {
-        setCoins(res.data);
-
-      })
-      .catch((error) => console.log(error));
-  });
 
   const filteredCoins = coins.filter((coin) =>
     coin.name.toLowerCase().includes(crypto.toLowerCase())
@@ -60,7 +45,7 @@ const CoinMarketPrices = () => {
               style={{ textDecoration: "none", color: "black" }}
               underline="hover"
               color="inherit"
-              to="/"
+              to="/DashBoard"
             >
               Dashboard
             </Link>

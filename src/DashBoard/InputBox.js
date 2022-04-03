@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Paper, IconButton, InputBase, TextField, MenuItem, Divider } from '@material-ui/core';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
@@ -23,7 +23,7 @@ const currencies = [
 ];
 
 function InputBox({ displayCoin, isWallet }) {
-	const [currency, setCurrency] = React.useState('EUR');
+	const [currency, setCurrency] = useState('EUR');
 
 	const handleChange = (event) => {
 		setCurrency(event.target.value);

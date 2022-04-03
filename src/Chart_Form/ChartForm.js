@@ -9,30 +9,21 @@ import {
   } from "react-router-dom";
 
 
-// useEffect(() => {
-//     axios
-//       .get(
-//         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-//       )
-//       .then((res) => {
-//         setCoins(res.data);
 
-//       })
-//       .catch((error) => console.log(error));
-//   });
 
 function ChartForm() {
 
 	let { coin } = useParams();
+	console.log(typeof coin)
 
 	return (
 		<Grid
 		container
 		>
-			 <Grid item xs={8}>
-			<Container sx={{ flex: 1, flexBasis: '30vw' }} fixed>
+			 <Grid item xs={6}>
+			<Box style={{boxSizing:'border-box'}}>
 				<ChartAndOrderBook coinName={coin} />
-			</Container>
+			</Box>
 			</Grid>
 
 			<Grid item xs={2}>
@@ -47,7 +38,7 @@ function ChartForm() {
 			</Box>
 			</Grid>
 
-			<Grid item xs={2}>
+			<Grid item xs={4}>
 			<Container maxWidth='md' sx={{ flex: 1 }}>
 				<BuyForm />
 			</Container>
