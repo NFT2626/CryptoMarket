@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -10,14 +10,36 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-export default function LoginPage() {
+import { useNavigate } from "react-router-dom";
+
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "../queries";
+
+export default function LoginPage({ setToken }) {
+  const [login, result] = useMutation(LOGIN, {
+    onError: (error) => {
+      console.log(error.graphQLErrors[0].message);
+    },
+  });
+
+  useEffect(() => {
+    if (result.data) {
+      const token = result.data.login.value;
+      setToken(token);
+      localStorage.setItem("user-token", token);
+      navigate("/DashBoard");
+    }
+  }, [result.data]); // eslint-disable-line
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("email"),
-      password: data.get("password")
+    login({
+      variables: {
+        username: data.get("email"),
+        password: data.get("password"),
+      },
     });
   };
 
@@ -29,7 +51,7 @@ export default function LoginPage() {
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         <Typography variant="h5">Sign in</Typography>
@@ -70,7 +92,7 @@ export default function LoginPage() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="SignUp" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

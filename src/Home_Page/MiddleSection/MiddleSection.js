@@ -11,7 +11,13 @@ const MiddleSection = () => {
       </Typography>
       <Box
         className="touch-container"
-        sx={{ display: "flex", flexDirection: "row", minWidth: "100vh" }}
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          minWidth: "100vh",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
         <WhyCard
           image="Careers"
@@ -19,7 +25,7 @@ const MiddleSection = () => {
         />
         <WhyCard
           image="Community"
-          content="CrySim is global, get access to a world wide commnuity and discuss."
+          content="CrySim is global, get access to a world wide community and discuss."
         />
         <WhyCard
           image="CryptoMarket"
