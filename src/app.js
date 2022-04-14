@@ -16,16 +16,19 @@ import ChartForm from "./Chart_Form/ChartForm";
 import CoinMarketPrices from "./CoinMarketPrices/CoinMarketPrices";
 import ProfilePage from "./Profile_Page/ProfilePage";
 import SignUpPage from "./SignUp_Page/SignUpPage";
+import { GET_WATCHLIST_COINS } from "./queries";
+import NotFoundPage from "./Not_Found_Page/NotFoundPage";
+
+import LoadingScreen from "./LoadingScreen/LoadingScreen";
 
 export default function App() {
   const [coins, setCoins] = useState([]);
   const [token, setToken] = useState(null);
   const [newAddedCoins, setNewAddedCoins] = useState([]);
-  const [growingCoins, setGrowingCoins] = useState([]);
   const [trendingCoins, setTrendingCoins] = useState([]);
-  const [isShowing, setIsShowing] = useState(false);
 
-  console.log(token);
+  const [isShowing, setIsShowing] = useState(false);
+  const result = useQuery(GET_WATCHLIST_COINS);
 
   useEffect(() => {
     const promise1 = axios.get(
@@ -35,7 +38,6 @@ export default function App() {
     const promise3 = axios.get("http://localhost:5000/api/newly-added-coins");
 
     Promise.allSettled([promise1, promise2, promise3]).then(function (values) {
-      console.log(values);
       setIsShowing(values.every((el) => el.status === "fulfilled"));
       setCoins(values[0].value.data);
     });
@@ -45,7 +47,9 @@ export default function App() {
     }
   }, []);
 
-  if (!isShowing) {
+  console.log(result);
+
+  if (!isShowing || result.loading) {
     return (
       <div>
         {" "}
@@ -62,7 +66,12 @@ export default function App() {
             <Route path="/SignUp" element={<SignUpPage />} />
             <Route path="/Login" element={<LoginPage setToken={setToken} />} />
             <Route path="/" element={<HomePage coins={coins} />} />
-            <Route path="*" element={<h1>Page not Found</h1>} />
+            <Route
+              path="*"
+              element={
+                <NotFoundPage content="Return back to Home Page" link="/" />
+              }
+            />
           </Routes>
         </Router>
       </>
@@ -94,7 +103,10 @@ export default function App() {
               path="/DashBoard/CoinMarketPrices"
               element={
                 <DashBoard setToken={setToken}>
-                  <CoinMarketPrices coins={coins} />
+                  <CoinMarketPrices
+                    coins={coins}
+                    growingWatchListCoins={result.data.getWatchListCoins}
+                  />{" "}
                 </DashBoard>
               }
             />
@@ -116,7 +128,15 @@ export default function App() {
                 </DashBoard>
               }
             />
-            <Route path="*" element={<h1>Page not Found</h1>} />
+            <Route
+              path="*"
+              element={
+                <NotFoundPage
+                  content="Return back to Dashboard"
+                  link="/DashBoard"
+                />
+              }
+            />
           </Routes>
         </Router>
       </div>

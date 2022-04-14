@@ -129,7 +129,7 @@ const SignUpPage = () => {
               <Grid item>
                 <Link
                   href="/Login"
-                  variant="p1"
+                  variant="p"
                   style={{ paddingBottom: "2rem", display: "inline" }}
                 >
                   Already have an account? Sign in

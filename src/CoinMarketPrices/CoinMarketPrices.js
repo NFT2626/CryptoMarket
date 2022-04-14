@@ -6,7 +6,7 @@ import {
   Grid,
   Toolbar,
   TextField,
-  Chip
+  Chip,
 } from "@material-ui/core";
 
 import HomeIcon from "@mui/icons-material/Home";
@@ -16,27 +16,41 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import MarkunreadMailboxIcon from "@mui/icons-material/MarkunreadMailbox";
 import TableSection from "./TableSection/TableSection";
 
-const CoinMarketPrices = ({coins}) => {
+const CoinMarketPrices = ({ coins, growingWatchListCoins }) => {
   const [crypto, setCrypto] = useState("");
   const [isWatchingList, setIsWatchingList] = useState(false);
+  const [displayCoins, setDisplayCoins] = useState(coins);
 
-  const filteredCoins = coins.filter((coin) =>
-    coin.name.toLowerCase().includes(crypto.toLowerCase())
-  );
+  useEffect(() => {
+    if (crypto) {
+      setDisplayCoins(
+        displayCoins.filter((el) =>
+          el.name.toLowerCase().includes(crypto.toLowerCase())
+        )
+      );
+    }
+    if (isWatchingList) {
+      setDisplayCoins(
+        displayCoins.filter((el) => growingWatchListCoins.includes(el.name))
+      );
+    } else if (!crypto) {
+      setDisplayCoins(coins);
+    }
+  }, [isWatchingList, crypto, coins]);
 
   return (
     <div>
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column"
+          flexDirection: "column",
         }}
       >
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
           }}
         >
           <Typography variant="h4">CoinMarketPrices</Typography>
@@ -80,7 +94,6 @@ const CoinMarketPrices = ({coins}) => {
         </Typography>
 
         <TextField
-          fullWidth
           label="Search for Crypto"
           value={crypto}
           onChange={(event) => {
@@ -91,23 +104,33 @@ const CoinMarketPrices = ({coins}) => {
       <Box style={{ marginTop: "2.5rem" }}>
         <Chip
           avatar={<StarBorderIcon />}
-          style ={{color: isWatchingList ? 'rgb(56, 97, 251)' : 'inherit', background: isWatchingList ? 'rgb(240, 246, 255)' : 'rgb(239, 242, 245)'}}
+          style={{
+            color: isWatchingList ? "rgb(56, 97, 251)" : "inherit",
+            background: isWatchingList
+              ? "rgb(240, 246, 255)"
+              : "rgb(239, 242, 245)",
+          }}
           label="WatchList"
           component="a"
           href="#basic-chip"
           clickable
-          onClick={() => {setIsWatchingList(!isWatchingList)}}
+          onClick={() => {
+            setIsWatchingList(!isWatchingList);
+          }}
         />
         <Chip
           avatar={<MarkunreadMailboxIcon />}
-          style={{ marginLeft: 6, background: 'rgb(239, 242, 245)' }}
+          style={{ marginLeft: 6, background: "rgb(239, 242, 245)" }}
           label="Portfolio"
           component="a"
           href="#basic-chip"
           clickable
         />
       </Box>
-      <TableSection coins={filteredCoins} isWatchingList={isWatchingList} />
+      <TableSection
+        watchListCoins={growingWatchListCoins}
+        displayCoins={displayCoins}
+      />
     </div>
   );
 };

@@ -39,7 +39,6 @@ const TopSection = () => {
         </Button>
         <Button
           className="explore-button"
-          buttonSize="btn--large"
           style={{ marginTop: 10 }}
           variant="contained"
           disableElevation

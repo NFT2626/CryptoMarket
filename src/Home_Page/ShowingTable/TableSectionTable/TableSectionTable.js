@@ -16,7 +16,7 @@ import "./TableSectionTable.css";
 //Importing components
 import MiniChart from "./MiniChart/MiniChart";
 
-export default function AcccessibleTable({ coins }) {
+export default function TableSectionTable({ coins }) {
   return (
     <TableContainer component={Paper} elevation={0}>
       <Table aria-label="caption table">
@@ -48,17 +48,17 @@ export default function AcccessibleTable({ coins }) {
                 </Typography>
               </TableCell>
               <TableCell align="right">
-                <p1
+                <p
                   style={{
                     color: `${
                       coin.market_cap_change_percentage_24h < 0
                         ? "red"
                         : "green"
-                    }`
+                    }`,
                   }}
                 >
                   {coin.market_cap_change_percentage_24h}{" "}
-                </p1>
+                </p>
               </TableCell>
               <TableCell align="right">
                 {" "}
