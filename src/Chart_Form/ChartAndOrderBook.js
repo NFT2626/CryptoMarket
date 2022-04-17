@@ -13,13 +13,15 @@ import "./ChartAndOrderBook.css";
 import { Divider } from "@mui/material";
 import NumberCard from "./NumberCard";
 import Chart from "./Chart";
+import Tooltip from "@mui/material/Tooltip";
 
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 
-function ChartAndOrderBook({ coinName }) {
+function ChartAndOrderBook({ OHLC, coinName, coinData }) {
   const [isSectioned, setSectioned] = useState(false);
-  const [coinDetails, setCoinDetails] = useState();
-  useEffect(() => {}, []);
+
+  console.log(coinData);
   return (
     <div style={{ marginTop: "-0.5rem" }}>
       {/* <Grid container sx={{pl:30}} spacing={8} alignItems="center" justifyContent="space-around">
@@ -40,10 +42,23 @@ function ChartAndOrderBook({ coinName }) {
           <Box
             sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
           >
-            <Typography variant="h6" color="textPrimary">
-              {" "}
-              {coinName}
-            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="h6" color="textPrimary">
+                {" "}
+                {coinName}
+              </Typography>
+              <Tooltip
+                title={coinData.description?.en.replace(/<\/?[^>]+(>|$)/g, "")}
+              >
+                <MenuBookIcon />
+              </Tooltip>
+            </Box>
             <KeyboardArrowUpIcon
               className={isSectioned && "box-keyboard--hover"}
               onMouseEnter={() => {
@@ -101,8 +116,48 @@ function ChartAndOrderBook({ coinName }) {
           />
           <Container sx={{ flex: 1 }}>
             <Box style={{ display: "flex", flexDirection: "row" }}>
-              <NumberCard content="Daniel" number="1969" variant="h8" />
-              <NumberCard content="Card1" number="1969" variant="h9" />
+              <Tooltip
+                arrow
+                title="This is the price of the coin, the price is in usd, you use the price to assist in making market decisions"
+              >
+                <div>
+                  <NumberCard
+                    content="Price"
+                    number={"$" + coinData.market_data.current_price.usd}
+                    variant="h8"
+                  />
+                </div>
+              </Tooltip>
+              <Tooltip
+                arrow
+                title="This is the 24h Highest price of the coin, this is the peak price of the coin in 24 hours"
+              >
+                <div>
+                  <NumberCard
+                    content="24h High"
+                    number={"$" + coinData.market_data.high_24h.usd}
+                    variant="h7"
+                  />
+                </div>
+              </Tooltip>
+              <NumberCard
+                content="24h Low"
+                number={"$" + coinData.market_data.low_24h.usd}
+                variant="h7"
+              />
+              <NumberCard
+                content="Total Volume"
+                number={coinData.market_data.total_volume.usd}
+                variant="h7"
+              />
+              <NumberCard
+                content="24h MarketCap"
+                number={
+                  "$" +
+                  coinData.market_data.market_cap_change_24h_in_currency.usd
+                }
+                variant="h7"
+              />
             </Box>
           </Container>
         </Box>
@@ -126,7 +181,7 @@ function ChartAndOrderBook({ coinName }) {
           </Box>
         </Box>
         <Box sx={{ maxWidth: "100%", marginLeft: "-2.5rem" }}>
-          <Chart />
+          <Chart data={OHLC} />
         </Box>
       </Box>
     </div>

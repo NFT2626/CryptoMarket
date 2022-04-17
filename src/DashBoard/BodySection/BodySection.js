@@ -12,7 +12,10 @@ import BalanceCard from "../BalanceCard/BalanceCard";
 import RecentTransaction from "../RecentTransaction/RecentTransaction";
 import WalletAddresses from "../WalletAddresses/WalletAddresses";
 
-const BodySection = () => {
+//Importing Graphql
+
+const BodySection = ({ account, coins }) => {
+  console.log(account, "this is the account");
   return (
     <>
       <Typography variant="h1" className="body-title">
@@ -25,8 +28,8 @@ const BodySection = () => {
             <Paper className="paper-text--1 card-container">
               <BalanceCard
                 image="BitcoinImage.png"
-                content="1.003747 BTC"
-                content2="Wallet BTC balance"
+                content={"$" + account.fiatBalance}
+                content2="Total Fiat Balance"
               />
             </Paper>
           </Grid>
@@ -57,7 +60,7 @@ const BodySection = () => {
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
             <Paper>
-              <TableCard />
+              <TableCard coins={coins} />
             </Paper>
           </Grid>
           <Grid item xs={12} md={4} lg={4}>

@@ -8,19 +8,21 @@ import {
   TextField,
   Chip,
 } from "@material-ui/core";
+import { useQuery } from "@apollo/client";
 
-import HomeIcon from "@mui/icons-material/Home";
+import { GET_WATCHLIST_COINS } from ".././queries";
 import { Link } from "react-router-dom";
-import ListPaper from "../DashBoard/ListPaper";
+import ListPaper from "./ListPaper";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import MarkunreadMailboxIcon from "@mui/icons-material/MarkunreadMailbox";
 import TableSection from "./TableSection/TableSection";
 
-const CoinMarketPrices = ({ coins, growingWatchListCoins }) => {
+const CoinMarketPrices = ({ coins, newAddedCoins, biggestGainers }) => {
   const [crypto, setCrypto] = useState("");
   const [isWatchingList, setIsWatchingList] = useState(false);
   const [displayCoins, setDisplayCoins] = useState(coins);
-
+  const result = useQuery(GET_WATCHLIST_COINS);
+  console.log(biggestGainers.result);
   useEffect(() => {
     if (crypto) {
       setDisplayCoins(
@@ -31,13 +33,23 @@ const CoinMarketPrices = ({ coins, growingWatchListCoins }) => {
     }
     if (isWatchingList) {
       setDisplayCoins(
-        displayCoins.filter((el) => growingWatchListCoins.includes(el.name))
+        displayCoins.filter((el) =>
+          result.data.getWatchListCoins.includes(el.name)
+        )
       );
     } else if (!crypto) {
       setDisplayCoins(coins);
     }
   }, [isWatchingList, crypto, coins]);
 
+  if (result.loading) {
+    return (
+      <div>
+        {" "}
+        <h1> Loading ... sorry for the lag</h1>{" "}
+      </div>
+    );
+  }
   return (
     <div>
       <Box
@@ -76,14 +88,22 @@ const CoinMarketPrices = ({ coins, growingWatchListCoins }) => {
         <Toolbar />
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <ListPaper content="Trending" />
+            <ListPaper
+              content="Trending"
+              isPercentage={true}
+              data={biggestGainers.result}
+            />
           </Grid>
           <Grid item xs={4}>
-            <ListPaper content="Biggest Gainers" />
+            <ListPaper
+              content="Biggest Gainers"
+              isPercentage={true}
+              data={biggestGainers.result}
+            />
           </Grid>
 
           <Grid item xs={4}>
-            <ListPaper content="Newly Added" />
+            <ListPaper content="Newly Added" data={newAddedCoins.result} />
           </Grid>
         </Grid>
         <Typography
@@ -128,7 +148,7 @@ const CoinMarketPrices = ({ coins, growingWatchListCoins }) => {
         />
       </Box>
       <TableSection
-        watchListCoins={growingWatchListCoins}
+        watchListCoins={result.data.getWatchListCoins}
         displayCoins={displayCoins}
       />
     </div>

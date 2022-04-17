@@ -80,7 +80,14 @@ export default function DashBoard(props) {
 
     prevOpen.current = open;
   }, [open]);
-
+  if (!props.name.me) {
+    return (
+      <div>
+        {" "}
+        <h1>loading... sorry for the lag</h1>
+      </div>
+    );
+  }
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -122,7 +129,7 @@ export default function DashBoard(props) {
                   sx={{ marginLeft: "10px !important", color: "white" }}
                 >
                   {" "}
-                  Harry Guan
+                  {props.name.me.name + " " + props.name.me.lastName}
                 </Typography>
                 <ArrowDropDownIcon style={{ color: "white" }} />
               </Box>

@@ -2,7 +2,6 @@
 import React, { Suspense, useEffect, useState } from "react"; //UseS
 import axios from "axios";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useQuery, useApolloClient } from "@apollo/client";
 
 //Importing CSS
 import "./App.css";
@@ -16,19 +15,22 @@ import ChartForm from "./Chart_Form/ChartForm";
 import CoinMarketPrices from "./CoinMarketPrices/CoinMarketPrices";
 import ProfilePage from "./Profile_Page/ProfilePage";
 import SignUpPage from "./SignUp_Page/SignUpPage";
-import { GET_WATCHLIST_COINS } from "./queries";
+
 import NotFoundPage from "./Not_Found_Page/NotFoundPage";
 
 import LoadingScreen from "./LoadingScreen/LoadingScreen";
+
+import { GET_CURRENT_USER } from "./queries";
+import { useLazyQuery } from "@apollo/client";
 
 export default function App() {
   const [coins, setCoins] = useState([]);
   const [token, setToken] = useState(null);
   const [newAddedCoins, setNewAddedCoins] = useState([]);
-  const [trendingCoins, setTrendingCoins] = useState([]);
+  const [biggestGainers, setBiggestGainers] = useState([]);
+  const [getUser, { loading, error, data }] = useLazyQuery(GET_CURRENT_USER);
 
   const [isShowing, setIsShowing] = useState(false);
-  const result = useQuery(GET_WATCHLIST_COINS);
 
   useEffect(() => {
     const promise1 = axios.get(
@@ -40,6 +42,8 @@ export default function App() {
     Promise.allSettled([promise1, promise2, promise3]).then(function (values) {
       setIsShowing(values.every((el) => el.status === "fulfilled"));
       setCoins(values[0].value.data);
+      setNewAddedCoins(values[2].value.data);
+      setBiggestGainers(values[1].value.data);
     });
 
     if (localStorage.getItem("user-token")) {
@@ -47,9 +51,11 @@ export default function App() {
     }
   }, []);
 
-  console.log(result);
+  useEffect(() => {
+    getUser();
+  }, [token]);
 
-  if (!isShowing || result.loading) {
+  if (!isShowing || loading) {
     return (
       <div>
         {" "}
@@ -57,6 +63,8 @@ export default function App() {
       </div>
     );
   }
+
+  console.log(data);
 
   if (!token) {
     return (
@@ -86,15 +94,15 @@ export default function App() {
             <Route
               path="/DashBoard"
               element={
-                <DashBoard setToken={setToken}>
-                  <BodySection />
+                <DashBoard name={data} setToken={setToken}>
+                  <BodySection account={data.me} coins={coins} />
                 </DashBoard>
               }
             />
             <Route
               path="/DashBoard/profile"
               element={
-                <DashBoard setToken={setToken}>
+                <DashBoard name={data} setToken={setToken}>
                   <ProfilePage />
                 </DashBoard>
               }
@@ -102,10 +110,11 @@ export default function App() {
             <Route
               path="/DashBoard/CoinMarketPrices"
               element={
-                <DashBoard setToken={setToken}>
+                <DashBoard name={data} setToken={setToken}>
                   <CoinMarketPrices
                     coins={coins}
-                    growingWatchListCoins={result.data.getWatchListCoins}
+                    newAddedCoins={newAddedCoins}
+                    biggestGainers={biggestGainers}
                   />{" "}
                 </DashBoard>
               }
@@ -114,8 +123,8 @@ export default function App() {
               exact
               path="/DashBoard/ChartForm"
               element={
-                <DashBoard setToken={setToken}>
-                  <ChartForm coins={coins} />
+                <DashBoard name={data} setToken={setToken}>
+                  <ChartForm coins={coins} account={data.me} />
                 </DashBoard>
               }
             />
@@ -123,8 +132,8 @@ export default function App() {
               exact
               path="/DashBoard/ChartForm/:coin"
               element={
-                <DashBoard setToken={setToken}>
-                  <ChartForm coins={coins} />
+                <DashBoard name={data} setToken={setToken}>
+                  <ChartForm coins={coins} account={data.me} />
                 </DashBoard>
               }
             />

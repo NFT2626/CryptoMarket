@@ -57,7 +57,7 @@ function TableRowCoin({ coin, watchListCoins, favoriteCoin, unFavoriteCoin }) {
             }`,
           }}
         >
-          {coin.market_cap_change_percentage_24h}{" "}
+          {coin.market_cap_change_percentage_24h}%{" "}
         </p>
       </TableCell>
       <TableCell align="right">

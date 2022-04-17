@@ -27,6 +27,8 @@ const SignUpPage = () => {
       variables: {
         username: data.get("email"),
         password: data.get("password"),
+        name: data.get("firstName"),
+        lastName: data.get("lastName"),
       },
     });
   };
