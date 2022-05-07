@@ -5,7 +5,7 @@ import { Box, Tabs, Tab } from "@material-ui/core";
 //importing components
 import Limit from "./Limit";
 import MarketForm from "./MarketForm";
-import Notification from "./Notification";
+import Notification from "../../Notification/Notification";
 
 const BuyForm = ({ coinName, coinPrice, account }) => {
   const [limit, setLimit] = useState(0);
@@ -75,7 +75,7 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
           >
             {" "}
             {coinName} Balance:{" "}
-            {account.portfolioCoins.length
+            {account.portfolioCoins.find((el) => el.name === coinName)
               ? account.portfolioCoins.find((el) => el.name === coinName)
                   .quantity
               : 0}

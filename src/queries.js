@@ -50,6 +50,20 @@ export const GET_CURRENT_USER = gql`
       name
       lastName
       username
+      watchListCoins
+      portfolioValueDates {
+        assetValueTotal
+        date
+        id
+      }
+      fiatBalance
+      id
+      portfolioCoins {
+        name
+        quantity
+        owner
+        id
+      }
       transactionHistory {
         name
         bought_price
@@ -58,14 +72,14 @@ export const GET_CURRENT_USER = gql`
         type
         id
       }
-      watchListCoins
-      portfolioCoins {
+      sendReceiverHistories {
+        receiver
+        sender
         name
         quantity
-        owner
         id
+        date
       }
-      fiatBalance
     }
   }
 `;
@@ -101,5 +115,29 @@ export const SELL_MARKET_COIN = gql`
       date
       type
     }
+  }
+`;
+
+export const ADD_PORTFOLIO_DATE_VALUE = gql`
+  mutation addPortfolioDateValue($assetValueTotal: Float!) {
+    addPortfolioDateValue(assetValueTotal: $assetValueTotal) {
+      assetValueTotal
+      date
+    }
+  }
+`;
+
+export const GET_ALL_USERS = gql`
+  query Query {
+    allUsers {
+      name
+      username
+    }
+  }
+`;
+
+export const SEND_USER_COIN = gql`
+  mutation Mutation($username: String!, $quantity: Float!, $name: String!) {
+    sendUser(username: $username, quantity: $quantity, name: $name)
   }
 `;
