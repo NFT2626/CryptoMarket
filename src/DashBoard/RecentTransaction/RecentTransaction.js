@@ -1,5 +1,7 @@
 import React from "react";
 import { Box, Divider, Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
+
 import Typography from "@material-ui/core/Typography";
 import RecentTransactionCard from "./RecentTransactionCard";
 
@@ -31,7 +33,7 @@ function RecentTransaction({ account }) {
         <Box sx={{ mt: 2, mb: 2 }} />
         <Divider light sx={{ width: "80%" }} />
         <Box sx={{ mt: -1, mb: 2 }} />
-        <Button>
+        <Button component={Link} to="/DashBoard/TransactionHistory">
           {" "}
           <span style={{ fontWeight: "bold", fontSize: "1.5rem" }}>
             +{" "}

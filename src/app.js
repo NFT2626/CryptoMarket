@@ -19,6 +19,7 @@ import SignUpPage from "./SignUp_Page/SignUpPage";
 import NotFoundPage from "./Not_Found_Page/NotFoundPage";
 import TransactionHistoryPage from "./Transaction_History_Page/TransactionHistoryPage";
 import LoadingScreen from "./LoadingScreen/LoadingScreen";
+import HelpPage from "./Help_Page/HelpPage";
 
 import {
   GET_CURRENT_USER,
@@ -178,10 +179,20 @@ export default function App() {
               path="/DashBoard/TransactionHistory"
               element={
                 <DashBoard name={data} setToken={setToken}>
-                  <TransactionHistoryPage />
+                  <TransactionHistoryPage account={data.me} />
                 </DashBoard>
               }
             />
+            <Route
+              exact
+              path="/DashBoard/Help"
+              element={
+                <DashBoard name={data} setToken={setToken}>
+                  <HelpPage />
+                </DashBoard>
+              }
+            />
+
             <Route
               exact
               path="/DashBoard/ChartForm/:coin"

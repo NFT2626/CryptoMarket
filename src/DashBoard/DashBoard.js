@@ -61,6 +61,10 @@ export default function DashBoard(props) {
     client.resetStore();
     navigate("/");
   };
+  const handleOnlineHelp = (event) => {
+    event.preventDefault();
+    navigate("/DashBoard/Help");
+  };
 
   function handleListKeyDown(event) {
     if (event.key === "Tab") {
@@ -180,6 +184,10 @@ export default function DashBoard(props) {
                         </MenuItem>
                         <MenuItem onClick={handleClose}>Settings</MenuItem>
                         <MenuItem onClick={handleClose}>My account</MenuItem>
+                        <MenuItem onClick={handleOnlineHelp}>
+                          Help & Services
+                        </MenuItem>
+
                         <MenuItem onClick={logOut}>LogOut</MenuItem>
                       </MenuList>
                     </ClickAwayListener>
