@@ -149,7 +149,7 @@ export default function App() {
               path="/DashBoard/profile"
               element={
                 <DashBoard name={data} setToken={setToken}>
-                  <ProfilePage />
+                  <ProfilePage account={data.me} />
                 </DashBoard>
               }
             />

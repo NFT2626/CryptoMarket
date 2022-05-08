@@ -13,7 +13,10 @@ function RecentTransactionCard({ transaction, accountName }) {
         className="card-border--rounded"
         sx={{ display: "flex", alignItems: "center" }}
       >
-        <Avatar className="avatar-responsive" src="/Images/Face.jpeg" />
+        <Avatar
+          className="avatar-responsive"
+          src="/Images/default_profile.png"
+        />
         <Typography className="text-margin">
           {" "}
           {transaction.quantity} {transaction.name}
@@ -29,7 +32,10 @@ function RecentTransactionCard({ transaction, accountName }) {
         className="card-border--rounded"
         sx={{ display: "flex", alignItems: "center", mr: 1 }}
       >
-        <Avatar className="avatar-responsive" src="/Images/Face.jpeg" />
+        <Avatar
+          className="avatar-responsive"
+          src="/Images/default_profile.png"
+        />
         <Typography className="text-margin">
           {" "}
           {accountName === transaction.sender

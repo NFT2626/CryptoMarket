@@ -80,6 +80,8 @@ export const GET_CURRENT_USER = gql`
         id
         date
       }
+      imageProfile
+      aboutMe
     }
   }
 `;
@@ -139,5 +141,40 @@ export const GET_ALL_USERS = gql`
 export const SEND_USER_COIN = gql`
   mutation Mutation($username: String!, $quantity: Float!, $name: String!) {
     sendUser(username: $username, quantity: $quantity, name: $name)
+  }
+`;
+
+export const CHANGE_PROFILE = gql`
+  mutation changeProfile(
+    $name: String!
+    $lastName: String!
+    $aboutMe: String!
+  ) {
+    changeProfile(name: $name, lastName: $lastName, aboutMe: $aboutMe)
+  }
+`;
+export const CHANGE_PROFILE_PICTURE = gql`
+  mutation changeProfilePicture($file: Upload!) {
+    changeProfilePicture(file: $file) {
+      url
+    }
+  }
+`;
+
+export const CHANGE_NAME = gql`
+  mutation changeName($name: String!) {
+    changeName(name: $name)
+  }
+`;
+
+export const CHANGE_LAST_NAME = gql`
+  mutation changeLastName($lastName: String!) {
+    changeLastName(lastName: $lastName)
+  }
+`;
+
+export const CHANGE_ABOUT_ME = gql`
+  mutation changeAboutMe($aboutMe: String!) {
+    changeAboutMe(aboutMe: $aboutMe)
   }
 `;

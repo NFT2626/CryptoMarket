@@ -60,7 +60,7 @@ function TransactionHistoryPage({ account }) {
         </Breadcrumbs>
       </Box>
 
-      <Paper sx={{ width: "100%" }}>
+      <Paper sx={{ width: "100%" }} style={{ marginTop: "2.5rem" }}>
         <TableContainer sx={{ maxHeight: 600 }}>
           <Table stickyHeader>
             <TableHead>

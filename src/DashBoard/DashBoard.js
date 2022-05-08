@@ -128,7 +128,7 @@ export default function DashBoard(props) {
               onClick={handleToggle}
             >
               <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Avatar alt="Cindy Baker" src="/Images/Face.jpeg" />
+                <Avatar alt="Cindy Baker" src={props.name.me.imageProfile} />
                 <Typography
                   sx={{ marginLeft: "10px !important", color: "white" }}
                 >
