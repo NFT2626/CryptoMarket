@@ -82,6 +82,14 @@ export const GET_CURRENT_USER = gql`
       }
       imageProfile
       aboutMe
+      limitCoins {
+        name
+        bought_price
+        quantity
+        date
+        type
+        id
+      }
     }
   }
 `;
@@ -178,3 +186,38 @@ export const CHANGE_ABOUT_ME = gql`
     changeAboutMe(aboutMe: $aboutMe)
   }
 `;
+
+export const GET_LIMIT =gql`
+query Query {
+  getLimitCoins {
+    name
+    bought_price
+    quantity
+    date
+    type
+  }
+}
+`
+export const BUY_LIMIT =gql`
+mutation Mutation($name: String!, $boughtPrice: Float!, $quantity: Float!) {
+  buyLimitCoins(name: $name, bought_price: $boughtPrice, quantity: $quantity) {
+    name
+  }
+}
+`
+
+export const NOW_BUY_LIMIT =gql`
+mutation Mutation($name: String!, $boughtPrice: Float!, $quantity: Float!, $id: String!) {
+  nowBuyingCoinLimit(name: $name, bought_price: $boughtPrice, quantity: $quantity, id: $id) {
+    name
+  }
+}
+`
+
+
+export const CANCEL_LIMIT =gql`
+mutation CancelLimitCoin($cancelLimitCoinId: String!) {
+  cancelLimitCoin(id: $cancelLimitCoinId)
+}
+
+`

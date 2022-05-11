@@ -82,7 +82,8 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
           </caption>
         </Box>
         <Notification message={message} />
-        <Limit limit={limit} coinPrice={coinPrice} coinName={coinName} />
+        <Limit           account={account}
+ limit={limit} coinPrice={coinPrice} coinName={coinName} messageSetter={messageSetter}/>
         <MarketForm
           limit={limit}
           coinPrice={coinPrice}

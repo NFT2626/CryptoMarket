@@ -7,11 +7,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-import TransactionTableRow from "./TransactionTableRow";
+import UserLimitTableRow from "./UserLimitTableRow";
 
-function TransactionHistoryTable({ data, idx }) {
+function UserLimitTable({ data, idx }) {
   return (
-    <Paper style={{  overflowY: "scroll"}} hidden={idx !== 1}>
+    <Paper style={{  overflowY: "scroll"}} hidden={idx !== 0}>
       <TableContainer elevation={0} sx={{ padding: 2, fontSize: 15 }}>
         <Table stickyHeader sx={{
       height: "max-content"
@@ -19,16 +19,17 @@ function TransactionHistoryTable({ data, idx }) {
           <caption>Coin Market Prices </caption>
           <TableHead>
             <TableRow>
-              <TableCell width="20%">Name</TableCell>
-              <TableCell width="20%">Price</TableCell>
-              <TableCell width="20%">Quantity</TableCell>
-              <TableCell width="20%">Type</TableCell>
-              <TableCell width="20%">date</TableCell>
+              <TableCell width="17%">Name</TableCell>
+              <TableCell width="17%">Price</TableCell>
+              <TableCell width="17%">Quantity</TableCell>
+              <TableCell width="17%">Type</TableCell>
+              <TableCell width="17%">date</TableCell>
+              <TableCell width="17%">Cancel?</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data.map((coin, idx) => (
-              <TransactionTableRow key={idx} coin={coin} />
+              <UserLimitTableRow key={idx} coin={coin} />
             ))}
           </TableBody>
         </Table>
@@ -37,4 +38,4 @@ function TransactionHistoryTable({ data, idx }) {
   );
 }
 
-export default TransactionHistoryTable;
+export default UserLimitTable;

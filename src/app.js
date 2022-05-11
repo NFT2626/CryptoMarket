@@ -25,6 +25,7 @@ import {
   GET_CURRENT_USER,
   ADD_PORTFOLIO_DATE_VALUE,
   GET_ALL_USERS,
+  NOW_BUY_LIMIT
 } from "./queries";
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 
@@ -36,8 +37,15 @@ export default function App() {
   const [getUser, { loading, error, data }] = useLazyQuery(GET_CURRENT_USER, {
     pollInterval: 300000,
   });
+
   const userAllRes = useQuery(GET_ALL_USERS);
   const [addPortfolioDateValue] = useMutation(ADD_PORTFOLIO_DATE_VALUE, {
+    refetchQueries: [{ query: GET_CURRENT_USER }],
+    onError: (error) => {
+      console.log(error.graphQLErrors[0].message);
+    },
+  });
+  const [nowBuyLimit] = useMutation(NOW_BUY_LIMIT, {
     refetchQueries: [{ query: GET_CURRENT_USER }],
     onError: (error) => {
       console.log(error.graphQLErrors[0].message);
@@ -87,6 +95,16 @@ export default function App() {
         }, data.me.fiatBalance);
         setCoins(res.data);
         addPortfolioDateValue({ variables: { assetValueTotal: totalAsset } });
+        data.me.limitCoins.forEach((coin) => {
+          const priceOfCoin = res.data.find((el) => el.name === coin.name).current_price;
+          if(priceOfCoin <= coin.bought_price){
+            console.log("this is the coin", coin)
+            nowBuyLimit({variables:{
+              name: coin.name, boughtPrice: coin.bought_price, 
+              quantity: coin.quantity, id: coin.id
+            }})
+          }
+        })
         const d = new Date();
         let time = d.getTime();
         console.log(time);
@@ -94,14 +112,17 @@ export default function App() {
   }, [data]);
 
   useEffect(() => {
+
     getUser();
+
   }, [token]);
 
   if (!isShowing || loading || userAllRes.loading || !coins || !data) {
+    ///TODO: Animate this for the user.
     return (
       <div>
         {" "}
-        <h1> Loading ... sorry for the lag</h1>{" "}
+        <h1> Loading ... </h1>{" "}
       </div>
     );
   }

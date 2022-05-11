@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 import { Box, Tabs, Tab } from "@material-ui/core";
 import TransactionHistoryTable from "./TransactionHistoryTable";
+import UserLimitTable from "./UserLimitTable";
+
+
 
 function HistorySection({ account }) {
   const [value, setValue] = useState(0);
@@ -9,7 +12,7 @@ function HistorySection({ account }) {
     setValue(newValue);
   };
   return (
-    <Box style={{ position: "fixed" }}>
+    <>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -25,7 +28,9 @@ function HistorySection({ account }) {
       </Tabs>
 
       <TransactionHistoryTable data={account.transactionHistory} idx={value} />
-    </Box>
+      <UserLimitTable data={account.limitCoins} idx={value} /> 
+      
+    </>
   );
 }
 

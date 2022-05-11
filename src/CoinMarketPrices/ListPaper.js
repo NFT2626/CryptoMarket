@@ -30,7 +30,7 @@ const ListPaper = ({ content, data, isPercentage }) => {
               <Avatar
                 alt="logo"
                 src={el.Images}
-                sx={{ width: "10px !important", height: "10px !important" }}
+                style={{height: '2rem',width: '2rem'}}
               />
             </Grid>
             <Grid item xs={6}>

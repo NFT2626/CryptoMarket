@@ -25,10 +25,10 @@ import { useMutation } from "@apollo/client";
 function MarketForm({ limit, coinPrice, coinName, account, messageSetter }) {
   const [priceValue, setPriceValue] = useState();
   const [amountValue, setAmountValue] = useState();
-  const [priceOpen, setPriceOpen] = React.useState(false);
+  const [priceOpen, setPriceOpen] = useState(false);
   const [amountOpen, setAmountOpen] = useState(false);
   const [delay, setDelay] = useState(false);
-
+  
   const [buyMarketCoin] = useMutation(BUY_MARKET_COIN, {
     refetchQueries: [{ query: GET_CURRENT_USER }],
     onError: (error) => {

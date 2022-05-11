@@ -56,19 +56,7 @@ function ChartForm({ account }) {
         </Box>
       </Grid>
 
-      <Grid item xs={2}>
-        <Box
-          maxWidth="md"
-          sx={{
-            borderStyle: "double",
-            flex: 1,
-          }}
-        >
-          <OrderBook />
-        </Box>
-      </Grid>
-
-      <Grid item xs={4}>
+      <Grid item xs={6} style={{marginTop: '5rem'}}> 
         <Container maxWidth="md" sx={{ flex: 1 }}>
           <OrderForm
             coinName={coin}
@@ -77,10 +65,11 @@ function ChartForm({ account }) {
           />
         </Container>
       </Grid>
-      <Grid item xs={12} style={{ marginTop: 15 }}>
-        <Paper elevation={1} style={{ borderTop: "1px solid black" }}>
+      <Grid item xs={12} style={{ marginTop: 15,  flexGrow: 1,
+  overflow: "visible", borderTop: "1px solid black"}}>
+
           <HistorySection account={account} />
-        </Paper>
+  
       </Grid>
     </Grid>
   );

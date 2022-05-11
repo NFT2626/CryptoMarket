@@ -1,4 +1,4 @@
-import * as React from "react";
+import React,{useState} from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -9,6 +9,8 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Notification from "../Notification/Notification"
+
 import { useMutation } from "@apollo/client";
 
 import { CREATE_USER } from "../queries";
@@ -16,13 +18,33 @@ import { CREATE_USER } from "../queries";
 const SignUpPage = () => {
   const [createUser] = useMutation(CREATE_USER, {
     onError: (error) => {
-      console.log(error.graphQLErrors[0].message);
+      console.log(error.graphQLErrors[0].message)
+      if(error.graphQLErrors[0].message.startsWith("Username already exists")){
+        messageSetter("You did not put in a unique username")
+        setIsErrorPresent(true)
+      }
+      else{
+        messageSetter("Your have inputted invalid entries")
+      }
     },
+    onCompleted: () => {
+      console.log("this should be executing")
+      messageSetter("you have successfully created a user account")
+    }
   });
+  const [message, setMessage] = useState('');
+  const [isErrorPresent, setIsErrorPresent] = useState(false);
+  const messageSetter = (content) => {
+    setMessage(content);
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
+    setIsErrorPresent(false)
+    
     createUser({
       variables: {
         username: data.get("email"),
@@ -30,6 +52,8 @@ const SignUpPage = () => {
         name: data.get("firstName"),
         lastName: data.get("lastName"),
       },
+    }).catch((err) => {
+      console.log(err);
     });
   };
 
@@ -57,6 +81,7 @@ const SignUpPage = () => {
           <Typography component="h1" variant="h5" sx={{ marginTop: "2.5rem" }}>
             Sign up
           </Typography>
+          <Notification message={message} />
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -90,14 +115,26 @@ const SignUpPage = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
+                {isErrorPresent ?
+              <TextField
+              style={{display:  isErrorPresent ? "" : 'none'}}
                   required
                   fullWidth
-                  id="email"
+                  error
                   label="Email Address"
                   name="email"
                   autoComplete="email"
                 />
+                :
+                <TextField
+                style={{display:  isErrorPresent ? "none" : ''}}
+                  required
+                  fullWidth
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+        }
               </Grid>
               <Grid item xs={12} sx={{ height: 4 }}>
                 <TextField

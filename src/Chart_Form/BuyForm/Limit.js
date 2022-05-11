@@ -2,26 +2,72 @@ import React, { useState } from "react";
 import { IconButton, InputBase, Paper, Grid, Button } from "@material-ui/core";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import Tooltip from "@mui/material/Tooltip";
+import {
+  BUY_LIMIT,
+  GET_CURRENT_USER,
 
-function Limit({ limit, coinPrice, coinName }) {
+} from "../../queries";
+import { useMutation } from "@apollo/client";
+
+function Limit({ limit, coinPrice, coinName,messageSetter, account }) {
   const [priceValue, setPriceValue] = useState();
   const [amountValue, setAmountValue] = useState();
   const [amountOpen, setAmountOpen] = useState(false);
-  const [priceOpen, setPriceOpen] = React.useState(false);
+  const [priceOpen, setPriceOpen] = useState(false);
+  const [delay, setDelay] = useState(false);
 
-  const handleSubmit = (event) => {
+  const [buyLimitCoins] = useMutation(BUY_LIMIT, {
+    refetchQueries: [{ query: GET_CURRENT_USER }],
+    onError: (error) => {
+      console.log(error.graphQLErrors[0].message);
+    },
+  });
+  const handleBuy = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    if (delay) {
+      messageSetter(
+        "Cannot perform transaction with a small time frame, give us 5 seconds please"
+      );
+      return;
+    }
+    if (delay) {
+      messageSetter(
+        "Cannot perform transaction with a small time frame, give us 5 seconds please"
+      );
+      return;
+    }
+    if (!amountValue || !priceValue) {
+      messageSetter("sorry, you did not put anything");
+    } 
+    else if (amountValue * priceValue > account.fiatBalance) {
+      messageSetter("Sorry, you do not have enough to make this transaction");
+
+    }
+    else{
+      messageSetter("you have successfully bought coin with limit");
+      console.log( {
+        name: coinName,
+        boughtPrice: Number(priceValue),
+        quantity: Number(amountValue),
+      })
+      buyLimitCoins({
+        variables: {
+          name: coinName,
+          boughtPrice: Number(priceValue),
+          quantity: Number(amountValue),
+        },
+      });
+
+      setDelay(true);
+      setTimeout(() => {
+        setDelay(false);
+      }, 5000);
+
+    }
   };
-  console.log("this is the price", amountValue);
   return (
     <div hidden={limit !== 0}>
-      <Paper component="form" elevation={0} onSubmit={handleSubmit}>
+      <Paper component="form" elevation={0} >
         <Grid container>
           <Grid item xs={12}>
             <Tooltip
@@ -120,6 +166,7 @@ function Limit({ limit, coinPrice, coinName }) {
           </Grid>
           <Grid item xs={6}>
             <Button
+            onClick={handleBuy}
               fullWidth
               style={{
                 backgroundColor: "green",
