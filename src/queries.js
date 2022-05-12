@@ -221,3 +221,20 @@ mutation CancelLimitCoin($cancelLimitCoinId: String!) {
 }
 
 `
+
+export const SELL_LIMIT = gql`
+mutation Mutation($name: String!, $sellPrice: Float!, $quantity: Float!) {
+  sellLimitCoins(name: $name, sell_price: $sellPrice, quantity: $quantity) {
+    name
+  }
+}
+
+`
+
+export const NOW_SELL_LIMIT = gql`
+mutation Mutation($name: String!, $sellPrice: Float!, $quantity: Float!, $id: String!) {
+  nowSellLimitCoin(name: $name, sell_price: $sellPrice, quantity: $quantity, id: $id) {
+    name
+  }
+}
+`

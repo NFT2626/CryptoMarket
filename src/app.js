@@ -25,7 +25,9 @@ import {
   GET_CURRENT_USER,
   ADD_PORTFOLIO_DATE_VALUE,
   GET_ALL_USERS,
-  NOW_BUY_LIMIT
+  NOW_BUY_LIMIT,
+  NOW_SELL_LIMIT,
+  CANCEL_LIMIT
 } from "./queries";
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 
@@ -46,6 +48,12 @@ export default function App() {
     },
   });
   const [nowBuyLimit] = useMutation(NOW_BUY_LIMIT, {
+    refetchQueries: [{ query: GET_CURRENT_USER }],
+    onError: (error) => {
+      console.log(error.graphQLErrors[0].message);
+    },
+  });
+  const [nowSellLimit] = useMutation(NOW_SELL_LIMIT, {
     refetchQueries: [{ query: GET_CURRENT_USER }],
     onError: (error) => {
       console.log(error.graphQLErrors[0].message);
@@ -97,10 +105,17 @@ export default function App() {
         addPortfolioDateValue({ variables: { assetValueTotal: totalAsset } });
         data.me.limitCoins.forEach((coin) => {
           const priceOfCoin = res.data.find((el) => el.name === coin.name).current_price;
-          if(priceOfCoin <= coin.bought_price){
+          if(priceOfCoin <= coin.bought_price && coin.type === "BuyLimit"){
             console.log("this is the coin", coin)
             nowBuyLimit({variables:{
               name: coin.name, boughtPrice: coin.bought_price, 
+              quantity: coin.quantity, id: coin.id
+            }})
+          }
+          else if(priceOfCoin >= coin.bought_price && coin.type === "SellLimit"){
+            console.log("this is the coin that is selling", coin) 
+            nowSellLimit({variables:{
+              name: coin.name, sellPrice: coin.bought_price, 
               quantity: coin.quantity, id: coin.id
             }})
           }

@@ -5,6 +5,7 @@ import Tooltip from "@mui/material/Tooltip";
 import {
   BUY_LIMIT,
   GET_CURRENT_USER,
+  SELL_LIMIT
 
 } from "../../queries";
 import { useMutation } from "@apollo/client";
@@ -17,6 +18,12 @@ function Limit({ limit, coinPrice, coinName,messageSetter, account }) {
   const [delay, setDelay] = useState(false);
 
   const [buyLimitCoins] = useMutation(BUY_LIMIT, {
+    refetchQueries: [{ query: GET_CURRENT_USER }],
+    onError: (error) => {
+      console.log(error.graphQLErrors[0].message);
+    },
+  });
+  const [sellLimitCoins] = useMutation(SELL_LIMIT, {
     refetchQueries: [{ query: GET_CURRENT_USER }],
     onError: (error) => {
       console.log(error.graphQLErrors[0].message);
@@ -65,6 +72,42 @@ function Limit({ limit, coinPrice, coinName,messageSetter, account }) {
 
     }
   };
+  const handleSell = (e) => {
+    e.preventDefault();
+    const coinAmount = account.portfolioCoins.find(
+      (el) => el.name === coinName
+    ).quantity;
+    if (delay) {
+      messageSetter(
+        "Cannot perform transaction with a small time frame, give us 5 seconds please"
+      );
+      return;
+    }
+    if (!amountValue || !priceValue){
+      messageSetter("please make sure you enter into all fields");
+
+    }
+    else if(amountValue > coinAmount){
+      messageSetter("you enter an amount that you do not have");
+    }
+    else {
+      messageSetter("you have successfully made a sell limit")
+      sellLimitCoins({
+        variables: {
+          name: coinName,
+          sellPrice: Number(priceValue),
+          quantity: Number(amountValue),
+        },
+      });
+
+      setDelay(true);
+      setTimeout(() => {
+        setDelay(false);
+      }, 5000);
+    }
+    
+  }
+
   return (
     <div hidden={limit !== 0}>
       <Paper component="form" elevation={0} >
@@ -184,6 +227,7 @@ function Limit({ limit, coinPrice, coinName,messageSetter, account }) {
           <Grid item xs={6}>
             <Button
               fullWidth
+              onClick={handleSell}
               style={{
                 backgroundColor: "red",
                 maxWidth: "70%",
