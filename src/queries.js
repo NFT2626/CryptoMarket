@@ -140,9 +140,20 @@ export const ADD_PORTFOLIO_DATE_VALUE = gql`
 export const GET_ALL_USERS = gql`
   query Query {
     allUsers {
+    name
+    lastName
+    username
+    imageProfile
+    aboutMe
+    portfolioCoins {
       name
-      username
+      quantity
+      owner
+      id
     }
+    fiatBalance
+    id
+  }
   }
 `;
 

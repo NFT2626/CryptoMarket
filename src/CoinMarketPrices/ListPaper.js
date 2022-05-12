@@ -34,14 +34,14 @@ const ListPaper = ({ content, data, isPercentage }) => {
               />
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="h6" inline>
+              <Typography variant="h6" style={{fontSize: '1rem' }} inline>
                 {el.name}
               </Typography>
             </Grid>
             <Grid item xs={4}>
               <Typography
                 variant="h6"
-                style={{ color: isPercentage ? "green" : "black" }}
+                style={{ color: isPercentage ? "green" : "black", fontSize: '1rem' }}
               >
                 {el.price}{" "}
               </Typography>

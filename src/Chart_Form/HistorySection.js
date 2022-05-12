@@ -6,7 +6,7 @@ import UserLimitTable from "./UserLimitTable";
 
 
 
-function HistorySection({ account }) {
+function HistorySection({ account,coinName }) {
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -27,8 +27,8 @@ function HistorySection({ account }) {
         <Tab label="Transaction History" />
       </Tabs>
 
-      <TransactionHistoryTable data={account.transactionHistory} idx={value} />
-      <UserLimitTable data={account.limitCoins} idx={value} /> 
+      <TransactionHistoryTable data={account.transactionHistory.filter((coin) => coin.name === coinName)} idx={value} />
+      <UserLimitTable data={account.limitCoins.filter((coin) => coin.name === coinName)} idx={value} /> 
       
     </>
   );

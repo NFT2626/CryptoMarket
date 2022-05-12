@@ -68,7 +68,7 @@ function ChartForm({ account }) {
       <Grid item xs={12} style={{ marginTop: 15,  flexGrow: 1,
   overflow: "visible", borderTop: "1px solid black"}}>
 
-          <HistorySection account={account} />
+          <HistorySection account={account} coinName={coin} />
   
       </Grid>
     </Grid>

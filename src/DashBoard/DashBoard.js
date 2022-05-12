@@ -14,6 +14,10 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Avatar from "@mui/material/Avatar";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import SearchAccount from "./SearchAccount"
+
 
 import { IconButton, Badge } from "@material-ui/core";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -34,9 +38,13 @@ import axios from "axios";
 
 const drawerWidth = 240;
 
+
+
+
 export default function DashBoard(props) {
   const [open, setOpen] = useState(false);
   const client = useApolloClient();
+  console.log(props.accounts, "this is the accounts")
 
   const navigate = useNavigate();
 
@@ -111,12 +119,9 @@ export default function DashBoard(props) {
           >
             DashBoard
           </Typography>
-          <Box sx={{ flexGrow: 1 }} />
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon style={{ color: "white" }} />
-            </Badge>
-          </IconButton>
+          <Box sx={{ flexGrow: 0.5 }} />
+          < SearchAccount accounts={props.accounts}/>
+          <Box sx={{ flexGrow: 0.5 }} />
           <div>
             <IconButton
               color="inherit"
@@ -179,7 +184,7 @@ export default function DashBoard(props) {
                             style={{ textDecoration: "none" }}
                             to="/DashBoard/Profile"
                           >
-                            Profile
+                            Edit your Portfolio
                           </Link>
                         </MenuItem>
                         <MenuItem onClick={handleClose}>Settings</MenuItem>

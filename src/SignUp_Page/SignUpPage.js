@@ -103,6 +103,7 @@ const SignUpPage = () => {
                   required
                   fullWidth
                   label="First Name"
+                  inputProps={{ maxLength: 10 }}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -112,6 +113,7 @@ const SignUpPage = () => {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
+                  inputProps={{ maxLength: 10 }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -124,6 +126,7 @@ const SignUpPage = () => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  inputProps={{ maxLength: 15 }}
                 />
                 :
                 <TextField
@@ -133,6 +136,7 @@ const SignUpPage = () => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  inputProps={{ maxLength: 15 }}
                 />
         }
               </Grid>
@@ -145,6 +149,7 @@ const SignUpPage = () => {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  inputProps={{ maxLength: 15 }}
                 />
               </Grid>
               <Grid item xs={12} sx={{ marginTop: 5 }}>

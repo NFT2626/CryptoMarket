@@ -3,6 +3,7 @@ import React, { Suspense, useEffect, useState } from "react"; //UseS
 import axios from "axios";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+
 //Importing CSS
 import "./App.css";
 
@@ -13,8 +14,9 @@ import DashBoard from "./DashBoard/DashBoard";
 import HomePage from "./Home_Page/HomePage";
 import ChartForm from "./Chart_Form/ChartForm";
 import CoinMarketPrices from "./CoinMarketPrices/CoinMarketPrices";
-import ProfilePage from "./Profile_Page/ProfilePage";
+import EditPortfolioPage from "./Edit_Portfolio_Page/EditPortfolioPage";
 import SignUpPage from "./SignUp_Page/SignUpPage";
+import PortfolioPage from "./Portfolio_Page/PortfolioPage";
 
 import NotFoundPage from "./Not_Found_Page/NotFoundPage";
 import TransactionHistoryPage from "./Transaction_History_Page/TransactionHistoryPage";
@@ -172,7 +174,7 @@ export default function App() {
             <Route
               path="/DashBoard"
               element={
-                <DashBoard name={data} setToken={setToken}>
+                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
                   <BodySection
                     account={data.me}
                     coins={coins}
@@ -184,15 +186,15 @@ export default function App() {
             <Route
               path="/DashBoard/profile"
               element={
-                <DashBoard name={data} setToken={setToken}>
-                  <ProfilePage account={data.me} />
+                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
+                  <EditPortfolioPage account={data.me} />
                 </DashBoard>
               }
             />
             <Route
               path="/DashBoard/CoinMarketPrices"
               element={
-                <DashBoard name={data} setToken={setToken}>
+                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
                   <CoinMarketPrices
                     coins={coins}
                     newAddedCoins={newAddedCoins}
@@ -205,7 +207,7 @@ export default function App() {
               exact
               path="/DashBoard/ChartForm"
               element={
-                <DashBoard name={data} setToken={setToken}>
+                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
                   <ChartForm coins={coins} account={data.me} />
                 </DashBoard>
               }
@@ -214,7 +216,7 @@ export default function App() {
               exact
               path="/DashBoard/TransactionHistory"
               element={
-                <DashBoard name={data} setToken={setToken}>
+                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
                   <TransactionHistoryPage account={data.me} />
                 </DashBoard>
               }
@@ -223,17 +225,35 @@ export default function App() {
               exact
               path="/DashBoard/Help"
               element={
-                <DashBoard name={data} setToken={setToken}>
+                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
                   <HelpPage />
                 </DashBoard>
               }
             />
 
+<Route
+              exact
+              path="/DashBoard/Portfolio"
+              element={
+                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
+                  <PortfolioPage allUsers={userAllRes.data.allUsers} coins={coins}/>
+                </DashBoard>
+              }
+            />
+   <Route
+              exact
+              path="/DashBoard/Portfolio/:account"
+              element={
+                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
+                  <PortfolioPage allUsers={userAllRes.data.allUsers} coins={coins}/>
+                </DashBoard>
+              }
+            />
             <Route
               exact
               path="/DashBoard/ChartForm/:coin"
               element={
-                <DashBoard name={data} setToken={setToken}>
+                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
                   <ChartForm coins={coins} account={data.me} />
                 </DashBoard>
               }

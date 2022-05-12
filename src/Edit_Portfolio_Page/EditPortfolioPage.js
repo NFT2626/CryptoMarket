@@ -14,9 +14,6 @@ import { Link } from "react-router-dom";
 
 import {
   CHANGE_PROFILE_PICTURE,
-  CHANGE_ABOUT_ME,
-  CHANGE_LAST_NAME,
-  CHANGE_NAME,
   CHANGE_PROFILE,
   GET_CURRENT_USER,
 } from "../queries.js";
