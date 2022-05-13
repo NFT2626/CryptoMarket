@@ -21,7 +21,7 @@ function CoinDisplayCard({coin, actualCoin}) {
     console.log("this is the coin", coin)
     console.log("this is the actual coin", actualCoin)
   return (
-      <Paper style={{width: "25vw"}}>
+      <Paper style={{width: "25vw", display: "inline-block", marginLeft: '1vw'}}>
     <Card>
               <CardContent>
 

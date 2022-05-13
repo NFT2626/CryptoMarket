@@ -26,7 +26,7 @@ function TableRowCoin({ coin, watchListCoins, favoriteCoin, unFavoriteCoin }) {
         <Box
           component={Link}
           onClick={() => handleClick()}
-          to={`/DashBoard/ChartForm/${coin.name}`}
+          to={`/DashBoard/ChartForm/${coin.id}`}
           sx={{
             display: "flex",
             textDecoration: "none",

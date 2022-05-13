@@ -144,11 +144,11 @@ const BodySection = ({ account, coins, allUsers }) => {
               <RecentTransaction account={account} />
             </Paper>
           </Grid>
-          <Grid item xs={12} md={4} lg={4}>
+          {/* <Grid item xs={12} md={4} lg={4}>
             <Paper>
               <WalletAddresses />
             </Paper>
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
     </>

@@ -24,22 +24,28 @@ const CoinMarketPrices = ({ coins, newAddedCoins, biggestGainers }) => {
   const result = useQuery(GET_WATCHLIST_COINS);
   console.log(biggestGainers.result);
   useEffect(() => {
+    let filterCoins; 
     if (crypto) {
-      setDisplayCoins(
+      filterCoins = 
         displayCoins.filter((el) =>
           el.name.toLowerCase().includes(crypto.toLowerCase())
         )
-      );
+    
+    }
+    else{
+      filterCoins = coins; 
     }
     if (isWatchingList) {
+      
       setDisplayCoins(
-        displayCoins.filter((el) =>
+        filterCoins.filter((el) =>
           result.data.getWatchListCoins.includes(el.name)
         )
       );
-    } else if (!crypto) {
-      setDisplayCoins(coins);
+    } else {
+      setDisplayCoins(filterCoins);
     }
+    
   }, [isWatchingList, crypto, coins]);
 
   if (result.loading) {
@@ -138,14 +144,7 @@ const CoinMarketPrices = ({ coins, newAddedCoins, biggestGainers }) => {
             setIsWatchingList(!isWatchingList);
           }}
         />
-        <Chip
-          avatar={<MarkunreadMailboxIcon />}
-          style={{ marginLeft: 6, background: "rgb(239, 242, 245)" }}
-          label="Portfolio"
-          component="a"
-          href="#basic-chip"
-          clickable
-        />
+     
       </Box>
       <TableSection
         watchListCoins={result.data.getWatchListCoins}

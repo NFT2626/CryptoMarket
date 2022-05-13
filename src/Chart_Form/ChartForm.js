@@ -14,6 +14,7 @@ function ChartForm({ account }) {
   const [OHLC, setOHLC] = useState([]);
   const [coinData, setCoinData] = useState([]);
   const [isShowing, setIsShowing] = useState(false);
+  console.log(coinData);
   useEffect(() => {
     const promise1 = axios.get(
       `	https://api.coingecko.com/api/v3/coins/${coin.toLowerCase()}/ohlc?vs_currency=usd&days=max
@@ -52,14 +53,14 @@ function ChartForm({ account }) {
     <Grid container>
       <Grid item xs={6}>
         <Box style={{ boxSizing: "border-box" }}>
-          <ChartAndOrderBook OHLC={OHLC} coinName={coin} coinData={coinData} />
+          <ChartAndOrderBook OHLC={OHLC} coinName={coinData.name} coinData={coinData} />
         </Box>
       </Grid>
 
       <Grid item xs={6} style={{marginTop: '5rem'}}> 
         <Container maxWidth="md" sx={{ flex: 1 }}>
           <OrderForm
-            coinName={coin}
+            coinName={coinData.name}
             coinPrice={coinData.market_data.current_price.usd}
             account={account}
           />
@@ -68,7 +69,7 @@ function ChartForm({ account }) {
       <Grid item xs={12} style={{ marginTop: 15,  flexGrow: 1,
   overflow: "visible", borderTop: "1px solid black"}}>
 
-          <HistorySection account={account} coinName={coin} />
+          <HistorySection account={account} coinName={coinData.name} />
   
       </Grid>
     </Grid>
