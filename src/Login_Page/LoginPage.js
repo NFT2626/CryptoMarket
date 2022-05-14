@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Notification from "../Notification/Notification"
 
 import { useNavigate } from "react-router-dom";
 
@@ -16,8 +17,16 @@ import { useMutation } from "@apollo/client";
 import { LOGIN } from "../queries";
 
 export default function LoginPage({ setToken }) {
+  const [message, setMessage] = useState()
+  const messageSetter = (content) => {
+    setMessage(content);
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
+  };
   const [login, result] = useMutation(LOGIN, {
     onError: (error) => {
+      messageSetter("Invalid credentials, please try again")
       console.log(error.graphQLErrors[0].message);
     },
   });
@@ -55,6 +64,7 @@ export default function LoginPage({ setToken }) {
         }}
       >
         <Typography variant="h5">Sign in</Typography>
+        <Notification message={message}/>
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 5 }}>
           <TextField
             margin="normal"

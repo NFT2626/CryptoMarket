@@ -73,6 +73,11 @@ export default function DashBoard(props) {
     event.preventDefault();
     navigate("/DashBoard/Help");
   };
+  const handleOpenAccount = (event) => {
+    event.preventDefault();
+    console.log("this should be working")
+    navigate(`/DashBoard/Portfolio/${props.name.me.username}`);
+  };
 
   function handleListKeyDown(event) {
     if (event.key === "Tab") {
@@ -187,8 +192,7 @@ export default function DashBoard(props) {
                             Edit your Portfolio
                           </Link>
                         </MenuItem>
-                        <MenuItem onClick={handleClose}>Settings</MenuItem>
-                        <MenuItem onClick={handleClose}>My account</MenuItem>
+                        <MenuItem onClick={handleOpenAccount}>My account</MenuItem>
                         <MenuItem onClick={handleOnlineHelp}>
                           Help & Services
                         </MenuItem>
@@ -222,7 +226,10 @@ export default function DashBoard(props) {
             {" "}
             Personal{" "}
           </Typography>
-          <ListItem button key="dashboard">
+          <ListItem 
+          button
+          to="/DashBoard"
+            component={Link} button key="dashboard">
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
@@ -240,14 +247,7 @@ export default function DashBoard(props) {
             <ListItemText primary="coinmarketprices" />
           </ListItem>
 
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+  
         </List>
         {/* <Divider /> */}
       </Drawer>

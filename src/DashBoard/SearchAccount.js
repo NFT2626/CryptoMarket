@@ -33,9 +33,11 @@ function SearchAccount({accounts}) {
   
   return (
     <Autocomplete
-    sx={{ width: 600, color: "white" }}
+    sx={{ width: 600}}
+    style={{background: "white"}}
     options={accounts.map((account) => ({...account, label: account.username}))}
     autoHighlight
+    variant="filled"
     onChange={handleChange}
     selectOnFocus
     clearOnBlur

@@ -57,7 +57,7 @@ function ChartForm({ account }) {
         </Box>
       </Grid>
 
-      <Grid item xs={6} style={{marginTop: '5rem'}}> 
+      <Grid item xs={6} style={{marginTop: '8rem'}}> 
         <Container maxWidth="md" sx={{ flex: 1 }}>
           <OrderForm
             coinName={coinData.name}

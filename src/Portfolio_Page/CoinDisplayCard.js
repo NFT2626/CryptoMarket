@@ -16,10 +16,17 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
+import { useNavigate } from "react-router-dom";
+
 
 function CoinDisplayCard({coin, actualCoin}) {
-    console.log("this is the coin", coin)
-    console.log("this is the actual coin", actualCoin)
+    const navigate = useNavigate();
+    const handleMove =(e) => {
+        e.preventDefault();
+    
+        navigate(`/Dashboard/ChartForm/${actualCoin.id}`)
+    }
+
   return (
       <Paper style={{width: "25vw", display: "inline-block", marginLeft: '1vw'}}>
     <Card>
@@ -33,7 +40,7 @@ function CoinDisplayCard({coin, actualCoin}) {
         </Box>
         </CardContent>
         <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button size="small" onClick={handleMove}>Learn More</Button>
       </CardActions>
     </Card>
     </Paper>

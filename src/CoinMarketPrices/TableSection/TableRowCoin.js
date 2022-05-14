@@ -68,7 +68,7 @@ function TableRowCoin({ coin, watchListCoins, favoriteCoin, unFavoriteCoin }) {
       </TableCell>
       <TableCell align="right">
         {" "}
-        <MarketChart coinName={coin.name} />{" "}
+        <MarketChart coinName={coin.name} keyNumber={coin.current_price}/>{" "}
       </TableCell>
       <TableCell
         component={Button}

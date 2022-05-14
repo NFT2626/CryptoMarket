@@ -49,7 +49,7 @@ function ChartAndOrderBook({ OHLC, coinName, coinData }) {
                 alignItems: "center",
               }}
             >
-              <Typography variant="h6" color="textPrimary">
+              <Typography variant="h4" color="textPrimary">
                 {" "}
                 {coinName}
               </Typography>
@@ -59,54 +59,7 @@ function ChartAndOrderBook({ OHLC, coinName, coinData }) {
                 <MenuBookIcon />
               </Tooltip>
             </Box>
-            <KeyboardArrowUpIcon
-              className={isSectioned && "box-keyboard--hover"}
-              onMouseEnter={() => {
-                console.log(isSectioned);
-                setSectioned(true);
-              }}
-            />
-            <Box
-              className="section-box"
-              onMouseLeave={() => {
-                setSectioned(false);
-              }}
-              sx={{
-                display: isSectioned ? "flex" : "none",
-                flexDirection: "column",
-              }}
-            >
-              <div>
-                <Box
-                  className={isSectioned ? "" : "outofPage"}
-                  sx={{
-                    display: "flex",
-                    alignItems: "flex-end",
-                    px: 10,
-                    overflow: "hidden",
-                  }}
-                >
-                  <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-                  <TextField
-                    id="input-with-sx"
-                    label="search"
-                    variant="standard"
-                  />
-                </Box>
-              </div>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "baseline",
-                }}
-              >
-                <Button>USDT</Button>
-                <Button>BTC</Button>
-                <SelectorCoin />
-              </Box>
-            </Box>
+  
           </Box>
           <Divider
             orientation="vertical"
@@ -165,19 +118,7 @@ function ChartAndOrderBook({ OHLC, coinName, coinData }) {
           <Box
             sx={{ marginLeft: "5vh", marginBottom: "1vh", marginTop: "1vh" }}
           >
-            <ButtonGroup
-              sx={{
-                border: "none",
-                outline: "none",
-              }}
-              style={{ maxWidth: "20px", maxHeight: "20px" }}
-              aria-label="outlined primary button group"
-            >
-              <Button>15m</Button>
-              <Button>1h</Button>
-              <Button>1D</Button>
-              <Button>1W</Button>
-            </ButtonGroup>
+           
           </Box>
         </Box>
         <Box sx={{ maxWidth: "100%", marginLeft: "-2.5rem" }}>

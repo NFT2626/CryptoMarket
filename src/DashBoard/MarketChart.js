@@ -59,19 +59,22 @@ for (let i = 0; i < 7; i++) {
 
 let dataPrices = [];
 
+const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
 
-const MarketChart = () => {
+
+
+const MarketChart = ({keyNumber}) => {
   const [dataPrices, setDataPrices] = useState([]);
   if(dataPrices.length != 0){
     console.log(dataPrices[0][1])
   }
   const data = {
-    dates,
+    labels,
     datasets: [
       {
         label: "Dataset 2",
-        data: dataPrices?.map((el) => el[1]),
+        data: labels.map(() => (Math.random() * keyNumber)),
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)"
       }

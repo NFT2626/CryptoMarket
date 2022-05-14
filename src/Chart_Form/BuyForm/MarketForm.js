@@ -284,7 +284,7 @@ function MarketForm({ limit, coinPrice, coinName, account, messageSetter }) {
               onClick={handleBuy}
               fullWidth
               style={{
-                backgroundColor: "green",
+                backgroundColor: "#32CD32",
                 maxWidth: "70%",
                 maxHeight: "25vh",
                 marginLeft: "10px",

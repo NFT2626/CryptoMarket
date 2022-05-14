@@ -24,7 +24,7 @@ import { Link } from "react-router-dom";
 function HelpPage() {
   return (
     <Box>
-      <Box
+ <Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -50,6 +50,157 @@ function HelpPage() {
             Help & Services
           </Link>
         </Breadcrumbs>
+      </Box>
+      <Box sx={{ marginTop: "5rem" }}>
+        <Typography variant="h4" gutterBottom>
+          How To 
+        </Typography>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography variant="h6" sx={{ color: "blue" }}>
+              {" "}
+              How to Login
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box style={{display: "flex", flexDirection: "column"}}>
+            <Typography variant="h6">0. If you do not have an account, make sure to make an account </Typography>
+          <Box style={{marginTop:4}}>
+            <Typography variant="h5">
+            1. Enter the username
+            </Typography>
+            <Box component="img" sx={{height:500, width:700}} src='/Images/SignInMedia/EnterUsername.png'/>
+            </Box>
+            <Box>
+            <Typography variant="h5">
+            2. Enter the Password
+            </Typography>
+            <Box component="img" sx={{height:400, width:500}} src='/Images/SignInMedia/EnterPassword.png'/>
+            </Box>
+            <Box>
+            <Typography variant="h5">
+            3. Click Sign In
+            </Typography>
+            <Box component="img" sx={{height:400, width:500}} src='/Images/SignInMedia/SubmitButton.png'/>
+            
+            </Box>
+            <Box>
+            <Typography variant="h5">
+            4. If you receive this error, please try again from step 1.
+            </Typography>
+            <Box component="img" sx={{height:400, width:500}} src='/Images/SignInMedia/ErrorMessageSignIn.png'/>
+            
+            </Box>
+            </Box>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+          >
+            <Typography variant="h6" sx={{ color: "blue" }}>
+              Why am I receiving a rate Limit error and what is a rate limit error?
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+            Rate limiting is a way of controlling the amount of requests handled by the site's API (Application Program Interface) — these communications are API calls. If you receive an error message like “API rate limit exceeded” or “You are being rate limited”.
+            Due to the nature of this project, if you have a rate limit error, please give the website a one minute of downtime before you refresh. 
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+          >
+            <Typography variant="h6" sx={{ color: "blue" }}>
+          Corrupt account or your account has been stolen?
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              If your account has been stolen, please contact the email given by guan_ha@student.kings.edu.au and we will make sure to allow you to register your password
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      
+      </Box>
+
+
+      <Box sx={{ marginTop: "5rem" }}>
+        <Typography variant="h4" gutterBottom>
+          Troubleshooting
+        </Typography>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography variant="h6" sx={{ color: "blue" }}>
+              {" "}
+Registering page collapse into the center when clicked from the center register button
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              It is recommended that you are to use the register page that is located on the sign up page?
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+          >
+            <Typography variant="h6" sx={{ color: "blue" }}>
+              Why am I receiving a rate Limit error and what is a rate limit error?
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+            Rate limiting is a way of controlling the amount of requests handled by the site's API (Application Program Interface) — these communications are API calls. If you receive an error message like “API rate limit exceeded” or “You are being rate limited”.
+            Due to the nature of this project, if you have a rate limit error, please give the website a one minute of downtime before you refresh. 
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+          >
+            <Typography variant="h6" sx={{ color: "blue" }}>
+          Corrupt account or your account has been stolen?
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              If your account has been stolen, please contact the email given by guan_ha@student.kings.edu.au and we will make sure to allow you to register your password
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      
+      </Box>
+
+
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+    
       </Box>
 
       <Box sx={{ marginTop: "5rem" }}>
