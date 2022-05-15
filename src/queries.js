@@ -140,20 +140,20 @@ export const ADD_PORTFOLIO_DATE_VALUE = gql`
 export const GET_ALL_USERS = gql`
   query Query {
     allUsers {
-    name
-    lastName
-    username
-    imageProfile
-    aboutMe
-    portfolioCoins {
       name
-      quantity
-      owner
+      lastName
+      username
+      imageProfile
+      aboutMe
+      portfolioCoins {
+        name
+        quantity
+        owner
+        id
+      }
+      fiatBalance
       id
     }
-    fiatBalance
-    id
-  }
   }
 `;
 
@@ -198,54 +198,95 @@ export const CHANGE_ABOUT_ME = gql`
   }
 `;
 
-export const GET_LIMIT =gql`
-query Query {
-  getLimitCoins {
-    name
-    bought_price
-    quantity
-    date
-    type
+export const GET_LIMIT = gql`
+  query Query {
+    getLimitCoins {
+      name
+      bought_price
+      quantity
+      date
+      type
+    }
   }
-}
-`
-export const BUY_LIMIT =gql`
-mutation Mutation($name: String!, $boughtPrice: Float!, $quantity: Float!) {
-  buyLimitCoins(name: $name, bought_price: $boughtPrice, quantity: $quantity) {
-    name
+`;
+export const BUY_LIMIT = gql`
+  mutation Mutation($name: String!, $boughtPrice: Float!, $quantity: Float!) {
+    buyLimitCoins(
+      name: $name
+      bought_price: $boughtPrice
+      quantity: $quantity
+    ) {
+      name
+    }
   }
-}
-`
+`;
 
-export const NOW_BUY_LIMIT =gql`
-mutation Mutation($name: String!, $boughtPrice: Float!, $quantity: Float!, $id: String!) {
-  nowBuyingCoinLimit(name: $name, bought_price: $boughtPrice, quantity: $quantity, id: $id) {
-    name
+export const NOW_BUY_LIMIT = gql`
+  mutation Mutation(
+    $name: String!
+    $boughtPrice: Float!
+    $quantity: Float!
+    $id: String!
+  ) {
+    nowBuyingCoinLimit(
+      name: $name
+      bought_price: $boughtPrice
+      quantity: $quantity
+      id: $id
+    ) {
+      name
+    }
   }
-}
-`
+`;
 
-
-export const CANCEL_LIMIT =gql`
-mutation CancelLimitCoin($cancelLimitCoinId: String!) {
-  cancelLimitCoin(id: $cancelLimitCoinId)
-}
-
-`
+export const CANCEL_LIMIT = gql`
+  mutation CancelLimitCoin($cancelLimitCoinId: String!) {
+    cancelLimitCoin(id: $cancelLimitCoinId)
+  }
+`;
 
 export const SELL_LIMIT = gql`
-mutation Mutation($name: String!, $sellPrice: Float!, $quantity: Float!) {
-  sellLimitCoins(name: $name, sell_price: $sellPrice, quantity: $quantity) {
-    name
+  mutation Mutation($name: String!, $sellPrice: Float!, $quantity: Float!) {
+    sellLimitCoins(name: $name, sell_price: $sellPrice, quantity: $quantity) {
+      name
+    }
   }
-}
-
-`
+`;
 
 export const NOW_SELL_LIMIT = gql`
-mutation Mutation($name: String!, $sellPrice: Float!, $quantity: Float!, $id: String!) {
-  nowSellLimitCoin(name: $name, sell_price: $sellPrice, quantity: $quantity, id: $id) {
-    name
+  mutation Mutation(
+    $name: String!
+    $sellPrice: Float!
+    $quantity: Float!
+    $id: String!
+  ) {
+    nowSellLimitCoin(
+      name: $name
+      sell_price: $sellPrice
+      quantity: $quantity
+      id: $id
+    ) {
+      name
+    }
   }
-}
-`
+`;
+
+export const GET_NEWLY_ADDED_COINS = gql`
+  query Query {
+    getNewlyAddedCoins {
+      Images
+      name
+      price
+    }
+  }
+`;
+
+export const GET_BIGGEST_GAINER_COINS = gql`
+  query Query {
+    getBiggestGainers {
+      Images
+      name
+      price
+    }
+  }
+`;

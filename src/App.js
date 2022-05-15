@@ -1,10 +1,7 @@
 // Importing Libraries
-import React, { Suspense, useEffect, useState } from "react"; //UseS
-import axios from "axios";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-
+import React, { Suspense, useEffect, useState } from "react"; // framework used for the agile approach
+import axios from "axios"; // This is used to communicate with the backend
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // set up routes for the components
 //Importing CSS
 import "./App.css";
 
@@ -32,15 +29,14 @@ import {
   GET_ALL_USERS,
   NOW_BUY_LIMIT,
   NOW_SELL_LIMIT,
-  CANCEL_LIMIT,
-} from "./queries";
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+  GET_NEWLY_ADDED_COINS,
+  GET_BIGGEST_GAINER_COINS,
+} from "./queries"; // requests to the backend i've constructed
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client"; // different function allows for
 
 export default function App() {
   const [coins, setCoins] = useState([]);
   const [token, setToken] = useState(null);
-  const [newAddedCoins, setNewAddedCoins] = useState([]);
-  const [biggestGainers, setBiggestGainers] = useState([]);
   const [steps, setSteps] = useState();
 
   const [stepsEnabled, setStepsEnabled] = useState(false);
@@ -52,6 +48,8 @@ export default function App() {
     setStepsEnabled(false);
   };
   const userAllRes = useQuery(GET_ALL_USERS);
+  const newAddedCoinsRes = useQuery(GET_NEWLY_ADDED_COINS);
+  const biggestGainersRes = useQuery(GET_BIGGEST_GAINER_COINS);
   const [addPortfolioDateValue] = useMutation(ADD_PORTFOLIO_DATE_VALUE, {
     refetchQueries: [{ query: GET_CURRENT_USER }],
     onError: (error) => {
@@ -70,18 +68,8 @@ export default function App() {
       console.log(error.graphQLErrors[0].message);
     },
   });
-  const [isShowing, setIsShowing] = useState(false);
 
   useEffect(() => {
-    const promise2 = axios.get("http://localhost:5000/api/biggest-gainers");
-    const promise3 = axios.get("http://localhost:5000/api/newly-added-coins");
-
-    Promise.allSettled([promise2, promise3]).then(function (values) {
-      setIsShowing(values.every((el) => el.status === "fulfilled"));
-      setNewAddedCoins(values[1].value.data);
-      setBiggestGainers(values[0].value.data);
-    });
-
     if (localStorage.getItem("user-token")) {
       setToken(localStorage.getItem("user-token"));
     }
@@ -153,7 +141,14 @@ export default function App() {
     getUser();
   }, [token]);
 
-  if (!isShowing || loading || userAllRes.loading || !coins || !data) {
+  if (
+    loading ||
+    userAllRes.loading ||
+    !coins ||
+    !data ||
+    newAddedCoinsRes.loading ||
+    biggestGainersRes.loading
+  ) {
     ///TODO: Animate this for the user.
     return (
       <div>
@@ -244,8 +239,8 @@ export default function App() {
                   <CoinMarketPrices
                     setSteps={setSteps}
                     coins={coins}
-                    newAddedCoins={newAddedCoins}
-                    biggestGainers={biggestGainers}
+                    newAddedCoins={newAddedCoinsRes.data.getNewlyAddedCoins}
+                    biggestGainers={biggestGainersRes.data.getBiggestGainers}
                   />{" "}
                   <Steps
                     enabled={stepsEnabled}

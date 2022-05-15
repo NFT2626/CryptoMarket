@@ -27,7 +27,7 @@ const CoinMarketPrices = ({
   const [isWatchingList, setIsWatchingList] = useState(false);
   const [displayCoins, setDisplayCoins] = useState(coins);
   const result = useQuery(GET_WATCHLIST_COINS);
-  console.log(biggestGainers.result);
+  console.log(biggestGainers);
   useEffect(() => {
     setSteps([
       {
@@ -131,19 +131,19 @@ const CoinMarketPrices = ({
             <ListPaper
               content="Trending"
               isPercentage={true}
-              data={biggestGainers.result}
+              data={biggestGainers}
             />
           </Grid>
           <Grid item xs={4} className="stepCoinMarket2">
             <ListPaper
               content="Biggest Gainers"
               isPercentage={true}
-              data={biggestGainers.result}
+              data={biggestGainers}
             />
           </Grid>
 
           <Grid item xs={4} className="stepCoinMarket3">
-            <ListPaper content="Newly Added" data={newAddedCoins.result} />
+            <ListPaper content="Newly Added" data={newAddedCoins} />
           </Grid>
         </Grid>
         <Typography
