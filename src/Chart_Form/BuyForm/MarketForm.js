@@ -14,6 +14,7 @@ import {
   Button,
 } from "@material-ui/core";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
 import Tooltip from "@mui/material/Tooltip";
 import {
   BUY_MARKET_COIN,
@@ -28,7 +29,7 @@ function MarketForm({ limit, coinPrice, coinName, account, messageSetter }) {
   const [priceOpen, setPriceOpen] = useState(false);
   const [amountOpen, setAmountOpen] = useState(false);
   const [delay, setDelay] = useState(false);
-  
+
   const [buyMarketCoin] = useMutation(BUY_MARKET_COIN, {
     refetchQueries: [{ query: GET_CURRENT_USER }],
     onError: (error) => {
@@ -180,7 +181,7 @@ function MarketForm({ limit, coinPrice, coinName, account, messageSetter }) {
     <div hidden={limit !== 1}>
       <Paper component="form" elevation={0}>
         <Grid container>
-          <Grid item xs={12}>
+          <Grid item xs={12} className={limit !== 1 ? " " : "chartFormStep8"}>
             <Tooltip
               open={priceOpen}
               title={
@@ -230,7 +231,7 @@ function MarketForm({ limit, coinPrice, coinName, account, messageSetter }) {
               </div>
             </Tooltip>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} className={limit !== 1 ? " " : "chartFormStep9"}>
             <Tooltip
               open={amountOpen}
               title={
@@ -249,7 +250,7 @@ function MarketForm({ limit, coinPrice, coinName, account, messageSetter }) {
                 }}
               >
                 <IconButton aria-label="menu">
-                  <AttachMoneyIcon />
+                  <CreditCardIcon />
                 </IconButton>
                 <InputBase
                   sx={{ ml: 1, flex: 1 }}
@@ -279,7 +280,7 @@ function MarketForm({ limit, coinPrice, coinName, account, messageSetter }) {
               </div>
             </Tooltip>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} className={limit !== 1 ? " " : "chartFormStep10"}>
             <Button
               onClick={handleBuy}
               fullWidth
@@ -296,7 +297,7 @@ function MarketForm({ limit, coinPrice, coinName, account, messageSetter }) {
             </Button>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={6} className={limit !== 1 ? " " : "chartFormStep11"}>
             <Button
               fullWidth
               onClick={handleSell}

@@ -11,12 +11,19 @@ import UserLimitTableRow from "./UserLimitTableRow";
 
 function UserLimitTable({ data, idx }) {
   return (
-    <Paper style={{  overflowY: "scroll"}} hidden={idx !== 0}>
+    <Paper
+      style={{ overflowY: "scroll" }}
+      hidden={idx !== 0}
+      className={idx !== 0 ? " " : "chartFormStep14"}
+    >
       <TableContainer elevation={0} sx={{ padding: 2, fontSize: 15 }}>
-        <Table stickyHeader sx={{
-      height: "max-content"
-    }}>
-          <caption>Coin Market Prices </caption>
+        <Table
+          stickyHeader
+          sx={{
+            height: "max-content",
+          }}
+        >
+          <caption>User Limits </caption>
           <TableHead>
             <TableRow>
               <TableCell width="17%">Name</TableCell>

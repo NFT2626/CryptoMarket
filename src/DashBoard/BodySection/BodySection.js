@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { Paper, Grid, Container, Typography } from "@material-ui/core";
+import React, { useMemo, useEffect } from "react";
+import { Paper, Grid, Box, Typography } from "@material-ui/core";
 
 import Chart from "../Chart";
 
@@ -14,7 +14,7 @@ import WalletAddresses from "../WalletAddresses/WalletAddresses";
 
 //Importing Graphql
 
-const BodySection = ({ account, coins, allUsers }) => {
+const BodySection = ({ account, coins, allUsers, setSteps }) => {
   const calculateTotalBalance = () => {
     console.log(account.portfolioCoins);
     account.portfolioCoins.reduce((total, item) => {
@@ -37,6 +37,63 @@ const BodySection = ({ account, coins, allUsers }) => {
   const totalBalance = useMemo(() => calculateTotalBalance(), []);
 
   const bitcoinTotal = useMemo(() => getBitcoinTotal(), []);
+  useEffect(() => {
+    setSteps([
+      {
+        element: ".step1",
+        intro: "This is where you search for other people's portfolio",
+      },
+      {
+        element: ".step2",
+        intro: (
+          <div>
+            <Box component="img" src="/Images/MenuItemShowcase.png" />
+            <Typography>
+              Here this is where you would find all account activity, please
+              give it a try
+            </Typography>
+          </div>
+        ),
+      },
+      {
+        element: ".step3",
+        intro: "This is the amount of USD you have on this account",
+      },
+      {
+        element: ".step4",
+        intro:
+          "This is the total amount of Asset value you have on this account",
+      },
+      {
+        element: ".step5",
+        intro: "This is the amount of bitcoin you have on this account",
+      },
+      {
+        element: ".step6",
+        intro:
+          "This is the portfolio value of your account across the days you are active using this application",
+      },
+      {
+        element: ".step7",
+        intro:
+          "You can view live data of cryptocurrency here, which you can make decisions on what to buy",
+      },
+      {
+        element: ".step8",
+        intro:
+          "This is where you can transfer your coins to other accounts, please do not abuse this and make infinite accounts just to send to your main account",
+      },
+      {
+        element: ".step9",
+        intro:
+          "This is where you can see the Recent transaction history, click view all to see all the transaction history that has been made",
+      },
+      {
+        element: ".step10",
+        intro: "You can quickly navigate here",
+      },
+    ]);
+  }, [setSteps]);
   /*   console.log(account, "this is the account"); */
 
   /*  let data = [];
@@ -88,7 +145,7 @@ const BodySection = ({ account, coins, allUsers }) => {
       <div maxWidth="lg" className="container-flex">
         <Grid container spacing={3}>
           <Grid item xs={12} md={4} lg={4}>
-            <Paper className="paper-text--1 card-container">
+            <Paper className="paper-text--1 card-container step3 ">
               <BalanceCard
                 image="BitcoinImage.png"
                 content={"$" + account.fiatBalance}
@@ -98,7 +155,7 @@ const BodySection = ({ account, coins, allUsers }) => {
           </Grid>
           {/* Recent Deposits */}
           <Grid item xs={12} md={4} lg={4}>
-            <Paper className="paper-text--1 card-container">
+            <Paper className="paper-text--1 card-container step4">
               <BalanceCard
                 image="BitcoinImage.png"
                 content={account.portfolioCoins.reduce((total, item) => {
@@ -112,7 +169,7 @@ const BodySection = ({ account, coins, allUsers }) => {
           </Grid>
           {/* Recent Orders */}
           <Grid item xs={12} md={4} lg={4}>
-            <Paper className="paper-text--1 card-container">
+            <Paper className="paper-text--1 card-container step5">
               <BalanceCard
                 image="BitcoinImage.png"
                 content={bitcoinTotal}
@@ -121,17 +178,17 @@ const BodySection = ({ account, coins, allUsers }) => {
             </Paper>
           </Grid>
           <Grid item xs={12} md={8} lg={8}>
-            <Paper>
+            <Paper className="step6">
               <Chart data={account.portfolioValueDates} />
             </Paper>
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
-            <Paper>
+            <Paper className="step7">
               <TableCard coins={coins} />
             </Paper>
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
-            <Paper>
+            <Paper className="step8">
               <TransferCoin
                 account={account}
                 coins={coins}
@@ -140,7 +197,7 @@ const BodySection = ({ account, coins, allUsers }) => {
             </Paper>
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
-            <Paper>
+            <Paper className="step9">
               <RecentTransaction account={account} />
             </Paper>
           </Grid>

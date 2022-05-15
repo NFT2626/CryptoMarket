@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { IconButton, InputBase, Paper, Grid, Button } from "@material-ui/core";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import Tooltip from "@mui/material/Tooltip";
-import {
-  BUY_LIMIT,
-  GET_CURRENT_USER,
-  SELL_LIMIT
+import CreditCardIcon from "@mui/icons-material/CreditCard";
 
-} from "../../queries";
+import Tooltip from "@mui/material/Tooltip";
+import { BUY_LIMIT, GET_CURRENT_USER, SELL_LIMIT } from "../../queries";
 import { useMutation } from "@apollo/client";
 
-function Limit({ limit, coinPrice, coinName,messageSetter, account }) {
+function Limit({ limit, coinPrice, coinName, messageSetter, account }) {
   const [priceValue, setPriceValue] = useState();
   const [amountValue, setAmountValue] = useState();
   const [amountOpen, setAmountOpen] = useState(false);
@@ -45,18 +42,15 @@ function Limit({ limit, coinPrice, coinName,messageSetter, account }) {
     }
     if (!amountValue || !priceValue) {
       messageSetter("sorry, you did not put anything");
-    } 
-    else if (amountValue * priceValue > account.fiatBalance) {
+    } else if (amountValue * priceValue > account.fiatBalance) {
       messageSetter("Sorry, you do not have enough to make this transaction");
-
-    }
-    else{
+    } else {
       messageSetter("you have successfully bought coin with limit");
-      console.log( {
+      console.log({
         name: coinName,
         boughtPrice: Number(priceValue),
         quantity: Number(amountValue),
-      })
+      });
       buyLimitCoins({
         variables: {
           name: coinName,
@@ -69,7 +63,6 @@ function Limit({ limit, coinPrice, coinName,messageSetter, account }) {
       setTimeout(() => {
         setDelay(false);
       }, 5000);
-
     }
   };
   const handleSell = (e) => {
@@ -83,15 +76,12 @@ function Limit({ limit, coinPrice, coinName,messageSetter, account }) {
       );
       return;
     }
-    if (!amountValue || !priceValue){
+    if (!amountValue || !priceValue) {
       messageSetter("please make sure you enter into all fields");
-
-    }
-    else if(amountValue > coinAmount){
+    } else if (amountValue > coinAmount) {
       messageSetter("you enter an amount that you do not have");
-    }
-    else {
-      messageSetter("you have successfully made a sell limit")
+    } else {
+      messageSetter("you have successfully made a sell limit");
       sellLimitCoins({
         variables: {
           name: coinName,
@@ -105,14 +95,13 @@ function Limit({ limit, coinPrice, coinName,messageSetter, account }) {
         setDelay(false);
       }, 5000);
     }
-    
-  }
+  };
 
   return (
     <div hidden={limit !== 0}>
-      <Paper component="form" elevation={0} >
+      <Paper component="form" elevation={0}>
         <Grid container>
-          <Grid item xs={12}>
+          <Grid item xs={12} className={limit !== 0 ? " " : "chartFormStep8"}>
             <Tooltip
               open={priceOpen}
               title={
@@ -158,7 +147,7 @@ function Limit({ limit, coinPrice, coinName,messageSetter, account }) {
               </div>
             </Tooltip>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} className={limit !== 0 ? " " : "chartFormStep9"}>
             <Tooltip
               open={amountOpen}
               title={(function () {
@@ -181,7 +170,7 @@ function Limit({ limit, coinPrice, coinName,messageSetter, account }) {
                 }}
               >
                 <IconButton aria-label="menu">
-                  <AttachMoneyIcon />
+                  <CreditCardIcon />
                 </IconButton>
                 <InputBase
                   sx={{ ml: 1, flex: 1 }}
@@ -207,12 +196,12 @@ function Limit({ limit, coinPrice, coinName,messageSetter, account }) {
               </div>
             </Tooltip>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} className={limit !== 0 ? " " : "chartFormStep10"}>
             <Button
-            onClick={handleBuy}
+              onClick={handleBuy}
               fullWidth
               style={{
-                backgroundColor: "green",
+                backgroundColor: "#32CD32",
                 maxWidth: "70%",
                 maxHeight: "25vh",
                 marginLeft: "10px",
@@ -224,7 +213,7 @@ function Limit({ limit, coinPrice, coinName,messageSetter, account }) {
             </Button>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={6} className={limit !== 0 ? " " : "chartFormStep11"}>
             <Button
               fullWidth
               onClick={handleSell}

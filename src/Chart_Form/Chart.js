@@ -100,7 +100,7 @@ const Chart = ({ data }) => {
 
   return (
     <div className="chart">
-      <Typography>
+      <Typography className="chartFormStep3">
         open{" "}
         <span style={{ color: "black" }}>
           {testingValue ? testingValue.open : "N/A"}
@@ -119,7 +119,7 @@ const Chart = ({ data }) => {
         </span>
       </Typography>
 
-      <div ref={chartContainerRef} className="chart-container" />
+      <div ref={chartContainerRef} className="chart-container chartFormStep4" />
     </div>
   );
 };

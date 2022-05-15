@@ -68,10 +68,11 @@ function TableRowCoin({ coin, watchListCoins, favoriteCoin, unFavoriteCoin }) {
       </TableCell>
       <TableCell align="right">
         {" "}
-        <MarketChart coinName={coin.name} keyNumber={coin.current_price}/>{" "}
+        <MarketChart coinName={coin.name} keyNumber={coin.current_price} />{" "}
       </TableCell>
       <TableCell
         component={Button}
+        className="stepCoinMarket7"
         onClick={() => {
           if (isWatched) {
             unFavoriteCoin(coin.name);

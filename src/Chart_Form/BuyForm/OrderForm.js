@@ -49,6 +49,7 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
             }}
             label="Limit"
             index={0}
+            className="chartFormStep5"
           />
           <Tab
             style={{
@@ -61,11 +62,12 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
             }}
             index={1}
             label="Market"
+            className="chartFormStep6"
           />
         </Tabs>
       </Box>
       <Box>
-        <Box style={{ marginTop: "10px" }}>
+        <Box style={{ marginTop: "10px" }} className="chartFormStep7">
           <caption style={{ display: "inline", fontSize: 12 }}>
             {" "}
             Available Balance: ${account.fiatBalance}
@@ -82,8 +84,13 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
           </caption>
         </Box>
         <Notification message={message} />
-        <Limit           account={account}
- limit={limit} coinPrice={coinPrice} coinName={coinName} messageSetter={messageSetter}/>
+        <Limit
+          account={account}
+          limit={limit}
+          coinPrice={coinPrice}
+          coinName={coinName}
+          messageSetter={messageSetter}
+        />
         <MarketForm
           limit={limit}
           coinPrice={coinPrice}

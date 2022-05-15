@@ -4,9 +4,7 @@ import { Box, Tabs, Tab } from "@material-ui/core";
 import TransactionHistoryTable from "./TransactionHistoryTable";
 import UserLimitTable from "./UserLimitTable";
 
-
-
-function HistorySection({ account,coinName }) {
+function HistorySection({ account, coinName }) {
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -23,13 +21,20 @@ function HistorySection({ account,coinName }) {
           left: 0,
         }}
       >
-        <Tab label="Open Order" />
-        <Tab label="Transaction History" />
+        <Tab label="Open Order" className="chartFormStep12" />
+        <Tab label="Transaction History" className="chartFormStep13" />
       </Tabs>
 
-      <TransactionHistoryTable data={account.transactionHistory.filter((coin) => coin.name === coinName)} idx={value} />
-      <UserLimitTable data={account.limitCoins.filter((coin) => coin.name === coinName)} idx={value} /> 
-      
+      <TransactionHistoryTable
+        data={account.transactionHistory.filter(
+          (coin) => coin.name === coinName
+        )}
+        idx={value}
+      />
+      <UserLimitTable
+        data={account.limitCoins.filter((coin) => coin.name === coinName)}
+        idx={value}
+      />
     </>
   );
 }

@@ -17,6 +17,7 @@
     "chart.js": "3.7.1",
     "graphql": "^16.3.0",
     "html-react-parser": "^1.4.11",
+    "intro.js-react": "^0.6.0",
     "lightweight-charts": "^3.8.0",
     "material-ui-image": "3.3.2",
     "react": "latest",

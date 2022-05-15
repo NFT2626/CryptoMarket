@@ -24,17 +24,6 @@ function ChartAndOrderBook({ OHLC, coinName, coinData }) {
   console.log(coinData);
   return (
     <div style={{ marginTop: "-0.5rem" }}>
-      {/* <Grid container sx={{pl:30}} spacing={8} alignItems="center" justifyContent="space-around">
-                <Grid item xs={4} >
-                    <Typography variant="h4" gutterBottom={true} color="textPrimary"> Coin</Typography>
-                </Grid>    
-                <Grid item xs={8}>
-                    <Box sx={{display: 'inline-flex', flexDirection: 'row'}}>
-                        <NumberCard content="Daniel" number="1969" variant= "h6" />
-                        <NumberCard content="Card1" number="1969" variant= "h6" />
-                    </Box>
-                </Grid>
-            </Grid> */}
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Box
           sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
@@ -43,6 +32,7 @@ function ChartAndOrderBook({ OHLC, coinName, coinData }) {
             sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
           >
             <Box
+              className="chartFormStep1"
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -59,7 +49,6 @@ function ChartAndOrderBook({ OHLC, coinName, coinData }) {
                 <MenuBookIcon />
               </Tooltip>
             </Box>
-  
           </Box>
           <Divider
             orientation="vertical"
@@ -68,7 +57,10 @@ function ChartAndOrderBook({ OHLC, coinName, coinData }) {
             variant="middle"
           />
           <Container sx={{ flex: 1 }}>
-            <Box style={{ display: "flex", flexDirection: "row" }}>
+            <Box
+              style={{ display: "flex", flexDirection: "row" }}
+              className="chartFormStep2"
+            >
               <Tooltip
                 arrow
                 title="This is the price of the coin, the price is in usd, you use the price to assist in making market decisions"
@@ -117,9 +109,7 @@ function ChartAndOrderBook({ OHLC, coinName, coinData }) {
         <Box sx={{ borderTop: "double", marginLeft: "-20px", width: "100%" }}>
           <Box
             sx={{ marginLeft: "5vh", marginBottom: "1vh", marginTop: "1vh" }}
-          >
-           
-          </Box>
+          ></Box>
         </Box>
         <Box sx={{ maxWidth: "100%", marginLeft: "-2.5rem" }}>
           <Chart data={OHLC} />

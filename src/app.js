@@ -2,7 +2,8 @@
 import React, { Suspense, useEffect, useState } from "react"; //UseS
 import axios from "axios";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 //Importing CSS
 import "./App.css";
@@ -22,6 +23,8 @@ import NotFoundPage from "./Not_Found_Page/NotFoundPage";
 import TransactionHistoryPage from "./Transaction_History_Page/TransactionHistoryPage";
 import LoadingScreen from "./LoadingScreen/LoadingScreen";
 import HelpPage from "./Help_Page/HelpPage";
+import "intro.js/introjs.css";
+import { Steps, Hints } from "intro.js-react";
 
 import {
   GET_CURRENT_USER,
@@ -29,7 +32,7 @@ import {
   GET_ALL_USERS,
   NOW_BUY_LIMIT,
   NOW_SELL_LIMIT,
-  CANCEL_LIMIT
+  CANCEL_LIMIT,
 } from "./queries";
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 
@@ -38,10 +41,16 @@ export default function App() {
   const [token, setToken] = useState(null);
   const [newAddedCoins, setNewAddedCoins] = useState([]);
   const [biggestGainers, setBiggestGainers] = useState([]);
+  const [steps, setSteps] = useState();
+
+  const [stepsEnabled, setStepsEnabled] = useState(false);
+  const [initialStep, setInitialStep] = useState(0);
   const [getUser, { loading, error, data }] = useLazyQuery(GET_CURRENT_USER, {
     pollInterval: 300000,
   });
-
+  const onExit = () => {
+    setStepsEnabled(false);
+  };
   const userAllRes = useQuery(GET_ALL_USERS);
   const [addPortfolioDateValue] = useMutation(ADD_PORTFOLIO_DATE_VALUE, {
     refetchQueries: [{ query: GET_CURRENT_USER }],
@@ -106,22 +115,34 @@ export default function App() {
         setCoins(res.data);
         addPortfolioDateValue({ variables: { assetValueTotal: totalAsset } });
         data.me.limitCoins.forEach((coin) => {
-          const priceOfCoin = res.data.find((el) => el.name === coin.name).current_price;
-          if(priceOfCoin <= coin.bought_price && coin.type === "BuyLimit"){
-            console.log("this is the coin", coin)
-            nowBuyLimit({variables:{
-              name: coin.name, boughtPrice: coin.bought_price, 
-              quantity: coin.quantity, id: coin.id
-            }})
+          const priceOfCoin = res.data.find(
+            (el) => el.name === coin.name
+          ).current_price;
+          if (priceOfCoin <= coin.bought_price && coin.type === "BuyLimit") {
+            console.log("this is the coin", coin);
+            nowBuyLimit({
+              variables: {
+                name: coin.name,
+                boughtPrice: coin.bought_price,
+                quantity: coin.quantity,
+                id: coin.id,
+              },
+            });
+          } else if (
+            priceOfCoin >= coin.bought_price &&
+            coin.type === "SellLimit"
+          ) {
+            console.log("this is the coin that is selling", coin);
+            nowSellLimit({
+              variables: {
+                name: coin.name,
+                sellPrice: coin.bought_price,
+                quantity: coin.quantity,
+                id: coin.id,
+              },
+            });
           }
-          else if(priceOfCoin >= coin.bought_price && coin.type === "SellLimit"){
-            console.log("this is the coin that is selling", coin) 
-            nowSellLimit({variables:{
-              name: coin.name, sellPrice: coin.bought_price, 
-              quantity: coin.quantity, id: coin.id
-            }})
-          }
-        })
+        });
         const d = new Date();
         let time = d.getTime();
         console.log(time);
@@ -129,17 +150,14 @@ export default function App() {
   }, [data]);
 
   useEffect(() => {
-
     getUser();
-
   }, [token]);
 
   if (!isShowing || loading || userAllRes.loading || !coins || !data) {
     ///TODO: Animate this for the user.
     return (
       <div>
-        {" "}
-        <h1> Loading ... </h1>{" "}
+        <LoadingScreen />
       </div>
     );
   }
@@ -174,11 +192,23 @@ export default function App() {
             <Route
               path="/DashBoard"
               element={
-                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
+                <DashBoard
+                  name={data}
+                  setStepsEnabled={setStepsEnabled}
+                  setToken={setToken}
+                  accounts={userAllRes.data.allUsers}
+                >
                   <BodySection
                     account={data.me}
+                    setSteps={setSteps}
                     coins={coins}
                     allUsers={userAllRes.data.allUsers}
+                  />
+                  <Steps
+                    enabled={stepsEnabled}
+                    steps={steps}
+                    initialStep={initialStep}
+                    onExit={onExit}
                   />
                 </DashBoard>
               }
@@ -186,20 +216,43 @@ export default function App() {
             <Route
               path="/DashBoard/profile"
               element={
-                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
-                  <EditPortfolioPage account={data.me} />
+                <DashBoard
+                  setStepsEnabled={setStepsEnabled}
+                  name={data}
+                  setToken={setToken}
+                  accounts={userAllRes.data.allUsers}
+                >
+                  <EditPortfolioPage account={data.me} setSteps={setSteps} />
+                  <Steps
+                    enabled={stepsEnabled}
+                    steps={steps}
+                    initialStep={initialStep}
+                    onExit={onExit}
+                  />
                 </DashBoard>
               }
             />
             <Route
               path="/DashBoard/CoinMarketPrices"
               element={
-                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
+                <DashBoard
+                  setStepsEnabled={setStepsEnabled}
+                  name={data}
+                  setToken={setToken}
+                  accounts={userAllRes.data.allUsers}
+                >
                   <CoinMarketPrices
+                    setSteps={setSteps}
                     coins={coins}
                     newAddedCoins={newAddedCoins}
                     biggestGainers={biggestGainers}
                   />{" "}
+                  <Steps
+                    enabled={stepsEnabled}
+                    steps={steps}
+                    initialStep={initialStep}
+                    onExit={onExit}
+                  />
                 </DashBoard>
               }
             />
@@ -207,8 +260,23 @@ export default function App() {
               exact
               path="/DashBoard/ChartForm"
               element={
-                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
-                  <ChartForm coins={coins} account={data.me} />
+                <DashBoard
+                  setStepsEnabled={setStepsEnabled}
+                  name={data}
+                  setToken={setToken}
+                  accounts={userAllRes.data.allUsers}
+                >
+                  <ChartForm
+                    coins={coins}
+                    account={data.me}
+                    setSteps={setSteps}
+                  />
+                  <Steps
+                    enabled={stepsEnabled}
+                    steps={steps}
+                    initialStep={initialStep}
+                    onExit={onExit}
+                  />
                 </DashBoard>
               }
             />
@@ -216,7 +284,11 @@ export default function App() {
               exact
               path="/DashBoard/TransactionHistory"
               element={
-                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
+                <DashBoard
+                  name={data}
+                  setToken={setToken}
+                  accounts={userAllRes.data.allUsers}
+                >
                   <TransactionHistoryPage account={data.me} />
                 </DashBoard>
               }
@@ -225,27 +297,61 @@ export default function App() {
               exact
               path="/DashBoard/Help"
               element={
-                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
+                <DashBoard
+                  name={data}
+                  setToken={setToken}
+                  accounts={userAllRes.data.allUsers}
+                >
                   <HelpPage />
                 </DashBoard>
               }
             />
 
-<Route
+            <Route
               exact
               path="/DashBoard/Portfolio"
               element={
-                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
-                  <PortfolioPage allUsers={userAllRes.data.allUsers} coins={coins}/>
+                <DashBoard
+                  setStepsEnabled={setStepsEnabled}
+                  name={data}
+                  setToken={setToken}
+                  accounts={userAllRes.data.allUsers}
+                >
+                  <PortfolioPage
+                    allUsers={userAllRes.data.allUsers}
+                    coins={coins}
+                    setSteps={setSteps}
+                  />
+                  <Steps
+                    enabled={stepsEnabled}
+                    steps={steps}
+                    initialStep={initialStep}
+                    onExit={onExit}
+                  />
                 </DashBoard>
               }
             />
-   <Route
+            <Route
               exact
               path="/DashBoard/Portfolio/:account"
               element={
-                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
-                  <PortfolioPage allUsers={userAllRes.data.allUsers} coins={coins}/>
+                <DashBoard
+                  name={data}
+                  setStepsEnabled={setStepsEnabled}
+                  setToken={setToken}
+                  accounts={userAllRes.data.allUsers}
+                >
+                  <PortfolioPage
+                    allUsers={userAllRes.data.allUsers}
+                    coins={coins}
+                    setSteps={setSteps}
+                  />
+                  <Steps
+                    enabled={stepsEnabled}
+                    steps={steps}
+                    initialStep={initialStep}
+                    onExit={onExit}
+                  />
                 </DashBoard>
               }
             />
@@ -253,8 +359,23 @@ export default function App() {
               exact
               path="/DashBoard/ChartForm/:coin"
               element={
-                <DashBoard name={data} setToken={setToken} accounts={userAllRes.data.allUsers}>
-                  <ChartForm coins={coins} account={data.me} />
+                <DashBoard
+                  name={data}
+                  setStepsEnabled={setStepsEnabled}
+                  setToken={setToken}
+                  accounts={userAllRes.data.allUsers}
+                >
+                  <ChartForm
+                    coins={coins}
+                    account={data.me}
+                    setSteps={setSteps}
+                  />
+                  <Steps
+                    enabled={stepsEnabled}
+                    steps={steps}
+                    initialStep={initialStep}
+                    onExit={onExit}
+                  />
                 </DashBoard>
               }
             />

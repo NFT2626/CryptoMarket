@@ -17,26 +17,61 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import MarkunreadMailboxIcon from "@mui/icons-material/MarkunreadMailbox";
 import TableSection from "./TableSection/TableSection";
 
-const CoinMarketPrices = ({ coins, newAddedCoins, biggestGainers }) => {
+const CoinMarketPrices = ({
+  coins,
+  newAddedCoins,
+  biggestGainers,
+  setSteps,
+}) => {
   const [crypto, setCrypto] = useState("");
   const [isWatchingList, setIsWatchingList] = useState(false);
   const [displayCoins, setDisplayCoins] = useState(coins);
   const result = useQuery(GET_WATCHLIST_COINS);
   console.log(biggestGainers.result);
   useEffect(() => {
-    let filterCoins; 
+    setSteps([
+      {
+        element: ".stepCoinMarket1",
+        intro:
+          "This is the trending data of the user coins that is obtained from the coin gecko api",
+      },
+      {
+        element: ".stepCoinMarket2",
+        intro: "These are one of the biggest gainers of the market right now",
+      },
+      {
+        element: ".stepCoinMarket3",
+        intro: "These are newly added coins to the current crypto market",
+      },
+      {
+        element: ".stepCoinMarket4",
+        intro: "Here you can filter the coins based on your search data",
+      },
+      {
+        element: ".stepCoinMarket5",
+        intro: "Filter your coins based on your watchlist here",
+      },
+      {
+        element: ".stepCoinMarket6",
+        intro: "Hover onto these headers for more information ",
+      },
+      {
+        element: ".stepCoinMarket7",
+        intro:
+          "This is where you can favourite your coins and add them to your watchlist",
+      },
+    ]);
+  }, [setSteps]);
+  useEffect(() => {
+    let filterCoins;
     if (crypto) {
-      filterCoins = 
-        displayCoins.filter((el) =>
-          el.name.toLowerCase().includes(crypto.toLowerCase())
-        )
-    
-    }
-    else{
-      filterCoins = coins; 
+      filterCoins = displayCoins.filter((el) =>
+        el.name.toLowerCase().includes(crypto.toLowerCase())
+      );
+    } else {
+      filterCoins = coins;
     }
     if (isWatchingList) {
-      
       setDisplayCoins(
         filterCoins.filter((el) =>
           result.data.getWatchListCoins.includes(el.name)
@@ -45,7 +80,6 @@ const CoinMarketPrices = ({ coins, newAddedCoins, biggestGainers }) => {
     } else {
       setDisplayCoins(filterCoins);
     }
-    
   }, [isWatchingList, crypto, coins]);
 
   if (result.loading) {
@@ -93,14 +127,14 @@ const CoinMarketPrices = ({ coins, newAddedCoins, biggestGainers }) => {
         </Box>
         <Toolbar />
         <Grid container spacing={2}>
-          <Grid item xs={4}>
+          <Grid item xs={4} className="stepCoinMarket1">
             <ListPaper
               content="Trending"
               isPercentage={true}
               data={biggestGainers.result}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={4} className="stepCoinMarket2">
             <ListPaper
               content="Biggest Gainers"
               isPercentage={true}
@@ -108,7 +142,7 @@ const CoinMarketPrices = ({ coins, newAddedCoins, biggestGainers }) => {
             />
           </Grid>
 
-          <Grid item xs={4}>
+          <Grid item xs={4} className="stepCoinMarket3">
             <ListPaper content="Newly Added" data={newAddedCoins.result} />
           </Grid>
         </Grid>
@@ -121,6 +155,7 @@ const CoinMarketPrices = ({ coins, newAddedCoins, biggestGainers }) => {
 
         <TextField
           label="Search for Crypto"
+          className="stepCoinMarket4"
           value={crypto}
           onChange={(event) => {
             setCrypto(event.target.value);
@@ -129,6 +164,7 @@ const CoinMarketPrices = ({ coins, newAddedCoins, biggestGainers }) => {
       </Box>
       <Box style={{ marginTop: "2.5rem" }}>
         <Chip
+          className="stepCoinMarket5"
           avatar={<StarBorderIcon />}
           style={{
             color: isWatchingList ? "rgb(56, 97, 251)" : "inherit",
@@ -144,7 +180,6 @@ const CoinMarketPrices = ({ coins, newAddedCoins, biggestGainers }) => {
             setIsWatchingList(!isWatchingList);
           }}
         />
-     
       </Box>
       <TableSection
         watchListCoins={result.data.getWatchListCoins}

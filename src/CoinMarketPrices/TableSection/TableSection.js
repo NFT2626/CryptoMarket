@@ -49,7 +49,7 @@ export default function TableSection({ displayCoins, watchListCoins }) {
         <Table aria-label="caption table">
           <caption>Coin Market Prices </caption>
           <TableHead>
-            <TableRow>
+            <TableRow className="stepCoinMarket6">
               <TableCell>Name</TableCell>
               <TableCell align="right">Last Price</TableCell>
               <TableCell align="right">24h change</TableCell>

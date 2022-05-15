@@ -14,10 +14,10 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Avatar from "@mui/material/Avatar";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import SearchAccount from "./SearchAccount"
-
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import SearchAccount from "./SearchAccount";
+import Button from "@mui/material/Button";
 
 import { IconButton, Badge } from "@material-ui/core";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -38,13 +38,10 @@ import axios from "axios";
 
 const drawerWidth = 240;
 
-
-
-
 export default function DashBoard(props) {
   const [open, setOpen] = useState(false);
   const client = useApolloClient();
-  console.log(props.accounts, "this is the accounts")
+  console.log(props.accounts, "this is the accounts");
 
   const navigate = useNavigate();
 
@@ -75,7 +72,7 @@ export default function DashBoard(props) {
   };
   const handleOpenAccount = (event) => {
     event.preventDefault();
-    console.log("this should be working")
+    console.log("this should be working");
     navigate(`/DashBoard/Portfolio/${props.name.me.username}`);
   };
 
@@ -125,10 +122,21 @@ export default function DashBoard(props) {
             DashBoard
           </Typography>
           <Box sx={{ flexGrow: 0.5 }} />
-          < SearchAccount accounts={props.accounts}/>
+          <SearchAccount accounts={props.accounts} />
           <Box sx={{ flexGrow: 0.5 }} />
+          <Button
+            variant="contained"
+            style={{ display: props.setStepsEnabled ? "" : "none" }}
+            onClick={() => {
+              props.setStepsEnabled(true);
+            }}
+          >
+            {" "}
+            Overview tour{" "}
+          </Button>
           <div>
             <IconButton
+              className="step2"
               color="inherit"
               ref={anchorRef}
               id="composition-button"
@@ -192,7 +200,9 @@ export default function DashBoard(props) {
                             Edit your Portfolio
                           </Link>
                         </MenuItem>
-                        <MenuItem onClick={handleOpenAccount}>My account</MenuItem>
+                        <MenuItem onClick={handleOpenAccount}>
+                          My account
+                        </MenuItem>
                         <MenuItem onClick={handleOnlineHelp}>
                           Help & Services
                         </MenuItem>
@@ -220,16 +230,19 @@ export default function DashBoard(props) {
         anchor="left"
       >
         <Toolbar />
-        <List>
+        <List className="step10">
           <Divider />
           <Typography sx={{ paddingLeft: 2, paddingTop: 2, pb: 2 }}>
             {" "}
             Personal{" "}
           </Typography>
-          <ListItem 
-          button
-          to="/DashBoard"
-            component={Link} button key="dashboard">
+          <ListItem
+            button
+            to="/DashBoard"
+            component={Link}
+            button
+            key="dashboard"
+          >
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
@@ -246,8 +259,6 @@ export default function DashBoard(props) {
             </ListItemIcon>
             <ListItemText primary="coinmarketprices" />
           </ListItem>
-
-  
         </List>
         {/* <Divider /> */}
       </Drawer>

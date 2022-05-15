@@ -14,57 +14,52 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Avatar from "@mui/material/Avatar";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 
-
-
-function SearchAccount({accounts}) {
+function SearchAccount({ accounts }) {
   const [searchValue, setSearchValue] = useState();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleChange = (e, value) => {
     // what to do here?
-    console.log(value)
-    if(value && !accounts.some((el) => el?.label === value?.label)) {
-      navigate(`/Dashboard/Portfolio/${value?.label}`)
+    console.log(value);
+    if (value && !accounts.some((el) => el?.label === value?.label)) {
+      navigate(`/Dashboard/Portfolio/${value?.label}`);
     }
   };
-  
+
   return (
     <Autocomplete
-    sx={{ width: 600}}
-    style={{background: "white"}}
-    options={accounts.map((account) => ({...account, label: account.username}))}
-    autoHighlight
-    variant="filled"
-    onChange={handleChange}
-    selectOnFocus
-    clearOnBlur
-    freeSolo
-    clearOnEscape={true}
-    renderOption={(props, option) => (
-      <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-        <Avatar
-        sx={{margin:1}}
-          src={`${option.imageProfile}`}
-          alt=""
-        />
-        {option.username} 
-      </Box>
-    )}
-    renderInput={(params) => {
-        return (
-      <TextField
-        {...params}
-        label="Look up user portfolio"
-  
-  />)}
-    }
-/>
-
-  )
-
+      className="step1"
+      sx={{ width: 600 }}
+      style={{ background: "white" }}
+      options={accounts.map((account) => ({
+        ...account,
+        label: account.username,
+      }))}
+      autoHighlight
+      variant="filled"
+      onChange={handleChange}
+      selectOnFocus
+      clearOnBlur
+      freeSolo
+      clearOnEscape={true}
+      renderOption={(props, option) => (
+        <Box
+          component="li"
+          sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+          {...props}
+        >
+          <Avatar sx={{ margin: 1 }} src={`${option.imageProfile}`} alt="" />
+          {option.username}
+        </Box>
+      )}
+      renderInput={(params) => {
+        return <TextField {...params} label="Look up user portfolio" />;
+      }}
+    />
+  );
 }
 
-export default SearchAccount
+export default SearchAccount;

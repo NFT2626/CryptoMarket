@@ -11,12 +11,19 @@ import TransactionTableRow from "./TransactionTableRow";
 
 function TransactionHistoryTable({ data, idx }) {
   return (
-    <Paper style={{  overflowY: "scroll"}} hidden={idx !== 1}>
+    <Paper
+      style={{ overflowY: "scroll" }}
+      hidden={idx !== 1}
+      className={idx !== 1 ? " " : "chartFormStep14"}
+    >
       <TableContainer elevation={0} sx={{ padding: 2, fontSize: 15 }}>
-        <Table stickyHeader sx={{
-      height: "max-content"
-    }}>
-          <caption>Coin Market Prices </caption>
+        <Table
+          stickyHeader
+          sx={{
+            height: "max-content",
+          }}
+        >
+          <caption>Transaction history </caption>
           <TableHead>
             <TableRow>
               <TableCell width="20%">Name</TableCell>
