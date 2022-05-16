@@ -14,7 +14,7 @@ import { GET_WATCHLIST_COINS } from ".././queries";
 import { Link } from "react-router-dom";
 import ListPaper from "./ListPaper";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import MarkunreadMailboxIcon from "@mui/icons-material/MarkunreadMailbox";
+import Tooltip from "@mui/material/Tooltip";
 import TableSection from "./TableSection/TableSection";
 
 const CoinMarketPrices = ({
@@ -131,19 +131,21 @@ const CoinMarketPrices = ({
             <ListPaper
               content="Trending"
               isPercentage={true}
+              toolTipContent="These are the most trending coins"
               data={biggestGainers}
             />
           </Grid>
           <Grid item xs={4} className="stepCoinMarket2">
             <ListPaper
               content="Biggest Gainers"
+              toolTipContent="These are the biggest gainers"
               isPercentage={true}
               data={biggestGainers}
             />
           </Grid>
 
           <Grid item xs={4} className="stepCoinMarket3">
-            <ListPaper content="Newly Added" data={newAddedCoins} />
+            <ListPaper content="Newly Added" toolTipContent="Newly added coins to the Cryptomarket" data={newAddedCoins} />
           </Grid>
         </Grid>
         <Typography
@@ -163,6 +165,10 @@ const CoinMarketPrices = ({
         />
       </Box>
       <Box style={{ marginTop: "2.5rem" }}>
+      <Tooltip
+                arrow
+                title= {isWatchingList ? "stop filtering?" : "filter based on watchlist?"}
+              >
         <Chip
           className="stepCoinMarket5"
           avatar={<StarBorderIcon />}
@@ -180,6 +186,7 @@ const CoinMarketPrices = ({
             setIsWatchingList(!isWatchingList);
           }}
         />
+        </Tooltip>
       </Box>
       <TableSection
         watchListCoins={result.data.getWatchListCoins}

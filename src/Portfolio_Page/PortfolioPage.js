@@ -1,25 +1,20 @@
+//This is the page that displays other people portfolio or the users own portfolio
+
+//Importing libraries
 import React, { useEffect } from "react";
 import {
   Typography,
   Box,
-  Button,
-  TextField,
   Avatar,
-  Badge,
   Grid,
   Breadcrumbs,
-  Fab,
   Paper,
-} from "@material-ui/core";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import CoinDisplayCard from "./CoinDisplayCard.js";
+} from "@material-ui/core"; //For styling like bootstrap
+import { Link } from "react-router-dom"; //For allowing routes
+import { useParams } from "react-router-dom"; //Gets the variable from the URL header 
 
-import {
-  CHANGE_PROFILE_PICTURE,
-  CHANGE_PROFILE,
-  GET_CURRENT_USER,
-} from "../queries.js";
+//Importing components
+import CoinDisplayCard from "./CoinDisplayCard.js";
 
 function PortfolioPage({ allUsers, coins, setSteps }) {
   let { account } = useParams();

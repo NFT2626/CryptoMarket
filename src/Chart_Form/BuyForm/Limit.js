@@ -7,6 +7,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { BUY_LIMIT, GET_CURRENT_USER, SELL_LIMIT } from "../../queries";
 import { useMutation } from "@apollo/client";
 
+
 function Limit({ limit, coinPrice, coinName, messageSetter, account }) {
   const [priceValue, setPriceValue] = useState();
   const [amountValue, setAmountValue] = useState();

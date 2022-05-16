@@ -1,4 +1,5 @@
 import React from "react";
+import Tooltip from "@mui/material/Tooltip";
 
 import {
   Paper,
@@ -9,16 +10,20 @@ import {
   Grid,
 } from "@material-ui/core";
 
-const ListPaper = ({ content, data, isPercentage }) => {
+const ListPaper = ({ content, data, isPercentage, toolTipContent }) => {
   return (
     <Paper style={{ marginTop: "2.5rem !important" }}>
-      <Typography
+      <Tooltip
+                arrow
+                title={toolTipContent}
+              ><Typography
         style={{ padding: "10px", fontSize: { xs: "10px" } }}
         variant="h6"
       >
         {" "}
         {content}{" "}
       </Typography>
+      </Tooltip>
       <Divider variant="middle" sx={{ width: "50%" }} />
       <List sx={{ width: "100%", bgcolor: "background.paper" }}>
         {data.map((el, idx) => (

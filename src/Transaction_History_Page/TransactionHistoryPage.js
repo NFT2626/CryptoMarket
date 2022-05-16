@@ -1,10 +1,13 @@
-import React from "react";
+//This is the page which shows the history of which the user receives and sends 
+
+
+// Libraries
+import React, {useState} from "react";
 import {
   Typography,
   Box,
   Breadcrumbs,
   Paper,
-  Toolbar,
   TableContainer,
   Table,
   TableHead,
@@ -14,33 +17,35 @@ import {
   TablePagination,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+
+
+
 function TransactionHistoryPage({ account }) {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  console.log(account.sendReceiverHistories);
-  if (!account) {
+  const [page, setPage] = useState(0); //the current page of the table
+  const [rowsPerPage, setRowsPerPage] = useState(10); //How many rows are there for each of the page
+  if (!account) { //If there is no account, then it will display nothing
     return <div></div>;
   }
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+    setPage(newPage); //This sets the page of the table
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
+    setRowsPerPage(+event.target.value); // A counter of what page the user is at
+    setPage(0); 
   };
   return (
     <div>
       <Box
         sx={{
-          display: "flex",
+          display: "flex", 
           alignItems: "center",
           justifyContent: "space-between",
-        }}
+        }} /*This is the CSS*/
       >
-        <Typography variant="h4">Transaction History</Typography>
-        <Breadcrumbs aria-label="breadcrumb">
+        <Typography variant="h4">Transaction History</Typography> {/*This is the title*/}
+        <Breadcrumbs aria-label="breadcrumb">{/*This is the bread crumbs*/}
           <Link
             style={{ textDecoration: "none", color: "black" }}
             underline="hover"
@@ -58,9 +63,9 @@ function TransactionHistoryPage({ account }) {
             Transaction History
           </Link>
         </Breadcrumbs>
-      </Box>
+      </Box> {/*End of Bread Crumbs*/}
 
-      <Paper sx={{ width: "100%" }} style={{ marginTop: "2.5rem" }}>
+      <Paper sx={{ width: "100%" }} style={{ marginTop: "2.5rem" }}> {/*This is the table*/}
         <TableContainer sx={{ maxHeight: 600 }}>
           <Table stickyHeader>
             <TableHead>
@@ -76,7 +81,7 @@ function TransactionHistoryPage({ account }) {
             </TableHead>
             <TableBody>
               {account.sendReceiverHistories
-                .slice(0, page * rowsPerPage + rowsPerPage)
+                .slice(0, page * rowsPerPage + rowsPerPage) /*Allocates the rows for each page of the table */
                 .map((row, idx) => {
                   return (
                     <TableRow
@@ -85,7 +90,7 @@ function TransactionHistoryPage({ account }) {
                       tabIndex={-1}
                       key={row.code}
                     >
-                      <TableCell key={row.id}>{row.id}</TableCell>
+                      <TableCell key={row.id}>{row.id}</TableCell> {/*Elements of the table*/}
                       <TableCell key={row.receiver}>{row.receiver}</TableCell>
                       <TableCell key={row.sender}>{row.sender}</TableCell>
                       <TableCell key={row.quantity}>{row.quantity}</TableCell>
@@ -97,10 +102,10 @@ function TransactionHistoryPage({ account }) {
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
+        <TablePagination 
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={account.sendReceiverHistories.length}
+          count={account.sendReceiverHistories.length} /*The bottom part of the table which allows the user to switch pages*/
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

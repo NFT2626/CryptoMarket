@@ -126,7 +126,7 @@ export default function DashBoard(props) {
           <Box sx={{ flexGrow: 0.5 }} />
           <Button
             variant="contained"
-            style={{ display: props.setStepsEnabled ? "" : "none" }}
+            style={{ display: props.setStepsEnabled ? "" : "none",backgroundColor: "orange" }}
             onClick={() => {
               props.setStepsEnabled(true);
             }}

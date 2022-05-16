@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
   Typography,
   Box,
   Container,
-  ButtonGroup,
 } from "@material-ui/core";
-import SelectorCoin from "./SelectorCoin";
-import TextField from "@mui/material/TextField";
-import SearchIcon from "@mui/icons-material/Search";
 import "./ChartAndOrderBook.css";
 import { Divider } from "@mui/material";
 import NumberCard from "./NumberCard";
@@ -85,16 +80,35 @@ function ChartAndOrderBook({ OHLC, coinName, coinData }) {
                   />
                 </div>
               </Tooltip>
+              <Tooltip
+                arrow
+                title="This is the price of when it is at it's lowest since 24 hours"
+              >
+                <div>
               <NumberCard
                 content="24h Low"
                 number={"$" + coinData.market_data.low_24h.usd}
                 variant="h7"
               />
+              </div>
+              </Tooltip>
+                   <Tooltip
+                arrow
+                title="Volume is the sum total of actual trades taking place"
+              >
+                <div>
               <NumberCard
                 content="Total Volume"
                 number={coinData.market_data.total_volume.usd}
                 variant="h7"
               />
+              </div>
+              </Tooltip>
+              <Tooltip
+                arrow
+                title="Crypto market capitalization is the total value of a cryptocurrency. Where stock market capitalization is calculated by multiplying share price times shares outstanding, crypto market capitalization is calculated by multiplying the price of the cryptocurrency with the number of coins in circulation."
+              >
+                <div>
               <NumberCard
                 content="24h MarketCap"
                 number={
@@ -103,6 +117,8 @@ function ChartAndOrderBook({ OHLC, coinName, coinData }) {
                 }
                 variant="h7"
               />
+              </div>
+              </Tooltip>
             </Box>
           </Container>
         </Box>

@@ -7,12 +7,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Avatar from "@mui/material/Avatar";
-import { Typography, Box, Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
 import TableRowCoin from "./TableRowCoin";
 import { useMutation } from "@apollo/client";
+import Tooltip from "@mui/material/Tooltip";
+
 
 import {
   ADD_WATCHLIST,
@@ -50,12 +48,30 @@ export default function TableSection({ displayCoins, watchListCoins }) {
           <caption>Coin Market Prices </caption>
           <TableHead>
             <TableRow className="stepCoinMarket6">
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Last Price</TableCell>
-              <TableCell align="right">24h change</TableCell>
-              <TableCell align="right">Market Cap </TableCell>
-              <TableCell align="right">Volume(24h)</TableCell>
-              <TableCell>Last 7 days</TableCell>
+                <Tooltip
+                arrow
+                title="This the name of the coin"
+              ><TableCell>Name</TableCell></Tooltip>
+                <Tooltip
+                arrow
+                title="This is the latest price of the coin"
+              ><TableCell align="right">Last Price</TableCell></Tooltip>
+                <Tooltip
+                arrow
+                title="How much it has changed since 24 hours"
+              ><TableCell align="right">24h change</TableCell></Tooltip>
+                <Tooltip
+                arrow
+                title="Crypto market capitalization is the total value of a cryptocurrency."
+              ><TableCell align="right">Market Cap </TableCell></Tooltip>
+                <Tooltip
+                arrow
+                title="Crypto trading volume measures how many times a coin changes hands over a given time frame."
+              ><TableCell align="right">Volume(24h)</TableCell></Tooltip>
+                <Tooltip
+                arrow
+                title="Graph to indicate how much has changed"
+              ><TableCell>Last 7 days</TableCell></Tooltip>
             </TableRow>
           </TableHead>
           <TableBody>

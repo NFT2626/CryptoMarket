@@ -7,6 +7,8 @@ import { Typography, Box, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarRateIcon from "@mui/icons-material/StarRate";
+import Tooltip from "@mui/material/Tooltip";
+
 
 //Importing components
 
@@ -81,8 +83,14 @@ function TableRowCoin({ coin, watchListCoins, favoriteCoin, unFavoriteCoin }) {
           }
         }}
       >
+      
         <div style={{ display: isWatched ? "none" : "" }}>
+        <Tooltip
+                arrow
+                title="Watchlist this coin? "
+              >
           <StarBorderIcon />
+          </Tooltip>
         </div>
         <div
           style={{
@@ -90,8 +98,14 @@ function TableRowCoin({ coin, watchListCoins, favoriteCoin, unFavoriteCoin }) {
             display: isWatched ? "" : "none",
           }}
         >
+          <Tooltip
+                arrow
+                title="unfavorite this coin? "
+              >
           <StarRateIcon />
+          </Tooltip>
         </div>
+        
       </TableCell>
     </TableRow>
   );

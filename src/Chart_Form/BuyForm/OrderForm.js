@@ -1,6 +1,8 @@
 //Importing Libraries
 import React, { useState } from "react";
 import { Box, Tabs, Tab } from "@material-ui/core";
+import Tooltip from "@mui/material/Tooltip";
+
 
 //importing components
 import Limit from "./Limit";
@@ -9,7 +11,6 @@ import Notification from "../../Notification/Notification";
 
 const BuyForm = ({ coinName, coinPrice, account }) => {
   const [limit, setLimit] = useState(0);
-  const [currency, setCurrency] = useState("EUR");
   const [message, setMessage] = useState(null);
   const messageSetter = (content) => {
     setMessage(content);
@@ -19,10 +20,6 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
   };
 
   console.log(account);
-
-  const handleCurrencyChange = (event) => {
-    setCurrency(event.target.value);
-  };
 
   const handleLimitChange = (event, newValue) => {
     setLimit(newValue);
@@ -38,6 +35,11 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
           onChange={handleLimitChange}
           indicatorColor="primary"
         >
+            <Tooltip
+                arrow
+                title="This is where the user is able to make limits to the crypto market"
+              >
+                <div>
           <Tab
             tabItemContainerStyle={{ width: "20px" }}
             style={{
@@ -51,6 +53,13 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
             index={0}
             className="chartFormStep5"
           />
+          </div>
+          </Tooltip>
+          <Tooltip
+                arrow
+                title="This is where the user is able to make limits to the crypto market"
+              >
+                <div>
           <Tab
             style={{
               minWidth: 20,
@@ -64,7 +73,10 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
             label="Market"
             className="chartFormStep6"
           />
+            </div>
+  </Tooltip>
         </Tabs>
+
       </Box>
       <Box>
         <Box style={{ marginTop: "10px" }} className="chartFormStep7">
