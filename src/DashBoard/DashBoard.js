@@ -10,12 +10,10 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import CatchingPokemonIcon from '@mui/icons-material/CatchingPokemon';
 import Avatar from "@mui/material/Avatar";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
+
 import SearchAccount from "./SearchAccount";
 import Button from "@mui/material/Button";
 
@@ -32,7 +30,6 @@ import MenuList from "@mui/material/MenuList";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
 import { useApolloClient } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -43,7 +40,6 @@ export default function DashBoard(props) {
   const client = useApolloClient();
   console.log(props.accounts, "this is the accounts");
 
-  const navigate = useNavigate();
 
   const anchorRef = useRef(null);
 
@@ -231,17 +227,21 @@ export default function DashBoard(props) {
       >
         <Toolbar />
         <List className="step10">
+        <Button to="/DashBoard"
+            component={Link} variant="contained" style={{ fontWeight: 900, letterSpacing: "2px", color: "black", backgroundColor: 'white', marginLeft: "22.5%", marginTop: "-25%", fontSize: 20}}> CrySim. </Button>
           <Divider />
-          <Typography sx={{ paddingLeft: 2, paddingTop: 2, pb: 2 }}>
+          <Typography variant="h6" sx={{ paddingLeft: 2, paddingTop: 2, pb: 2 }}>
             {" "}
             Personal{" "}
           </Typography>
           <ListItem
+          style={{paddingLeft: 10}}
             button
             to="/DashBoard"
             component={Link}
             button
             key="dashboard"
+            selected={props.route === "dashboard"}
           >
             <ListItemIcon>
               <DashboardIcon />
@@ -250,14 +250,32 @@ export default function DashBoard(props) {
           </ListItem>
           <ListItem
             button
+            style={{paddingLeft: 10}}
             component={Link}
             to="/DashBoard/CoinMarketPrices"
             key={"coinmarketprices"}
+            selected={props.route === "coinmarketprices"}
+
           >
             <ListItemIcon>
               <StoreIcon />
             </ListItemIcon>
             <ListItemText primary="coinmarketprices" />
+          </ListItem>
+          <ListItem
+            button
+            style={{paddingLeft: 10}}
+            selected={props.route === "trading"}
+            component={Link}
+            to="/DashBoard/ChartForm/bitcoin"
+            key={"trading"}
+          >
+            <ListItemIcon>
+              <CatchingPokemonIcon />
+            </ListItemIcon>
+            <ListItemText primary="trading"
+                       
+                        />
           </ListItem>
         </List>
         {/* <Divider /> */}

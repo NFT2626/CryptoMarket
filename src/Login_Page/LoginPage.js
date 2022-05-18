@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Notification from "../Notification/Notification"
 
+
 import { useNavigate } from "react-router-dom";
 
 import { useMutation } from "@apollo/client";
@@ -54,6 +55,11 @@ export default function LoginPage({ setToken }) {
 
   return (
     <Container component="main" maxWidth="xs">
+      <Button onClick={() => {
+            navigate("/");
+         }}variant="contained" style={{ fontWeight: 900, letterSpacing: "2px", color: "black",    position: "fixed",
+      top:30
+, left: 30, backgroundColor: 'white'}}> CrySim. </Button>
       <CssBaseline />
       <Box
         sx={{

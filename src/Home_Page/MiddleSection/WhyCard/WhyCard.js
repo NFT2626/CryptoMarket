@@ -19,7 +19,7 @@ export default function WhyCard({ image, content }) {
           alt={`${image}`}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography style={{color: 'orange'}} gutterBottom variant="h5" component="div">
             {image}
           </Typography>
           <Typography variant="body2" color="text.secondary">

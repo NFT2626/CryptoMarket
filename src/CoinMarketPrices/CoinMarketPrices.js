@@ -16,6 +16,9 @@ import ListPaper from "./ListPaper";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import Tooltip from "@mui/material/Tooltip";
 import TableSection from "./TableSection/TableSection";
+import SearchIcon from '@mui/icons-material/Search';
+import InputAdornment from '@mui/material/InputAdornment';
+
 
 const CoinMarketPrices = ({
   coins,
@@ -105,7 +108,11 @@ const CoinMarketPrices = ({
             justifyContent: "space-between",
           }}
         >
-          <Typography variant="h4">CoinMarketPrices</Typography>
+          <Typography variant="h4" style={{	fontWeight: 400,
+	padding: 0,
+	textTransform: "uppercase",
+	fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+	color: "rgba(118, 118, 118, 1)",}}>CoinMarketPrices</Typography>
           <Breadcrumbs aria-label="breadcrumb">
             <Link
               style={{ textDecoration: "none", color: "black" }}
@@ -119,7 +126,7 @@ const CoinMarketPrices = ({
               style={{ textDecoration: "none", color: "black" }}
               underline="hover"
               color="inherit"
-              to="/#"
+              to="/DashBoard/CoinMarketPrices"
             >
               CoinMarketPrices
             </Link>
@@ -155,7 +162,17 @@ const CoinMarketPrices = ({
           Search for Cryptocurrency
         </Typography>
 
+
+
         <TextField
+         InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+
           label="Search for Crypto"
           className="stepCoinMarket4"
           value={crypto}
@@ -163,6 +180,7 @@ const CoinMarketPrices = ({
             setCrypto(event.target.value);
           }}
         />
+
       </Box>
       <Box style={{ marginTop: "2.5rem" }}>
       <Tooltip

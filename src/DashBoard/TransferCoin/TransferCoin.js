@@ -113,7 +113,7 @@ function TransferCoin({ account, coins, allUsers }) {
   };
   return (
     <Box sx={{ padding: 2 }}>
-      <Typography>Transfer Coins</Typography>
+      <Typography component="h2" variant="h6" color="primary" gutterBottom>Transfer Coins</Typography>
       <Box
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >

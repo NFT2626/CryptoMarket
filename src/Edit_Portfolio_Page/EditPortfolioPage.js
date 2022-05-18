@@ -136,7 +136,7 @@ function ProfilePage({ account, setSteps }) {
             style={{ textDecoration: "none", color: "black" }}
             underline="hover"
             color="inherit"
-            to="/#"
+            to="/DashBoard/Profile"
           >
             Profile Page
           </Link>

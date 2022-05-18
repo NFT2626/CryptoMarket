@@ -15,6 +15,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Notification from "../Notification/Notification"
 import { useMutation } from "@apollo/client"; 
+import { useNavigate } from "react-router-dom";
+
 
 //Queries
 import { CREATE_USER } from "../queries";
@@ -37,6 +39,8 @@ const SignUpPage = () => {
   });
   const [message, setMessage] = useState(''); //Initialise the state for the message
   const [isErrorPresent, setIsErrorPresent] = useState(false); //Initialise a bool whether a message is present
+  const navigate = useNavigate();
+
   const messageSetter = (content) => { //Function that assists in setting the message
     setMessage(content); //Sets the message with the variable content
     setTimeout(() => {
@@ -64,6 +68,11 @@ const SignUpPage = () => {
     <Box
       sx={{ backgroundColor: "blue", minHeight: "100vh", display: "absolute" }} //CSS
     >
+         <Button onClick={() => {
+            navigate("/");
+         }}variant="contained" style={{ fontWeight: 900, letterSpacing: "2px", color: "black",    position: "fixed",
+      top:30
+, left: 30, backgroundColor: 'white'}}> CrySim. </Button>
       <Container
         sx={{
           backgroundColor: "white", //CSS

@@ -195,6 +195,7 @@ export default function App() {
               path="/DashBoard"
               element={
                 <DashBoard
+                route="dashboard"
                   name={data}
                   setStepsEnabled={setStepsEnabled}
                   setToken={setToken}
@@ -242,6 +243,7 @@ export default function App() {
                   name={data}
                   setToken={setToken}
                   accounts={userAllRes.data.allUsers}
+                  route="coinmarketprices"
                 >
                   <CoinMarketPrices
                     setSteps={setSteps}
@@ -267,6 +269,7 @@ export default function App() {
                   name={data}
                   setToken={setToken}
                   accounts={userAllRes.data.allUsers}
+                  route="trading"
                 >
                   <ChartForm
                     coins={coins}
@@ -362,6 +365,8 @@ export default function App() {
               path="/DashBoard/ChartForm/:coin"
               element={
                 <DashBoard
+                route="trading"
+
                   name={data}
                   setStepsEnabled={setStepsEnabled}
                   setToken={setToken}
@@ -371,6 +376,7 @@ export default function App() {
                     coins={coins}
                     account={data.me}
                     setSteps={setSteps}
+                    coins={coins}
                   />
                   <Steps
                     enabled={stepsEnabled}

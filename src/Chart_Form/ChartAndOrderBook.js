@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  Button,
   Typography,
   Box,
   Container,
@@ -9,12 +10,11 @@ import { Divider } from "@mui/material";
 import NumberCard from "./NumberCard";
 import Chart from "./Chart";
 import Tooltip from "@mui/material/Tooltip";
-
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+import SwapCoin from "./SwapCoin"
 
-function ChartAndOrderBook({ OHLC, coinName, coinData }) {
-  const [isSectioned, setSectioned] = useState(false);
+
+function ChartAndOrderBook({ OHLC, coinName, coinData, coins }) {
 
   console.log(coinData);
   return (
@@ -43,8 +43,10 @@ function ChartAndOrderBook({ OHLC, coinName, coinData }) {
               >
                 <MenuBookIcon />
               </Tooltip>
+              </Box>
+             <SwapCoin coins={coins}/>
             </Box>
-          </Box>
+        
           <Divider
             orientation="vertical"
             flexItem

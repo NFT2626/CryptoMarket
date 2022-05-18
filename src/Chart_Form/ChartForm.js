@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import ChartAndOrderBook from "./ChartAndOrderBook";
-import { Box, Container, Grid } from "@material-ui/core";
+import { Box, Container, Grid,Breadcrumbs, } from "@material-ui/core";
 import OrderBook from "./OrderBook";
 import OrderForm from "./BuyForm/OrderForm";
 import { useParams } from "react-router-dom";
-import { Paper } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Link } from "react-router-dom"; //For allowing routes
 
 import HistorySection from "./HistorySection";
 import axios from "axios";
 
-function ChartForm({ account, setSteps }) {
+function ChartForm({ account, setSteps, coins }) {
   let { coin } = useParams();
   const [OHLC, setOHLC] = useState([]);
   const [coinData, setCoinData] = useState([]);
@@ -121,15 +122,53 @@ function ChartForm({ account, setSteps }) {
     );
   }
   return (
-    <Grid container>
+    <div>
+    <Box
+    sx={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+
+    }}
+  >
+    <Typography variant="h1" style={{fontSize: "3rem",
+	fontWeight: 400,
+	padding: 0,
+	textTransform: "uppercase",
+	fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+	color: "rgba(118, 118, 118, 1)",
+	marginBottom: 15}}>Trading</Typography>
+    <Breadcrumbs aria-label="breadcrumb">
+      <Link
+        style={{ textDecoration: "none", color: "black" }}
+        underline="hover"
+        color="inherit"
+        to="/DashBoard"
+      >
+        Dashboard
+      </Link>
+      <Link
+        style={{ textDecoration: "none", color: "black" }}
+        underline="hover"
+        color="inherit"
+        to={`/DashBoard/Portfolio/${account}`}
+      >
+        Profile Page
+      </Link>
+    </Breadcrumbs>
+  </Box>{" "}
+    <Grid container style={{marginTop: 5}}>
+         
       <Grid item xs={6}>
         <Box style={{ boxSizing: "border-box" }}>
           <ChartAndOrderBook
             OHLC={OHLC}
             coinName={coinData.name}
             coinData={coinData}
+            coins={coins}
           />
         </Box>
+ 
       </Grid>
 
       <Grid item xs={6} style={{ marginTop: "8rem" }}>
@@ -154,6 +193,7 @@ function ChartForm({ account, setSteps }) {
         <HistorySection account={account} coinName={coinData.name} />
       </Grid>
     </Grid>
+    </div>
   );
 }
 

@@ -6,7 +6,7 @@ export default function Header() {
   const anchorStyle = {
     textTransform: "capitalize",
     textDecoration: "none",
-    color: "#fff",
+    color: "white",
   };
   return (
     <header
@@ -37,24 +37,10 @@ export default function Header() {
               justifyContent: "space-between",
             }}
           >
+           
             <li style={listStyle}>
-              <a style={anchorStyle} href="/">
-                discover
-              </a>
-            </li>
-            <li style={listStyle}>
-              <a style={anchorStyle} href="/">
-                CoinMarketCap
-              </a>
-            </li>
-            <li style={listStyle}>
-              <a style={anchorStyle} href="/">
-                Contact
-              </a>
-            </li>
-            <li style={listStyle}>
-              <a style={anchorStyle} href="/">
-                About
+              <a style={{...anchorStyle, textDecoration: "underline"}} href="/">
+                Online Help
               </a>
             </li>
             <li

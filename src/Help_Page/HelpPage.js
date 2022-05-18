@@ -45,7 +45,7 @@ function HelpPage() {
             style={{ textDecoration: "none", color: "black" }}
             underline="hover"
             color="inherit"
-            to="/#"
+            to="/DashBoard/Help"
           >
             Help & Services
           </Link>

@@ -9,7 +9,7 @@ function RecentTransaction({ account }) {
   console.log(account);
   return (
     <Box>
-      <Typography>Recent Transaction</Typography>
+      <Typography component="h2" variant="h6" color="primary" gutterBottom>Recent Transaction</Typography>
       <Box sx={{ display: "flex", width: "100%", flexDirection: "column" }}>
         <RecentTransactionCard
           transaction={

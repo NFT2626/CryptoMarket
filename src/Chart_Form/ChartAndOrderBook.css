@@ -12,8 +12,8 @@
 	visibility: visible;
 	position: fixed;
 	background-color: rgb(211,211,211);
-	max-height: 100vh;
 	box-shadow: rgb(20, 21 26);
+	min-height: 27vh;
 	border-radius: 4px;
 	min-width: 0px;
 	box-sizing: border-box;

@@ -61,7 +61,7 @@ function PortfolioPage({ allUsers, coins, setSteps }) {
               style={{ textDecoration: "none", color: "black" }}
               underline="hover"
               color="inherit"
-              to="/#"
+              to={`/DashBoard/Portfolio/${account}`}
             >
               Profile Page
             </Link>
@@ -97,7 +97,7 @@ function PortfolioPage({ allUsers, coins, setSteps }) {
             style={{ textDecoration: "none", color: "black" }}
             underline="hover"
             color="inherit"
-            to="/#"
+            to={`/DashBoard/Portfolio/${account}`}
           >
             Profile Page
           </Link>

@@ -22,6 +22,7 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
   console.log(account);
 
   const handleLimitChange = (event, newValue) => {
+    console.log(newValue);
     setLimit(newValue);
   };
 
@@ -39,7 +40,7 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
                 arrow
                 title="This is where the user is able to make limits to the crypto market"
               >
-                <div>
+            
           <Tab
             tabItemContainerStyle={{ width: "20px" }}
             style={{
@@ -53,13 +54,13 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
             index={0}
             className="chartFormStep5"
           />
-          </div>
+    
           </Tooltip>
           <Tooltip
                 arrow
                 title="This is where the user is able to make limits to the crypto market"
               >
-                <div>
+           
           <Tab
             style={{
               minWidth: 20,
@@ -73,7 +74,7 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
             label="Market"
             className="chartFormStep6"
           />
-            </div>
+      
   </Tooltip>
         </Tabs>
 
