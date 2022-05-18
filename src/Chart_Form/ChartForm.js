@@ -148,6 +148,14 @@ function ChartForm({ account, setSteps, coins }) {
         Dashboard
       </Link>
       <Link
+              style={{ textDecoration: "none", color: "black" }}
+              underline="hover"
+              color="inherit"
+              to="/DashBoard/CoinMarketPrices"
+            >
+              CoinMarketPrices
+            </Link>
+      <Link
         style={{ textDecoration: "none", color: "black" }}
         underline="hover"
         color="inherit"

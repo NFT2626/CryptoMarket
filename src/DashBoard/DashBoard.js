@@ -30,6 +30,8 @@ import MenuList from "@mui/material/MenuList";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
 import { useApolloClient } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
+
 
 import axios from "axios";
 
@@ -38,8 +40,7 @@ const drawerWidth = 240;
 export default function DashBoard(props) {
   const [open, setOpen] = useState(false);
   const client = useApolloClient();
-  console.log(props.accounts, "this is the accounts");
-
+  const navigate = useNavigate()
 
   const anchorRef = useRef(null);
 

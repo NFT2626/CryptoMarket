@@ -79,6 +79,7 @@ export default function LoginPage({ setToken }) {
             label="Email Address"
             name="email"
             autoComplete="email"
+            type="email"
           />
           <TextField
             margin="normal"

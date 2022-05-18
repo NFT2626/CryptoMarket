@@ -208,6 +208,7 @@ export default function App() {
                     allUsers={userAllRes.data.allUsers}
                   />
                   <Steps
+                  options={{ hideNext: false }}
                     enabled={stepsEnabled}
                     steps={steps}
                     initialStep={initialStep}
@@ -228,6 +229,7 @@ export default function App() {
                   <EditPortfolioPage account={data.me} setSteps={setSteps} />
                   <Steps
                     enabled={stepsEnabled}
+                    options={{ hideNext: false }}
                     steps={steps}
                     initialStep={initialStep}
                     onExit={onExit}
@@ -253,6 +255,7 @@ export default function App() {
                   />{" "}
                   <Steps
                     enabled={stepsEnabled}
+                    options={{ hideNext: false }}
                     steps={steps}
                     initialStep={initialStep}
                     onExit={onExit}
@@ -278,6 +281,7 @@ export default function App() {
                   />
                   <Steps
                     enabled={stepsEnabled}
+                    options={{ hideNext: false }}
                     steps={steps}
                     initialStep={initialStep}
                     onExit={onExit}
@@ -329,6 +333,7 @@ export default function App() {
                   />
                   <Steps
                     enabled={stepsEnabled}
+                    options={{ hideNext: false }}
                     steps={steps}
                     initialStep={initialStep}
                     onExit={onExit}
@@ -353,6 +358,7 @@ export default function App() {
                   />
                   <Steps
                     enabled={stepsEnabled}
+                    options={{ hideNext: false }}
                     steps={steps}
                     initialStep={initialStep}
                     onExit={onExit}
@@ -380,6 +386,7 @@ export default function App() {
                   />
                   <Steps
                     enabled={stepsEnabled}
+                    options={{ hideNext: false }}
                     steps={steps}
                     initialStep={initialStep}
                     onExit={onExit}

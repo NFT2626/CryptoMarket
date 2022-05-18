@@ -51,7 +51,14 @@ const SignUpPage = () => {
     event.preventDefault(); //Prevent it from reloading the page
     const data = new FormData(event.currentTarget); //Gets the data from the form 
     setIsErrorPresent(false) //Set error to false
-    
+    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if(!re.test(data.get("email"))){
+      messageSetter("Incorrect format, must be in email address format") 
+
+      setIsErrorPresent(true)
+          return;
+    }
     createUser({ //Creates the user
       variables: {
         username: data.get("email"), //Gets a label called "email" and pass it as a variable called username
@@ -115,7 +122,7 @@ const SignUpPage = () => {
                   required
                   fullWidth
                   label="First Name"
-                  inputProps={{ maxLength: 10 }} // Maximum character length
+                  inputProps={{ maxLength: 15 }} // Maximum character length
                 />
               </Grid>
               <Grid item xs={6}>
@@ -125,7 +132,7 @@ const SignUpPage = () => {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
-                  inputProps={{ maxLength: 10 }}
+                  inputProps={{ maxLength: 25 }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -137,8 +144,9 @@ const SignUpPage = () => {
                   error
                   label="Email Address"
                   name="email"
+                  helperText="Incorrect Entry"
                   autoComplete="email"
-                  inputProps={{ maxLength: 15 }}
+                  inputProps={{ maxLength: 30 }}
                 />
                 :
                 <TextField
@@ -148,7 +156,8 @@ const SignUpPage = () => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  inputProps={{ maxLength: 15 }}
+                  type="email"
+                  inputProps={{ maxLength: 30 }}
                 />
         }
               </Grid>

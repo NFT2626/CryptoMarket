@@ -31,7 +31,7 @@ function HelpPage() {
           justifyContent: "space-between",
         }}
       >
-        <Typography variant="h4">Help & Services</Typography>
+        <Typography variant="h4">Online Help</Typography>
         <Breadcrumbs aria-label="breadcrumb">
           <Link
             style={{ textDecoration: "none", color: "black" }}
