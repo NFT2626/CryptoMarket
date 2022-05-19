@@ -21,7 +21,7 @@ import {
 import { useMutation, gql } from "@apollo/client";
 
 function ProfilePage({ account, setSteps }) {
-  const [wordCount, setWordCount] = useState(0);
+  const [wordCount, setWordCount] = useState(300);
   const [wordAbout, setWordAbout] = useState("");
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -122,7 +122,11 @@ function ProfilePage({ account, setSteps }) {
           justifyContent: "space-between",
         }}
       >
-        <Typography variant="h4">Profile Page</Typography>
+        <Typography variant="h4" style={{	fontWeight: 400,
+	padding: 0,
+	textTransform: "uppercase",
+	fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+	color: "rgba(118, 118, 118, 1)",}}>Profile Page</Typography>
         <Breadcrumbs aria-label="breadcrumb" className="profileEditStep1">
           <Link
             style={{ textDecoration: "none", color: "black" }}
@@ -194,12 +198,13 @@ function ProfilePage({ account, setSteps }) {
               style={{ display: "inline" }}
               className="profileEditStep3"
             >
-              Name: <span>{account.name}</span>
+              Name: <span style={{color: "black"}}>{account.name}</span>
             </Typography>
             <TextField
               className="profileEditStep4"
               fullWidth
               value={name}
+              placeholder="Enter name"
               inputProps={{ maxLength: 10 }}
               onChange={(e) => {
                 setName(e.target.value);
@@ -212,10 +217,11 @@ function ProfilePage({ account, setSteps }) {
               color="primary"
               className="profileEditStep5"
             >
-              LastName:
-              <span>{account.lastName}</span>
+              LastName: {" "}
+               <span style={{color: "black"}}>{account.lastName}</span>
             </Typography>
             <TextField
+               placeholder="Enter lastName"
               className="profileEditStep6"
               fullWidth
               value={lastName}
@@ -242,7 +248,7 @@ function ProfilePage({ account, setSteps }) {
               maxRows={8}
               onChange={(e) => {
                 setWordAbout(e.target.value);
-                setWordCount(e.target.value.length);
+                setWordCount(300 - e.target.value.length);
               }}
               value={wordAbout}
             />

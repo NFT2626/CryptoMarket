@@ -47,7 +47,11 @@ function PortfolioPage({ allUsers, coins, setSteps }) {
             justifyContent: "space-between",
           }}
         >
-          <Typography variant="h4">User does not exist</Typography>
+          <Typography variant="h4" style={{	fontWeight: 400,
+	padding: 0,
+	textTransform: "uppercase",
+	fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+	color: "rgba(118, 118, 118, 1)",}}>User does not exist</Typography>
           <Breadcrumbs aria-label="breadcrumb">
             <Link
               style={{ textDecoration: "none", color: "black" }}
@@ -80,7 +84,11 @@ function PortfolioPage({ allUsers, coins, setSteps }) {
           justifyContent: "space-between",
         }}
       >
-        <Typography color="primary" variant="h4">
+        <Typography variant="h4" style={{	fontWeight: 400,
+	padding: 0,
+	textTransform: "uppercase",
+	fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+	color: "rgba(118, 118, 118, 1)",}}>
           {userFound.name} {userFound.lastName}
           {" Portfolio Page"}
         </Typography>
@@ -136,7 +144,7 @@ function PortfolioPage({ allUsers, coins, setSteps }) {
           </Paper>
         </Grid>
       </Grid>
-      <Typography style={{ marginTop: "10vh" }} variant="h4">
+      <Typography style={{ marginTop: "10vh" }} variant="h4" color="primary">
         Portfolio Coins
       </Typography>
       <Box style={{ marginTop: "10vh" }} className="profilePageStep3">

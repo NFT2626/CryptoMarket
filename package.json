@@ -2,6 +2,7 @@
   "title": "CryptoMarketFrontEnd",
   "name": "CryptoMarketFrontEnd",
   "devDependencies": {
+    "jest": "^28.1.0",
     "react-scripts": "latest"
   },
   "dependencies": {
@@ -31,8 +32,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "testReact": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "test": "jest"
   },
   "browserslist": {
     "production": [
