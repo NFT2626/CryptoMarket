@@ -32,7 +32,7 @@ function SearchAccount({ accounts }) {
   return (
     <Autocomplete
       className="step1"
-      sx={{ width: 600 }}
+      sx={{ width: "30%" }}
       style={{ background: "white" }}
       options={accounts.map((account) => ({
         ...account,

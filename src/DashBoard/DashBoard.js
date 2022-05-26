@@ -236,7 +236,7 @@ export default function DashBoard(props) {
             Personal{" "}
           </Typography>
           <ListItem
-          style={{paddingLeft: 10}}
+          style={{paddingLeft: 20}}
             button
             to="/DashBoard"
             component={Link}
@@ -247,11 +247,11 @@ export default function DashBoard(props) {
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary="dashboard" />
+            <ListItemText primary="Dashboard" />
           </ListItem>
           <ListItem
             button
-            style={{paddingLeft: 10}}
+            style={{paddingLeft: 20}}
             component={Link}
             to="/DashBoard/CoinMarketPrices"
             key={"coinmarketprices"}
@@ -261,11 +261,11 @@ export default function DashBoard(props) {
             <ListItemIcon>
               <StoreIcon />
             </ListItemIcon>
-            <ListItemText primary="coinmarketprices" />
+            <ListItemText primary="Coin Market Prices" />
           </ListItem>
           <ListItem
             button
-            style={{paddingLeft: 10}}
+            style={{paddingLeft: 20}}
             selected={props.route === "trading"}
             component={Link}
             to="/DashBoard/ChartForm/bitcoin"
@@ -274,7 +274,7 @@ export default function DashBoard(props) {
             <ListItemIcon>
               <CatchingPokemonIcon />
             </ListItemIcon>
-            <ListItemText primary="trading"
+            <ListItemText primary="Trading"
                        
                         />
           </ListItem>

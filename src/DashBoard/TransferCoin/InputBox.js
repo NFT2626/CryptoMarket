@@ -30,7 +30,7 @@ function InputBox({
     >
       <div style={{ display: "flex" }}>
         <IconButton sx={{ p: "10px" }} aria-label="menu">
-          {isWallet ? <AttachMoneyIcon /> : <AccountBalanceWalletIcon />}
+          {isWallet ? ""  : <AccountBalanceWalletIcon />}
         </IconButton>
         <InputBase
           sx={{ ml: 1, flex: 1 }}

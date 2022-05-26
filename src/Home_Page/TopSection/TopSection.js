@@ -23,6 +23,8 @@ const TopSection = () => {
         <Button
         onClick={() => {
           navigate("/SignUp");
+         
+       
         }}
           className="explore-button"
           style={{ marginTop: 10, backgroundColor: 'orange', color: "white" }}

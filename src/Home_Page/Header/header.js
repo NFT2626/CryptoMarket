@@ -39,7 +39,7 @@ export default function Header() {
           >
            
             <li style={listStyle}>
-              <a style={{...anchorStyle, textDecoration: "underline"}} href="/">
+              <a style={{...anchorStyle, textDecoration: "underline"}} href="/Help">
                 Online Help
               </a>
             </li>

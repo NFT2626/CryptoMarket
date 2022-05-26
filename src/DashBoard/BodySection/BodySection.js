@@ -145,9 +145,9 @@ const BodySection = ({ account, coins, allUsers, setSteps }) => {
       <div maxWidth="lg" className="container-flex">
         <Grid container spacing={3}>
           <Grid item xs={12} md={4} lg={4}>
-            <Paper className="paper-text--1 card-container step3 ">
+            <Paper className="paper-text--2 card-container step3 ">
               <BalanceCard
-                image="BitcoinImage.png"
+                image="cash.png"
                 content={"$" + account.fiatBalance}
                 content2="Total Fiat Balance"
               />
@@ -155,9 +155,9 @@ const BodySection = ({ account, coins, allUsers, setSteps }) => {
           </Grid>
           {/* Recent Deposits */}
           <Grid item xs={12} md={4} lg={4}>
-            <Paper className="paper-text--1 card-container step4">
+            <Paper className="paper-text--2 card-container step4">
               <BalanceCard
-                image="BitcoinImage.png"
+                image="cash.png"
                 content={account.portfolioCoins.reduce((total, item) => {
                   /*  price = res.data. */
                   const coin = coins.find((el) => el.name === item.name);
@@ -171,7 +171,7 @@ const BodySection = ({ account, coins, allUsers, setSteps }) => {
           <Grid item xs={12} md={4} lg={4}>
             <Paper className="paper-text--1 card-container step5">
               <BalanceCard
-                image="BitcoinImage.png"
+                image="BitcoinWhite.png"
                 content={bitcoinTotal}
                 content2="Wallet BTC balance"
               />

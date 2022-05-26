@@ -15,6 +15,15 @@
 	line-height: 1.1;
 	overflow-x: auto;
 }
+.paper-text--2 {
+	box-shadow: 0 1px 28px rgb(255 152 0 / 66%) !important;
+	background-color: #63d471;
+	background-image: linear-gradient(315deg, #63d471 0%, #233329 74%);
+	
+	
+	line-height: 1.1;
+	overflow-x: auto;
+}
 .container-flex {
 	padding-top: 32px;
 	padding-bottom: 32;

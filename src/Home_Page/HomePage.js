@@ -8,6 +8,7 @@ import Header from "./Header/header";
 import ShowingTable from "./ShowingTable/ShowingTable";
 import FinalSection from "./FinalSection/FinalSection";
 
+
 export default function HomePage({coins}) {
   
   return (

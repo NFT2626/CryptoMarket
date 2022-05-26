@@ -16,6 +16,8 @@ import Container from "@mui/material/Container";
 import Notification from "../Notification/Notification"
 import { useMutation } from "@apollo/client"; 
 import { useNavigate } from "react-router-dom";
+import MuiPhoneNumber from 'material-ui-phone-number';
+
 
 
 //Queries
@@ -73,7 +75,7 @@ const SignUpPage = () => {
 
   return (
     <Box
-      sx={{ backgroundColor: "blue", minHeight: "100vh", display: "absolute" }} //CSS
+      sx={{ backgroundColor: "orange", minHeight: "100vh !important", display: "absolute" }} //CSS
     >
          <Button onClick={() => {
             navigate("/");
@@ -83,21 +85,21 @@ const SignUpPage = () => {
       <Container
         sx={{
           backgroundColor: "white", //CSS
-          transform: "translateY(2.5rem)",
-          paddingBottom: "2rem",
-          width: "60%",
+          transform: "translateY(2.5rem) !important",
+          paddingBottom: "2rem !important",
+          width: "60% !important",
         }}
         maxWidth="xs" //Makes the container a small size container
       >
         <CssBaseline />  {/* MUI provides standard css */}
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: "flex !important",
+            flexDirection: "column !important",
+            alignItems: "center !important",
           }}
         >
-          <Typography component="h1" variant="h5" sx={{ marginTop: "2.5rem" }}>
+          <Typography component="h1" variant="h5" sx={{ marginTop: "2.5rem" , fontSize: '3rem'}}>
             Sign up
           </Typography> {/*This is the title*/}
           <Notification message={message} />
@@ -106,7 +108,7 @@ const SignUpPage = () => {
             onSubmit={handleSubmit} //Form
             style={{ marginTop: 8 }}
           >
-            <Grid container spacing={2} style={{ marginTop: 4 }}> {/*Grid container*/}
+            <Grid container spacing={2} style={{ marginTop: "4px !important" }}> {/*Grid container*/}
               <Grid item xs={6}>
                 <caption
                   style={{ transform: "translateX(2.5rem", display: "inline" }} //Captions that shows what is required
@@ -135,6 +137,7 @@ const SignUpPage = () => {
                   inputProps={{ maxLength: 25 }}
                 />
               </Grid>
+              
               <Grid item xs={12}>
                 {isErrorPresent ?
               <TextField
@@ -174,28 +177,23 @@ const SignUpPage = () => {
                 />
               </Grid>
               <Grid item xs={12} sx={{ marginTop: 5 }}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I Have read the term and services"
-                />
+         
               </Grid>
             </Grid>
             <Button //Button to submit to sign in
               type="submit"
               fullWidth
               variant="contained"
-              style={{ marginTop: "1.5rem" }}
+              style={{ marginTop: "1.5rem", backgroundColor: 'orange' }}
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
-              <Grid item>
+              <Grid item xs={12} style={{display: 'flex', justifyContent: 'center', marginTop: '1.5rem'}}>
                 <Link //Link that directs the user to the login page
                   href="/Login"
                   variant="p"
-                  style={{ paddingBottom: "2rem", display: "inline" }}
+                  style={{margin:'0 auto', color: 'red' }}
                 >
                   Already have an account? Sign in
                 </Link>

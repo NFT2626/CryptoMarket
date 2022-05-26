@@ -15,7 +15,7 @@ const BalanceCard = ({ image, content, content2 }) => {
       <Avatar
         className="avater-image--size"
         alt="Remy Sharp"
-        src="/Images/BitcoinWhite.png"
+        src={`/Images/${image}`}
       />
       <Box
         sx={{
@@ -30,8 +30,7 @@ const BalanceCard = ({ image, content, content2 }) => {
       <Avatar
         className="avater-image--size"
         alt="Remy Sharp"
-        src="/Images/GreyBitcoin.png"
-      />
+        src={`/Images/${image}`}      />
     </Box>
   );
 };

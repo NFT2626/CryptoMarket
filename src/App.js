@@ -86,17 +86,17 @@ export default function App() {
     //The user gets the coinmarket data for it to be rendered in the homepage
     //If the user is indeed logged in, then the data is then used to be used to add portfolio dates as well as 
     // making sure that the limit of either the buy and sell has been evaluated 
-    if (!data) { // The data refers to the data of the current user, and checks if it has the data for the user
+    if (!data || !data.me) { // The data refers to the data of the current user, and checks if it has the data for the user
       axios
         .get(
-          'axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false'
-        ) //Gets the data of all the coins in the coingecko api 
+          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"        ) //Gets the data of all the coins in the coingecko api 
         .then((res) => { //The callback function would have the result as its parameter
+          console.log(res.data)
           setCoins(res.data); //The result would have multiple fields and the data would be in the data field, and sets the coins of the coinmarketcap
         });
       return; //Once finished execution, it will return
     }
-    if (!data) { //Checks if there is no data
+    if (!data.me) { //Checks if there is no data
       return; //Just returns
     }
     axios //Gets data from the coingecko api 
@@ -172,6 +172,7 @@ export default function App() {
           <Routes>
             <Route path="/SignUp" element={<SignUpPage />} />
             <Route path="/Login" element={<LoginPage setToken={setToken} />} />
+            <Route path="/Help" element={            <HelpPage />} />
             <Route path="/" element={<HomePage coins={coins} />} />
             <Route
               path="*"
