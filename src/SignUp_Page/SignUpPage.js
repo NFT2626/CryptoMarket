@@ -16,20 +16,39 @@ import Container from "@mui/material/Container";
 import Notification from "../Notification/Notification"
 import { useMutation } from "@apollo/client"; 
 import { useNavigate } from "react-router-dom";
-import MuiPhoneNumber from 'material-ui-phone-number';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 
 //Queries
 import { CREATE_USER } from "../queries";
 
+
+
 const SignUpPage = () => {
+  const [title, setTitle] = useState('');
+  const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [password, setPassword] = useState('')
+  const [emailAddress, setEmailAddress] = useState('')
+  const [message, setMessage] = useState(''); //Initialise the state for the message
+  const [nameError, setNameError] = useState(false);
+  const [lastNameError, setLastNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false); //Initialise a bool whether a message is present
+  const [titleError, setTitleError] = useState(false); //Initialise a bool whether a message is present
+  const handleChange = (event) => {
+    setTitle(event.target.value);
+  };
   const [createUser] = useMutation(CREATE_USER, { //A put request that crates a user 
+    
     onError: (error) => {
       console.log(error.graphQLErrors[0].message)
       if(error.graphQLErrors[0].message.startsWith("Username already exists")){ //If the error has this starting with this sentence, then it will be a non unique username error
         messageSetter("You did not put in a unique username") //Sets the error
-        setIsErrorPresent(true) //The error is present
+        setEmailError(true) //The error is present
       }
       else{
         messageSetter("Your have inputted invalid entries") //If something else does occur, have it very vague and have it sets as the message
@@ -39,8 +58,8 @@ const SignUpPage = () => {
       messageSetter("you have successfully created a user account") //Once completed, the user would receive the success message 
     }
   });
-  const [message, setMessage] = useState(''); //Initialise the state for the message
-  const [isErrorPresent, setIsErrorPresent] = useState(false); //Initialise a bool whether a message is present
+
+
   const navigate = useNavigate();
 
   const messageSetter = (content) => { //Function that assists in setting the message
@@ -52,21 +71,39 @@ const SignUpPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault(); //Prevent it from reloading the page
     const data = new FormData(event.currentTarget); //Gets the data from the form 
-    setIsErrorPresent(false) //Set error to false
+    setEmailError(false) //Set error to false
+    setTitleError(false)
+    setNameError(false)
+    setLastNameError(false)
+
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+    if(!title){
+      messageSetter("You have not entered the title") 
+      setTitleError(true)
+      return;
+
+    }
+    if(!name){
+      messageSetter("You have not entered the name") 
+      setNameError(true)
+    }
+    if(!lastName){
+      messageSetter("You have not entered the lastName") 
+      setLastNameError(true)
+    }
     if(!re.test(data.get("email"))){
       messageSetter("Incorrect format, must be in email address format") 
 
-      setIsErrorPresent(true)
+      setEmailError(true)
           return;
     }
     createUser({ //Creates the user
       variables: {
-        username: data.get("email"), //Gets a label called "email" and pass it as a variable called username
+        username: emailAddress, //Gets a label called "email" and pass it as a variable called username
         password: data.get("password"), //Gets a field called "password" and pass it as a variable called password
-        name: data.get("firstName"), //Gets a field called "firstName" and pass it as a variable called name
-        lastName: data.get("lastName"), // Same thing as above
+        name: name, //Gets a field called "firstName" and pass it as a variable called name
+        lastName: lastName, // Same thing as above
       },
     }).catch((err) => {
       console.log(err); //If error, it will print out the error.
@@ -99,7 +136,7 @@ const SignUpPage = () => {
             alignItems: "center !important",
           }}
         >
-          <Typography component="h1" variant="h5" sx={{ marginTop: "2.5rem" , fontSize: '3rem'}}>
+          <Typography variant="h5" sx={{ marginTop: "2.5rem" , fontSize: '3rem'}}>
             Sign up
           </Typography> {/*This is the title*/}
           <Notification message={message} />
@@ -118,51 +155,72 @@ const SignUpPage = () => {
                 </caption>
               </Grid>
               <Grid item xs={6}></Grid> {/*Grid that adds spacing*/}
-              <Grid item xs={6}>
-                <TextField
+              <Grid item xs={12}>
+                <Box style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <FormControl fullWidth style={{width: '30%'
+}} error={titleError} 
+>
+        <InputLabel  >Title</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={title}
+
+          onChange={handleChange}
+        >
+          <MenuItem value={10}>Mr.</MenuItem>
+          <MenuItem value={20}>Mrs.</MenuItem>
+          <MenuItem value={30}>Dr.</MenuItem>
+        </Select>
+        
+      </FormControl>
+      <TextField
                   name="firstName" //textfield that specifies the name
                   required
-                  fullWidth
                   label="First Name"
+          fullWidth
+            value={name}
+            error={nameError}
+            onChange={(e) => {
+              setName(e.target.value)
+            }}
                   inputProps={{ maxLength: 15 }} // Maximum character length
                 />
+                </Box>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   id="lastName"
                   label="Last Name"
                   name="lastName"
+                  value={lastName}
+                  error={lastNameError}
+                  onChange={(e) => {
+                    setLastName(e.target.value)
+                  }}
                   inputProps={{ maxLength: 25 }}
                 />
               </Grid>
               
               <Grid item xs={12}>
-                {isErrorPresent ?
+      
               <TextField
-              style={{display:  isErrorPresent ? "" : 'none'}}
                   required
                   fullWidth
-                  error
+                  error={emailError}
                   label="Email Address"
                   name="email"
-                  helperText="Incorrect Entry"
+                  helperText={emailError ? "Incorrect Entry" : ""}
+                  value={emailAddress}
+                  onChange={(e) => {
+                    setEmailAddress(e.target.value)
+                  }}
                   autoComplete="email"
                   inputProps={{ maxLength: 30 }}
                 />
-                :
-                <TextField
-                style={{display:  isErrorPresent ? "none" : ''}}
-                  required
-                  fullWidth
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  type="email"
-                  inputProps={{ maxLength: 30 }}
-                />
-        }
+          
               </Grid>
               <Grid item xs={12} sx={{ height: 4 }}>
                 <TextField
@@ -172,6 +230,8 @@ const SignUpPage = () => {
                   label="Password"
                   type="password"
                   id="password"
+                  value={password}
+                  onChange={(e) => {setPassword(e.target.value)}}
                   autoComplete="new-password"
                   inputProps={{ maxLength: 15 }}
                 />

@@ -1,8 +1,7 @@
+//Importing Libraries
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
@@ -10,15 +9,15 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Notification from "../Notification/Notification"
-
-
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom"; 
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../queries";
 
 export default function LoginPage({ setToken }) {
   const [message, setMessage] = useState()
+  const [emailAddress, setEmailAddress] = useState('')
+  const [password, setPassword] = useState('')
+
   const messageSetter = (content) => {
     setMessage(content);
     setTimeout(() => {
@@ -67,6 +66,7 @@ export default function LoginPage({ setToken }) {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+
         }}
       >
         <Typography variant="h5">Sign in</Typography>
@@ -90,26 +90,18 @@ export default function LoginPage({ setToken }) {
             type="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2 , backgroundColor: 'orange'}}
           >
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="SignUp" variant="body2">
+            <Grid item style={{display: 'flex', margin:'0 auto'}}>
+              <Link href="SignUp" variant="body2" style={{ color: 'red'}}>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

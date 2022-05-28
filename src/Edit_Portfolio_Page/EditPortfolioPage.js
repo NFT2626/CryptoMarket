@@ -1,3 +1,4 @@
+//importing libraries
 import React, { useState, useEffect } from "react";
 import {
   Typography,
@@ -11,33 +12,40 @@ import {
   Fab,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-
+import { useMutation, gql } from "@apollo/client";
+//importing queries
 import {
   CHANGE_PROFILE_PICTURE,
   CHANGE_PROFILE,
   GET_CURRENT_USER,
 } from "../queries.js";
 
-import { useMutation, gql } from "@apollo/client";
+
+//This component is for allowing for the user to change their profile details
+
 
 function ProfilePage({ account, setSteps }) {
-  const [wordCount, setWordCount] = useState(300);
-  const [wordAbout, setWordAbout] = useState("");
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [image, setImage] = useState();
-  const [fileUpload, setFileUpload] = useState();
+  //declaring states
+  const [wordCount, setWordCount] = useState(300); //the total word count for the about me
+  const [wordAbout, setWordAbout] = useState(""); //the words for the about me
+  const [name, setName] = useState(""); //their name
+  const [lastName, setLastName] = useState(""); //their lastname
+  const [image, setImage] = useState(); //the image
+  const [fileUpload, setFileUpload] = useState(); //the file that is going to be upload if submitted
 
-  const [uploadFile] = useMutation(CHANGE_PROFILE_PICTURE);
+  const [uploadFile] = useMutation(CHANGE_PROFILE_PICTURE); //declares a mutation function that allows us to send a request to upload image to the database
 
-  const [changePortfolio] = useMutation(CHANGE_PROFILE, {
-    refetchQueries: [{ query: GET_CURRENT_USER }],
-    onError: (error) => {
-      console.log(error.graphQLErrors[0].message);
+  const [changePortfolio] = useMutation(CHANGE_PROFILE, { //declares a mutation function that allows us to change the profile image
+    refetchQueries: [{ query: GET_CURRENT_USER }],//Once the function is called it calls the query to get the details for the user again
+    onError: (error) => { //if there is an error
+      console.log(error.graphQLErrors[0].message); //print out the error message
     },
   });
 
-  useEffect(() => {
+  useEffect(() => { //this is only called once
+    //The following is for setting the steps for the product tour of my application
+    //It firstly gets the element who's class is described by the element tag
+    //The intro is the content of the steps
     setSteps([
       {
         element: ".profileEditStep1",
@@ -78,38 +86,34 @@ function ProfilePage({ account, setSteps }) {
         intro: "Once you've made the appropriate changes, please click here",
       },
     ]);
-  }, [setSteps]);
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  }, [setSteps]); //specifies its dependency
+  const handleFileChange = (e) => { //Once the user uploads and is now uploading the file
+    const file = e.target.files[0]; //get the file
 
-    if (!file) return;
-    console.log(file);
-    const fr = new FileReader();
-    fr.onload = function () {
-      setImage(fr.result);
+    if (!file) return; //if there is no file then just return
+    const fr = new FileReader(); //initialise a FileReader instance that allows us to read information of the file
+    fr.onload = function () { //once it has done reading the file
+      setImage(fr.result);  //set the image to the result of its reading from the file
     };
-    fr.readAsDataURL(file);
-    setFileUpload(file);
+    fr.readAsDataURL(file); //read the data url eg. the encoding and set it to the file that is going to be used to upload to the backend
+    setFileUpload(file); //set the file that is going be upload to the file
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!fileUpload && !wordAbout && !lastName && !name) {
-      console.log("you have entered nothing");
+  const handleSubmit = (e) => { //once the user submits the form
+    e.preventDefault(); //prevent from reloading
+    if (!fileUpload && !wordAbout && !lastName && !name) { //if the user has entered nothing into all of the fields
+      console.log("you have entered nothing"); //display that they have entered nothing to the console
+      //we do not need any feedback because this wouldn't destroy the system and when they do not upload anything
+      //nothing changes
       return;
     }
-    if (fileUpload) {
-      uploadFile({ variables: { file: fileUpload } });
+    if (fileUpload) {//If the user has uploaded an image 
+      uploadFile({ variables: { file: fileUpload } });  //send a request to the backend to upload the image
     }
-    console.log({
-      name: !name ? account.name : name,
-      lastName: !lastName ? account.lastName : lastName,
-      aboutMe: !wordAbout ? account.aboutMe : wordAbout,
-    });
-    changePortfolio({
+    changePortfolio({ //changes the profile details
       variables: {
-        name: !name ? account.name : name,
-        lastName: !lastName ? account.lastName : lastName,
-        aboutMe: !wordAbout ? account.aboutMe : wordAbout,
+        name: !name ? account.name : name, //if the user has not entered their account name then use the current one else use the name that the user entered
+        lastName: !lastName ? account.lastName : lastName,//if the user has not entered their account lastname then use the current one else use the lastname that the user entered
+        aboutMe: !wordAbout ? account.aboutMe : wordAbout,//if the user has not entered their account aboutme then use the current one else use the aboutme that the user entered
       },
     });
   };

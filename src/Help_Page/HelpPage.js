@@ -1,61 +1,56 @@
+//Importing libraries
 import React from "react";
 import {
   Typography,
   Box,
   Breadcrumbs,
-  Paper,
-  Toolbar,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  TablePagination,
 } from "@material-ui/core";
-
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
 import { Link } from "react-router-dom";
+
+//This is the page that allows the user to get online help, help for how to use the application
 
 function HelpPage() {
   return (
-    <Box>
-      <Box
+    <Box //fancy div
+    >
+      <Box //fancy div
         sx={{
-          display: "flex",
+          display: "flex", //css
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <Typography variant="h4">Online Help</Typography>
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link
+        <Typography variant="h4" //title for the page
+        >Online Help</Typography>
+        <Breadcrumbs aria-label="breadcrumb" //bread crumbs
+        >  
+          <Link //specifies a link so that the user is able to click on the link to get back to the dashboard
             style={{ textDecoration: "none", color: "black" }}
             underline="hover"
             color="inherit"
-            to="/DashBoard"
+            to="/DashBoard" //destination link
           >
-            Dashboard
+            Dashboard {/*The label for the link*/}
           </Link>
-          <Link
+          <Link //link
             style={{ textDecoration: "none", color: "black" }}
             underline="hover"
             color="inherit"
-            to="/DashBoard/Help"
+            to="/DashBoard/Help" //destination of the link
           >
-            Help & Services
+            Help & Services {/*the label of the link*/}
           </Link>
         </Breadcrumbs>
       </Box>
       <Box sx={{ marginTop: "5rem" }}>
         <Typography variant="h4" gutterBottom>
-          How To
+          How To {/*title to describe the section for the how to*/}
         </Typography>
-        <Accordion>
+        <Accordion> {/*Specifies a drawer element that allows the user once click to display the help*/}
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"

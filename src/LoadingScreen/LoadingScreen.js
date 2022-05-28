@@ -10,17 +10,20 @@ function LoadingScreen() {
   return (
     <Box
       style={{
-        marginTop: "50vh",
-        marginLeft: "50vw",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '50vh',
+
       }}
     >
-      <Typography variant="h4" style={{ transform: "TranslateY(-5rem)" }}>
+      <Typography variant="h4" style={{ transform: "TranslateY(-10rem) TranslateX(6.5rem)", }}>
         Loading
       </Typography>
       <CircularProgress
         size={80}
         thickness={4}
-        style={{ transform: "TranslateY(-3rem)" }}
+        style={{color: "orange"}}
       />
     </Box>
   );

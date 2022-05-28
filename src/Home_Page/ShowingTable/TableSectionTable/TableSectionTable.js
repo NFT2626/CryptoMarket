@@ -14,57 +14,58 @@ import { Typography } from "@material-ui/core";
 import "./TableSectionTable.css";
 
 //Importing components
-import MiniChart from "./MiniChart/MiniChart";
+import MiniChart from "./MiniChart/MiniChart"; 
+//This is the actual table that is sed in the showing table to display the different coins 
 
 export default function TableSectionTable({ coins }) {
   return (
-    <TableContainer component={Paper} elevation={0}>
-      <Table aria-label="caption table">
-        <caption>Check more by logging in</caption>
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Last Price</TableCell>
-            <TableCell align="right">24h change</TableCell>
-            <TableCell align="right">Market</TableCell>
+    <TableContainer component={Paper} elevation={0}>{/*Make it a paper component so that we get the properties to elevate it to make it look nicer*/}
+      <Table aria-label="caption table"> {/*This is the table*/}
+        <caption>Check more by logging in</caption> {/*Captions to bring context that if they want to learn more they must login*/}
+        <TableHead> {/*The headers of the table*/}
+          <TableRow> {/*Row of headers*/}
+            <TableCell>Name</TableCell> {/*The header for the name of the coin*/}
+            <TableCell align="right">Last Price</TableCell> {/*The header for the current price of the coin*/}
+            <TableCell align="right">24h change</TableCell> {/*The header for the last 24 hour change of the coin*/}
+            <TableCell align="right">Market</TableCell> {/*The header for the graph*/}
           </TableRow>
         </TableHead>
         <TableBody>
-          {coins.slice(0, 20).map((coin) => (
-            <TableRow key={coin.name}>
-              <TableCell component="th" scope="row">
+          {coins.slice(0, 20).map((coin) => ( //This loops around 20 times and create rows to be displayed on the table to display 20 coins
+            <TableRow key={coin.name}> {/*this is creating the row */}
+              <TableCell component="th" scope="row">   {/* first cell */}
                 <>
-                  <Avatar alt="Some cryptocurrency icon" src={coin.image} />{" "}
-                  <Typography sx={{ display: "inline" }}>
+                  <Avatar alt="Some cryptocurrency icon" src={coin.image} />{" "} {/*The image of the coin*/}
+                  <Typography sx={{ display: "inline" }}> {/*the name of the coin afterwards*/}
                     {" "}
                     {coin.name}{" "}
-                  </Typography>
+                  </Typography> {/*The text are inline elements such that they are now next to each other*/}
                 </>
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="right"> {/*It is aligned slightly to the right*/}
                 {" "}
-                <Typography sx={{ fontFamily: "Times New Roman" }}>
+                <Typography sx={{ fontFamily: "Times New Roman" }}> {/*Displays the price of th coin*/}
                   ${coin.current_price}{" "}
                 </Typography>
               </TableCell>
               <TableCell align="right">
-                <p
-                  style={{
-                    color: `${
+                <p //displays the changes to the price of coin since 24 hours
+                  style={{ //*If the change in the percentage price change of the coin is smaller than 0 then it must be decreasing so it will appear red
+                    color: `${  //else it will just display green
                       coin.market_cap_change_percentage_24h < 0
-                        ? "red"
-                        : "green"
+                        ? "red" // if the change is less than 0 
+                        : "green" //if the change is greater or equal to 0 
                     }`,
                   }}
                 >
-                  {coin.market_cap_change_percentage_24h}{" "}
+                  {coin.market_cap_change_percentage_24h}{" "} {/*the changes in the price*/}
                 </p>
               </TableCell>
               <TableCell align="right">
                 {" "}
-                <MiniChart
-                  keyNumber={coin.current_price}
-                  coinName={coin.name}
+                <MiniChart  //renders the chart of the graph
+                  keyNumber={coin.current_price}  //current price
+                  coinName={coin.name} //name of the coin
                 />{" "}
               </TableCell>
             </TableRow>
