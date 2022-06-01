@@ -17,9 +17,10 @@ import { useParams } from "react-router-dom"; //Gets the variable from the URL h
 import CoinDisplayCard from "./CoinDisplayCard.js";
 
 function PortfolioPage({ allUsers, coins, setSteps }) {
-  let { account } = useParams();
-  const userFound = allUsers.find((el) => el.username === account);
+  let { account } = useParams(); //get the account name from the URL params
+  const userFound = allUsers.find((el) => el.username === account); //finds the account within the array of users so that we can get the details of that account
   useEffect(() => {
+    //sets up the steps for the product tour
     setSteps([
       {
         element: ".profilePageStep1",
@@ -37,7 +38,7 @@ function PortfolioPage({ allUsers, coins, setSteps }) {
       },
     ]);
   }, [setSteps]);
-  if (!userFound) {
+  if (!userFound) { //if the user does not exist display the following:
     return (
       <div>
         <Box
@@ -51,20 +52,22 @@ function PortfolioPage({ allUsers, coins, setSteps }) {
 	padding: 0,
 	textTransform: "uppercase",
 	fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
-	color: "rgba(118, 118, 118, 1)",}}>User does not exist</Typography>
-          <Breadcrumbs aria-label="breadcrumb">
+	color: "rgba(118, 118, 118, 1)",}} //displays that the usr does not exist
+  >User does not exist</Typography>
+          <Breadcrumbs aria-label="breadcrumb" //breadcrumbs
+          >
             <Link
               style={{ textDecoration: "none", color: "black" }}
               underline="hover"
               color="inherit"
-              to="/DashBoard"
+              to="/DashBoard" //link to go to the dashboard
             >
               Dashboard
             </Link>
             <Link
               style={{ textDecoration: "none", color: "black" }}
               underline="hover"
-              color="inherit"
+              color="inherit" //shows that the user is at the account page of that account
               to={`/DashBoard/Portfolio/${account}`}
             >
               Profile Page
@@ -74,7 +77,6 @@ function PortfolioPage({ allUsers, coins, setSteps }) {
       </div>
     );
   }
-  console.log(account);
   return (
     <div>
       <Box
@@ -86,17 +88,18 @@ function PortfolioPage({ allUsers, coins, setSteps }) {
       >
         <Typography variant="h4" style={{	fontWeight: 400,
 	padding: 0,
-	textTransform: "uppercase",
+	textTransform: "uppercase", //page to show the name and lastName of the profile
 	fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
 	color: "rgba(118, 118, 118, 1)",}}>
           {userFound.name} {userFound.lastName}
           {" Portfolio Page"}
         </Typography>
-        <Breadcrumbs aria-label="breadcrumb">
+        <Breadcrumbs aria-label="breadcrumb" //breadcrumbs
+        >
           <Link
             style={{ textDecoration: "none", color: "black" }}
             underline="hover"
-            color="inherit"
+            color="inherit" //link that directs user to the dashboard
             to="/DashBoard"
           >
             Dashboard
@@ -104,7 +107,7 @@ function PortfolioPage({ allUsers, coins, setSteps }) {
           <Link
             style={{ textDecoration: "none", color: "black" }}
             underline="hover"
-            color="inherit"
+            color="inherit" //show they are art the profile page
             to={`/DashBoard/Portfolio/${account}`}
           >
             Profile Page
@@ -114,18 +117,19 @@ function PortfolioPage({ allUsers, coins, setSteps }) {
       <Box flexGrow={1} />
       <Grid container style={{ marginTop: "10vh" }}>
         <Grid item xs={6}>
-          <Avatar
+          <Avatar //image of the user
             style={{ height: "25rem", width: "25rem" }}
             src={userFound.imageProfile}
             className="profilePageStep1"
           />
         </Grid>
         <Grid item xs={6}>
-          <Typography style={{ fontSize: "2rem" }} color="primary">
+          <Typography style={{ fontSize: "2rem" }} color="primary" //the user's about me 
+          >
             {" "}
             About me:
           </Typography>
-          <Paper
+          <Paper //this displays the user's aboutme details
             className="profilePageStep2"
             style={{
               background: "#e5e4e2",
@@ -136,7 +140,7 @@ function PortfolioPage({ allUsers, coins, setSteps }) {
             }}
           >
             <Typography style={{ display: "block" }} variant="body1">
-              {" "}
+              {" "} {/* if the user does not have an about me then it will display a placeholder else it will display the user's aboutme */}
               {!userFound.aboutMe
                 ? "We are sure this guy is really good, it is just that he is a little too shy to talk about himself"
                 : userFound.aboutMe}
@@ -144,11 +148,13 @@ function PortfolioPage({ allUsers, coins, setSteps }) {
           </Paper>
         </Grid>
       </Grid>
-      <Typography style={{ marginTop: "10vh" }} variant="h4" color="primary">
+      <Typography style={{ marginTop: "10vh" }} variant="h4" color="primary" //the portfolio coins
+      >
         Portfolio Coins
       </Typography>
       <Box style={{ marginTop: "10vh" }} className="profilePageStep3">
         {userFound.portfolioCoins.map((coin) => {
+          //loop through the portfolioCoins and have it be displayed within a card
           return (
             <CoinDisplayCard
               coin={coin}

@@ -20,7 +20,7 @@ const TopSection = () => {
           loop //loop the video
           muted // no sound
         />
-        <Typography variant="h2" className="header-text"> {/*Text to bring out context*/}
+        <Typography variant="h2" className="header-text" > {/*Text to bring out context*/}
           Begin your journey with crypto now
         </Typography>
     
@@ -31,7 +31,7 @@ const TopSection = () => {
        
         }}
           className="explore-button" // class css 
-          style={{ marginTop: 10, backgroundColor: 'orange', color: "white" }} //css
+          style={{ marginTop: 10, backgroundColor: 'orange', color: "white", fontWeight: "bold",  borderRadius: "10px", }} //css
           variant="contained" //css
           disableElevation //css
         >

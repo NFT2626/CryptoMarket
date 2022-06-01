@@ -18,7 +18,6 @@ export default function HomePage({coins}) {
       <Header /> {/* this is the header component*/}
       <TopSection />{/* this is the hero section*/}
       <MiddleSection />{/* this is where the cards of the home page is location*/}
-      <Divider variant="middle" light className="divider-sml" /> {/* divides the page*/}
       <ShowingTable coins={coins} /> {/* Table to display the coins*/}
       <FinalSection /> {/* Where the user is at the bottom of the page and can then sign up*/}
     </div>

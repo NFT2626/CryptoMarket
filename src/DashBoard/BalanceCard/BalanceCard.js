@@ -1,10 +1,14 @@
+//importing libraries
 import React from "react";
 import { Box, Avatar, Typography } from "@material-ui/core";
+//importing css
 import "./BalanceCard.css";
+
+//this component is responsible for displaying the different data for the user eg. total asset and bitcoin balance
 
 const BalanceCard = ({ image, content, content2 }) => {
   return (
-    <Box
+    <Box //fancy div to make look nicer
       sx={{
         display: "flex",
         alignItems: "center",
@@ -12,24 +16,27 @@ const BalanceCard = ({ image, content, content2 }) => {
         justifyContent: "space-between"
       }}
     >
-      <Avatar
+      <Avatar //the image to represent what units it is trying to represent
         className="avater-image--size"
-        alt="Remy Sharp"
-        src={`/Images/${image}`}
+        alt="money"
+        src={`/Images/${image}`} //source URL 
       />
       <Box
         sx={{
-          display: "flex",
+          display: "flex", //make look nicer
           flexDirection: "column",
           ml: 2
         }}
       >
-        <Typography className="content-text">{content}</Typography>
-        <Typography className="content-text--white"> {content2} </Typography>
+        <Typography className="content-text" //the title eg. Total Asset balance
+        >
+          {content}</Typography>
+        <Typography className="content-text--white" //the numeric data to describe the title eg. 0.001 BTC
+        > {content2} </Typography>
       </Box>
-      <Avatar
+      <Avatar //the final image that wraps the texts
         className="avater-image--size"
-        alt="Remy Sharp"
+        alt="Money"
         src={`/Images/${image}`}      />
     </Box>
   );

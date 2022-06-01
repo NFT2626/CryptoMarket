@@ -22,7 +22,7 @@ import CoinMarketPrices from "./CoinMarketPrices/CoinMarketPrices";
 import EditPortfolioPage from "./Edit_Portfolio_Page/EditPortfolioPage";
 import SignUpPage from "./SignUp_Page/SignUpPage";
 import PortfolioPage from "./Portfolio_Page/PortfolioPage";
-
+import Header from "./Home_Page/Header/header"
 import NotFoundPage from "./Not_Found_Page/NotFoundPage";
 import TransactionHistoryPage from "./Transaction_History_Page/TransactionHistoryPage";
 import LoadingScreen from "./LoadingScreen/LoadingScreen";
@@ -172,7 +172,14 @@ export default function App() {
           <Routes>
             <Route path="/SignUp" element={<SignUpPage />} />
             <Route path="/Login" element={<LoginPage setToken={setToken} />} />
-            <Route path="/Help" element={            <HelpPage />} />
+            <Route path="/Help" element={ 
+              <div style={{display: 'flex', flexDirection: 'column'}}>
+                <Header isWhite={true}/>
+
+            <HelpPage isHome={true} />
+
+            </div>
+            } />
             <Route path="/" element={<HomePage coins={coins} />} />
             <Route
               path="*"

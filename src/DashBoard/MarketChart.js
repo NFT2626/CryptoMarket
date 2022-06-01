@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+//importing libraries
+import React, { useState } from "react";
 
 import {
   Chart as ChartJS,
@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
+//creates the chart
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -23,74 +24,54 @@ ChartJS.register(
   Legend
 );
 
+
+//this component is responsible for displaying the charts on the coinmarketPrices page this is randomly generated data
 export const options = {
-  responsive: false,
-  maintainAspectRatio: true,
+  responsive: false, //responsive or not
+  maintainAspectRatio: true, 
   scales: {
     y: {
       ticks: {
-        display: false
+        display: false //make the y axis display none
       }
     },
     x: {
       ticks: {
-        display: false
+        display: false //make x axis display none
       }
     }
   },
   plugins: {
     legend: {
-      display: false
+      display: false //make legend display none
     },
     title: {
-      display: false,
-      text: "Chart.js Line Chart"
+      display: false, //make the title display none
+      text: ""
     }
   }
 };
 
-let dates = [];
-for (let i = 0; i < 7; i++) {
-  let d = new Date();
-  d.setDate(d.getDate() - i);
-  dates.push(d.toLocaleString().slice(0, 10).replaceAll("/", "-"));
 
-}
 
-let dataPrices = [];
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+const labels = ["January", "February", "March", "April", "May", "June", "July"]; //labels of the month
 
 
 
 
 const MarketChart = ({keyNumber}) => {
-  const [dataPrices, setDataPrices] = useState([]);
-  if(dataPrices.length != 0){
-    console.log(dataPrices[0][1])
-  }
   const data = {
     labels,
     datasets: [
       {
         label: "Dataset 2",
-        data: labels.map(() => (Math.random() * keyNumber)),
+        data: labels.map(() => (Math.random() * keyNumber)), //creates the random generator * by the key number ie. the coin price
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)"
       }
     ]
   };
-  // useEffect(() => {
-  //     axios
-  //     .get(
-  //       'https://api.coingecko.com/api/v3/coins/cardano/ohlc?vs_currency=usd&days=30'
-  //     )
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       setDataPrices(res.data);
-  //     })
-  //     .catch((error) => console.log(error));
-  //   },[]);
 
   return (
     <div
@@ -99,7 +80,8 @@ const MarketChart = ({keyNumber}) => {
         width: "2px !important"
       }}
     >
-      <Line options={options} data={data} />
+      <Line options={options} data={data}  //displays the line chart
+      />
     </div>
   );
 };

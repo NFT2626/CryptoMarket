@@ -10,20 +10,21 @@ import MarketForm from "./MarketForm";
 import Notification from "../../Notification/Notification";
 
 const BuyForm = ({ coinName, coinPrice, account }) => {
-  const [limit, setLimit] = useState(0);
-  const [message, setMessage] = useState(null);
-  const messageSetter = (content) => {
-    setMessage(content);
+  //initialise states
+  const [limit, setLimit] = useState(0); //the indexes of the tabs
+  const [message, setMessage] = useState(null); //the message
+  const messageSetter = (content) => { //this is responsible for setting the message
+    setMessage(content); //sets the message
+    //after 6 seconds it will remove the message
     setTimeout(() => {
       setMessage(null);
     }, 6000);
   };
 
-  console.log(account);
 
   const handleLimitChange = (event, newValue) => {
-    console.log(newValue);
-    setLimit(newValue);
+    //changes the index of the tabs 
+    setLimit(newValue); //sets the tab to the new value
   };
 
   return (
@@ -32,16 +33,16 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
         style={{ backgroundColor: "grey", paddingLeft: 10, paddingRight: 15 }}
       >
         <Tabs
-          value={limit}
-          onChange={handleLimitChange}
+          value={limit} //handles the tabs
+          onChange={handleLimitChange} //whenever the tab changes it will execute the handleLimitChange function
           indicatorColor="primary"
         >
             <Tooltip
-                arrow
+                arrow //tooltip once hovered would allow the user to understand that this is where the user is able to make limits
                 title="This is where the user is able to make limits to the crypto market"
               >
             
-          <Tab
+          <Tab //the first tab
             tabItemContainerStyle={{ width: "20px" }}
             style={{
               minWidth: 20,
@@ -50,18 +51,18 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
               letterSpacing: "-0.1em",
               fontSize: "0.8em",
             }}
-            label="Limit"
-            index={0}
+            label="Limit" //label of limit
+            index={0} //has index of 0 
             className="chartFormStep5"
           />
     
           </Tooltip>
-          <Tooltip
+          <Tooltip //tooltip once hovered shows that this is where the user is able to make transactions with limits
                 arrow
                 title="This is where the user is able to make limits to the crypto market"
               >
            
-          <Tab
+          <Tab //second tab
             style={{
               minWidth: 20,
               paddingLeft: 0,
@@ -70,8 +71,8 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
               fontSize: "0.8em",
               marginLeft: "10px",
             }}
-            index={1}
-            label="Market"
+            index={1} //index of 0 
+            label="Market" //label of market
             className="chartFormStep6"
           />
       
@@ -81,11 +82,13 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
       </Box>
       <Box>
         <Box style={{ marginTop: "10px" }} className="chartFormStep7">
-          <caption style={{ display: "inline", fontSize: 12 }}>
+          <caption style={{ display: "inline", fontSize: 12 }}
+          //displays the amount of balance the user owns in USD
+          >
             {" "}
             Available Balance: ${account.fiatBalance}
           </caption>
-          <caption
+          <caption //displays the balance of that particular coin if they have it else it will just be 0
             style={{ display: "inline", fontSize: 12, marginLeft: "10px" }}
           >
             {" "}
@@ -96,17 +99,18 @@ const BuyForm = ({ coinName, coinPrice, account }) => {
               : 0}
           </caption>
         </Box>
-        <Notification message={message} />
+        <Notification message={message} //component to show messages
+        />
         <Limit
           account={account}
-          limit={limit}
-          coinPrice={coinPrice}
+          limit={limit} //tab 0
+          coinPrice={coinPrice} //component for the user to do limit transactions
           coinName={coinName}
           messageSetter={messageSetter}
         />
         <MarketForm
-          limit={limit}
-          coinPrice={coinPrice}
+          limit={limit} //tab 1
+          coinPrice={coinPrice} //component that allows user to buy or sell at market price
           coinName={coinName}
           account={account}
           messageSetter={messageSetter}

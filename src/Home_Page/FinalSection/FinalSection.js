@@ -1,12 +1,15 @@
 //importing libraries
 import React from "react";
 import { Box, Typography, Button } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 
 //This is the final section of the home page 
 //when the user scrolls down to the page, instead of having to scroll up
 //they can click the button that is at the bottom of the page
 
 const FinalSection = () => {
+  const navigate = useNavigate(); //allows the user to navigate to differnt pages
+
   return (
     <Box //specifies a fancy div
       sx={{
@@ -17,8 +20,9 @@ const FinalSection = () => {
       }}
       fullWidth //css
     >
-      <Typography style={{ margin: "0 auto" }} //css
+      <Typography style={{ margin: "0 auto", color: "orange" }} //css
        variant="h4" //specifies that it is an h4
+       
        >
         Start your journey now {/* The title of the section */}
       </Typography>
@@ -29,8 +33,15 @@ const FinalSection = () => {
           marginTop: "2.5rem",
           padding: "1rem",
           width: "30%",
-          backgroundColor: "rgb(52,162,235)",
-          color: 'white'
+          backgroundColor: "orange",
+          color: 'white',
+          borderRadius: "10px",
+          fontWeight: 'bold'
+          
+
+        }}
+        onClick={()=>{
+          navigate('/SignUp')
         }}
       >
         {" "} 

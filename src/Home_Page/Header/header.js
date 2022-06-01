@@ -1,10 +1,11 @@
 //Importing libraries
 import React from "react";
-
+import { useNavigate } from "react-router";
 //This is the navbar for the home page, where the user is able to access 
 //forexample whether they can login or access online help 
-export default function Header() {
-  const listStyle = { listStyle: "none", margin: "0 60px" }; //Declare an object for elements that have common styling
+export default function Header({isWhite}) {
+  const navigate =useNavigate()
+  const listStyle = { listStyle: "none", margin: "0 20px" }; //Declare an object for elements that have common styling
 
   const anchorStyle = {
     textTransform: "capitalize",
@@ -14,7 +15,8 @@ export default function Header() {
   return (
     <header //specifies the header tag to initiate adding URL link tags
       style={{  //css
-        position: "absolute",
+        position: isWhite ? "" : "absolute",
+        
         zIndex: 99,
         width: "100%",
         padding: "60px",
@@ -27,10 +29,11 @@ export default function Header() {
           justifyContent: "space-between",
         }}
       >
-        <div style={{ fontWeight: 900, letterSpacing: "2px", color: "#fff"  //css
+        <div style={{ fontWeight: 900, letterSpacing: "2px", color: isWhite ? "black" : "#fff", cursor: "pointer", fontSize: '1.5rem'  //css
         }} 
+        onClick={()=>{navigate('/')}}
         >
-          CrySim. {/*The name of my app*/}
+          CRYSIM. {/*The name of my app*/}
         </div>
         <nav // the navbar for the home page
         > 
@@ -46,20 +49,22 @@ export default function Header() {
            
             <li style={listStyle}  //css
             >
-              <a style={{...anchorStyle, textDecoration: "underline"}} //css
+              <a style={{...anchorStyle, color: isWhite ? "black" : "#fff", fontWeight: 'bold' }} //css
                href="/Help" //when click it directs to the following link
                >
-                Online Help {/* the name of the element */}
+                 Help {/* the name of the element */}
               </a>
             </li>
             <li
               style={{ //css
                 color: "#fff",
                 fontWeight: 600,
-                background: "#23232a",
+                background: "orange",
                 padding: "16px 24px",
                 borderRadius: "10px",
+      
                 ...listStyle, //Expand the object out for styling
+                fontWeight: 'bold'
               }}
             >
               <a style={anchorStyle} href="/Login">

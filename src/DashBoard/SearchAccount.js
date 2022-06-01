@@ -1,62 +1,57 @@
-import React, { useState, useRef, useEffect } from "react";
+//importing libraries
+import React, { useState} from "react";
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import Avatar from "@mui/material/Avatar";
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 
+//this component is responsible for allowing the user to search different user accounts
 function SearchAccount({ accounts }) {
-  const [searchValue, setSearchValue] = useState();
-  const navigate = useNavigate();
+  //initialising states 
+  const [searchValue, setSearchValue] = useState(); // the search details
+
+  const navigate = useNavigate(); //allows the user to navigate to different pages
   const handleChange = (e, value) => {
-    // what to do here?
-    console.log(value);
-    if (value && !accounts.some((el) => el?.label === value?.label)) {
-      navigate(`/Dashboard/Portfolio/${value?.label}`);
+    //this is executed whenever the user clicks on the combination box or clicks submit
+    // i used ? because value can be null
+    if (value ) { // if there is value 
+      navigate(`/Dashboard/Portfolio/${value?.label}`); //go to that profile page
     }
   };
 
   return (
-    <Autocomplete
+    <Autocomplete //autocompleter
       className="step1"
       sx={{ width: "30%" }}
       style={{ background: "white" }}
-      options={accounts.map((account) => ({
-        ...account,
+      options={accounts.map((account) => ({ 
+        //loop through each of the accounts and create the options which are the combination boxes with the account details
+        //the label is the account username 
+        ...account, 
         label: account.username,
       }))}
       autoHighlight
       variant="filled"
-      onChange={handleChange}
+      onChange={handleChange} //handles the changes
       selectOnFocus
       clearOnBlur
       freeSolo
       clearOnEscape={true}
-      renderOption={(props, option) => (
+      renderOption={(props, option) => ( //this is how it is rendered
         <Box
           component="li"
           sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
-          {...props}
+          {...props} 
         >
-          <Avatar sx={{ margin: 1 }} src={`${option.imageProfile}`} alt="" />
+          <Avatar sx={{ margin: 1 }} src={`${option.imageProfile}`} alt=""  //the username as well as the image
+          />
           {option.username}
         </Box>
       )}
-      renderInput={(params) => {
-        return <TextField {...params} label="Look up user portfolio" />;
+      renderInput={(params) => { 
+        return <TextField {...params} label="Look up user portfolio"  //the textfield
+        />;
       }}
     />
   );

@@ -1,43 +1,44 @@
+//importing libraries
 import React, { useMemo, useEffect } from "react";
 import { Paper, Grid, Box, Typography } from "@material-ui/core";
 
-import Chart from "../Chart";
 
+
+//importing CSS
 import "./BodySection.css";
-import TotalBalance from "../TotalBalance/TotalBalance";
+//importing Components
 import TableCard from "../TableCard/TableCard";
 import TransferCoin from "../TransferCoin/TransferCoin";
-
+import Chart from "../Chart";
 import BalanceCard from "../BalanceCard/BalanceCard";
 import RecentTransaction from "../RecentTransaction/RecentTransaction";
-import WalletAddresses from "../WalletAddresses/WalletAddresses";
 
-//Importing Graphql
+
+//This is the main dashboard home page for the user, this is where all relevant data of the user is displayed 
 
 const BodySection = ({ account, coins, allUsers, setSteps }) => {
-  const calculateTotalBalance = () => {
-    console.log(account.portfolioCoins);
-    account.portfolioCoins.reduce((total, item) => {
-      /*  price = res.data. */
-      const coin = coins.find((el) => el.name === item.name);
-      return total + coin.current_price * item.quantity;
-    }, account.fiatBalance);
+  const calculateTotalBalance = () => { //calculates the user total balance
+    return account.portfolioCoins.reduce((total, item) => { //loops through each of the portfolioCoins the user owns
+      const coin = coins.find((el) => el.name === item.name); //finds the name within the actual coins received from the API to find it's current price
+      return total + coin.current_price * item.quantity; //adds the coin's current price multiplied by the quantity that the user owns of that coin
+    }, account.fiatBalance); //adds them up starting from the user's owned USD dollars
   };
 
-  const getBitcoinTotal = () => {
-    const bitcoinTotal = account.portfolioCoins.find(
+  const getBitcoinTotal = () => { //gets the bitcoin Total
+    const bitcoinTotal = account.portfolioCoins.find( //finds a coin name bitcoin within the portfolioCoins
       (el) => el.name === "Bitcoin"
     );
-    if (!bitcoinTotal) {
-      return 0;
-    } else {
+    if (!bitcoinTotal) { //if the user does not own bitcoin
+      return 0; //display 0 
+    } else { //else just display the bitcoinTotal that was found 
       return bitcoinTotal.quantity;
     }
   };
-  const totalBalance = useMemo(() => calculateTotalBalance(), []);
 
-  const bitcoinTotal = useMemo(() => getBitcoinTotal(), []);
+  const totalBalance = useMemo(() => calculateTotalBalance(), []); //for optimization purposes
+  const bitcoinTotal = useMemo(() => getBitcoinTotal(), []); //useMemo allows the results to be cached for optimization
   useEffect(() => {
+    //this is the steps for each of the product tour where intro displays the contents
     setSteps([
       {
         element: ".step1",
@@ -94,51 +95,11 @@ const BodySection = ({ account, coins, allUsers, setSteps }) => {
       },
     ]);
   }, [setSteps]);
-  /*   console.log(account, "this is the account"); */
 
-  /*  let data = [];
-  for (let i = 0; i < account.transactionHistory.length; i++) {
-    const idx = data.findIndex((el) => {
-      console.log(el);
-      return el.date === account.transactionHistory[i].date;
-    });
-    if (idx === -1) {
-      data.push({
-        portfolioValue:
-          account.transactionHistory[i].type === "Buy"
-            ? account.transactionHistory[i].bought_price *
-              account.transactionHistory[i].quantity
-            : -account.transactionHistory[i].bought_price *
-              account.transactionHistory[i].quantity,
-        date: account.transactionHistory[i].date,
-      });
-    } else {
-      if (account.transactionHistory[i].type === "Buy") {
-        data[idx].portfolioValue +=
-          account.transactionHistory[i].bought_price *
-          account.transactionHistory[i].quantity;
-      } else {
-        data[idx].portfolioValue -=
-          account.transactionHistory[i].bought_price *
-          account.transactionHistory[i].quantity;
-      }
-    }
-  }
-  //Sort based on dates
-  data.sort((port1, port2) => {
-    return new Date(port1.date) - new Date(port2.date);
-  });
-
-  // Accumulatively add them
-  data[0].portfolioValue += 10000; // This is the fiat balance value
- */
-  /*   for (let i = 1; i < data.length; i++) {
-    data[i].portfolioValue += data[i - 1].portfolioValue;
-  }
-  console.log(data); */
   return (
     <>
-      <Typography variant="h1" className="body-title">
+      <Typography variant="h1" className="body-title" //the title of the page
+      >
         {" "}
         DASHBOARD{" "}
       </Typography>
@@ -146,10 +107,10 @@ const BodySection = ({ account, coins, allUsers, setSteps }) => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={4} lg={4}>
             <Paper className="paper-text--2 card-container step3 ">
-              <BalanceCard
+              <BalanceCard //displays the data of the user's total USD balance
                 image="cash.png"
-                content={"$" + account.fiatBalance}
-                content2="Total Fiat Balance"
+                content={"$" + account.fiatBalance.toPrecision(4)}
+                content2="Total Fiat USD Balance"
               />
             </Paper>
           </Grid>
@@ -157,39 +118,38 @@ const BodySection = ({ account, coins, allUsers, setSteps }) => {
           <Grid item xs={12} md={4} lg={4}>
             <Paper className="paper-text--2 card-container step4">
               <BalanceCard
-                image="cash.png"
-                content={account.portfolioCoins.reduce((total, item) => {
-                  /*  price = res.data. */
-                  const coin = coins.find((el) => el.name === item.name);
-                  return total + coin.current_price * item.quantity;
-                }, account.fiatBalance)}
-                content2="Total Asset Balance"
+                image="cash.png" //displays the total asset balance
+                content={
+                  parseFloat(totalBalance).toFixed(4)}
+                content2="Total USD Asset Balance"
               />
             </Paper>
           </Grid>
           {/* Recent Orders */}
           <Grid item xs={12} md={4} lg={4}>
             <Paper className="paper-text--1 card-container step5">
-              <BalanceCard
+              <BalanceCard //displays the bitcoin total
                 image="BitcoinWhite.png"
-                content={bitcoinTotal}
+                content={parseFloat(bitcoinTotal).toFixed(4)}
                 content2="Wallet BTC balance"
               />
             </Paper>
           </Grid>
           <Grid item xs={12} md={8} lg={8}>
             <Paper className="step6">
-              <Chart data={account.portfolioValueDates} />
+              <Chart data={account.portfolioValueDates}  //chart to display the portfolio values throughout the dates the user is active
+              />
             </Paper>
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
             <Paper className="step7">
-              <TableCard coins={coins} />
+              <TableCard coins={coins} //displays live data to the user
+               />
             </Paper>
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
             <Paper className="step8">
-              <TransferCoin
+              <TransferCoin //provides the user the ability to send coins
                 account={account}
                 coins={coins}
                 allUsers={allUsers}
@@ -198,14 +158,10 @@ const BodySection = ({ account, coins, allUsers, setSteps }) => {
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
             <Paper className="step9">
-              <RecentTransaction account={account} />
+              <RecentTransaction account={account}  //the recent sendAndReceive transaction data
+              />
             </Paper>
           </Grid>
-          {/* <Grid item xs={12} md={4} lg={4}>
-            <Paper>
-              <WalletAddresses />
-            </Paper>
-          </Grid> */}
         </Grid>
       </div>
     </>

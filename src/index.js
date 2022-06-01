@@ -7,6 +7,7 @@ import ReactDOM from "react-dom";
 import { StyledEngineProvider } from "@mui/material/styles";
 import { createUploadLink } from "apollo-upload-client";
 import { setContext } from "@apollo/client/link/context";
+
 import {
   ApolloClient,
   ApolloProvider,
@@ -16,8 +17,6 @@ import {
 
 //Importing components
 import App from "./App.js";
-
-
 
 
 //Sets up the user authentication of the user 

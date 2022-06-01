@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 //This is the page that allows the user to get online help, help for how to use the application
 
-function HelpPage() {
+function HelpPage({isHome}) {
   return (
     <Box //fancy div
     >
@@ -25,8 +25,14 @@ function HelpPage() {
         }}
       >
         <Typography variant="h4" //title for the page
+        style={{	fontWeight: 400, 
+          padding: 0,
+          textTransform: "uppercase",
+          fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+          color: "rgba(118, 118, 118, 1)",}}
         >Online Help</Typography>
         <Breadcrumbs aria-label="breadcrumb" //bread crumbs
+        style={{display: isHome ? 'none' : ''}}
         >  
           <Link //specifies a link so that the user is able to click on the link to get back to the dashboard
             style={{ textDecoration: "none", color: "black" }}
@@ -46,12 +52,15 @@ function HelpPage() {
           </Link>
         </Breadcrumbs>
       </Box>
-      <Box sx={{ marginTop: "5rem" }}>
+      <Box sx={{ marginTop: "5rem"}}>
         <Typography variant="h4" gutterBottom>
           How To {/*title to describe the section for the how to*/}
         </Typography>
-        <Accordion> {/*Specifies a drawer element that allows the user once click to display the help*/}
-          <AccordionSummary
+        <Accordion //Specifies a drawer element that allows the user once click to display the help
+        //the rest of he following code is just the summary and HTML like code to display the help to the user 
+        > 
+  
+          <AccordionSummary 
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"

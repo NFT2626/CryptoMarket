@@ -1,3 +1,4 @@
+//importing libraries
 import React, { useState, useRef, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -13,14 +14,10 @@ import ListItemText from "@mui/material/ListItemText";
 import CatchingPokemonIcon from '@mui/icons-material/CatchingPokemon';
 import Avatar from "@mui/material/Avatar";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-
-import SearchAccount from "./SearchAccount";
 import Button from "@mui/material/Button";
-
 import { IconButton, Badge } from "@material-ui/core";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Paper } from "@material-ui/core";
-import "./dashboard.css";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
@@ -31,24 +28,27 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
 import { useApolloClient } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-
-
 import axios from "axios";
+//importing components
+import SearchAccount from "./SearchAccount";
+import LoadingScreen from "../LoadingScreen/LoadingScreen";
+//importing css
+import "./dashboard.css";
 
-const drawerWidth = 240;
+const drawerWidth = 240; //the drawer width
 
-export default function DashBoard(props) {
-  const [open, setOpen] = useState(false);
-  const client = useApolloClient();
-  const navigate = useNavigate()
+export default function DashBoard(props) { //as this is a parent component it will take props as it's parameters
+  const [open, setOpen] = useState(false); //if the combination box is open or not
+  const client = useApolloClient(); //used for logging out to erase the data from the apolloclient
+  const navigate = useNavigate() // allows the user to navigate to different pages
 
-  const anchorRef = useRef(null);
+  const anchorRef = useRef(null); //this sets the anchor so that the user is able to see a dropdown
 
-  const handleToggle = () => {
+  const handleToggle = () => { //sets the dropdown display
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event) => {
+  const handleClose = (event) => { //handles whenever the user closes the dropdown
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
@@ -56,46 +56,48 @@ export default function DashBoard(props) {
     setOpen(false);
   };
 
-  const logOut = (event) => {
-    event.preventDefault();
-    props.setToken(null);
-    localStorage.clear();
-    client.resetStore();
-    navigate("/");
+  const logOut = (event) => { //once the user logs out
+    event.preventDefault();  //prevents reloading
+    props.setToken(null); //sets the token to be null
+    localStorage.clear(); //clears the localStorage
+    client.resetStore(); //rests the apollo client
+    navigate("/"); //navigate back to the landing page
   };
-  const handleOnlineHelp = (event) => {
+  const handleOnlineHelp = (event) => {//navigates to the online help 
     event.preventDefault();
     navigate("/DashBoard/Help");
   };
-  const handleOpenAccount = (event) => {
+  const handleOpenAccount = (event) => { 
+    //navigates to the porofile page of the user
     event.preventDefault();
-    console.log("this should be working");
     navigate(`/DashBoard/Portfolio/${props.name.me.username}`);
   };
 
   function handleListKeyDown(event) {
+    //if the user enters the the tab key
     if (event.key === "Tab") {
       event.preventDefault();
-      setOpen(false);
+      setOpen(false); //removes the menu dropdown
     } else if (event.key === "Escape") {
-      setOpen(false);
+      //if enters escape
+      setOpen(false); //removes the menu dropdown
     }
   }
 
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = useRef(open);
-  React.useEffect(() => {
+  useEffect(() => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
 
     prevOpen.current = open;
   }, [open]);
-  if (!props.name.me) {
+  if (!props.name.me) { //if the user data has yet to be loaded display it is still loading
     return (
       <div>
         {" "}
-        <h1>loading... sorry for the lag</h1>
+        <LoadingScreen />
       </div>
     );
   }
@@ -105,57 +107,62 @@ export default function DashBoard(props) {
       <AppBar
         position="fixed"
         sx={{
-          width: `calc(100% - ${drawerWidth}px)`,
+          width: `calc(100% - ${drawerWidth}px)`, //calculates the amount that the content can be displayed
           ml: `${drawerWidth}px`,
         }}
       >
-        <Toolbar sx={{ backgroundColor: "#4050B5" }}>
+        <Toolbar sx={{ backgroundColor: "orange" }}>
           <Typography
             sx={{ color: "white" }}
             variant="h6"
             noWrap
-            component="div"
+            component="div" //the title of the page
           >
             DashBoard
           </Typography>
-          <Box sx={{ flexGrow: 0.5 }} />
-          <SearchAccount accounts={props.accounts} />
+          <Box sx={{ flexGrow: 0.5 }} //centers the search bar for the accounts
+          />
+          <SearchAccount accounts={props.accounts}  //allows the user to search other people's profile
+          />
           <Box sx={{ flexGrow: 0.5 }} />
           <Button
-            variant="contained"
+            variant="contained" //button that allows the user to activate the product tour
             style={{ display: props.setStepsEnabled ? "" : "none",backgroundColor: "orange" }}
             onClick={() => {
-              props.setStepsEnabled(true);
+              props.setStepsEnabled(true); //sets the product tour to be active
             }}
           >
             {" "}
             Overview tour{" "}
           </Button>
           <div>
-            <IconButton
+            <IconButton //this is the button that allows the user to see a menu dropdown
               className="step2"
               color="inherit"
-              ref={anchorRef}
+              ref={anchorRef} //get access to that component
               id="composition-button"
               aria-controls={open ? "composition-menu" : undefined}
               aria-expanded={open ? "true" : undefined}
               aria-haspopup="true"
-              onClick={handleToggle}
+              onClick={handleToggle} //activates this function once clicked
             >
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Avatar alt="Cindy Baker" src={props.name.me.imageProfile} />
-                <Typography
+              <Box sx={{ display: "flex", alignItems: "center" }} //styling
+              >
+                <Avatar alt="image" src={props.name.me.imageProfile}  //the image of the user
+                />
+                <Typography //the name and lastname of the user
                   sx={{ marginLeft: "10px !important", color: "white" }}
                 >
                   {" "}
                   {props.name.me.name + " " + props.name.me.lastName}
                 </Typography>
-                <ArrowDropDownIcon style={{ color: "white" }} />
+                <ArrowDropDownIcon style={{ color: "white" }}  //icon to represent the dropdown
+                />
               </Box>
             </IconButton>
             <Popper
-              open={open}
-              anchorEl={anchorRef.current}
+              open={open} //the actual dropdown and is active if the open is true
+              anchorEl={anchorRef.current} //the anchorRef prop that provides access
               role={undefined}
               placement="bottom-start"
               transition
@@ -163,11 +170,11 @@ export default function DashBoard(props) {
               sx={{ ml: 3 }}
             >
               {({ TransitionProps, placement }) => (
-                <Grow
-                  {...TransitionProps}
+                <Grow //transitionProps are just styling defined in the Popper component
+                  {...TransitionProps} 
                   style={{
                     transformOrigin:
-                      placement === "bottom-start" ? "left top" : "left bottom",
+                      placement === "bottom-start" ? "left top" : "left bottom", //placement 
                   }}
                 >
                   <Paper
@@ -176,9 +183,10 @@ export default function DashBoard(props) {
                       alignItems: "center",
                     }}
                   >
-                    <ClickAwayListener onClickAway={handleClose}>
-                      <MenuList
-                        autoFocusItem={open}
+                    <ClickAwayListener onClickAway={handleClose} //listens to whenever the user clicks away if so activates the handlClose function
+                    >
+                      <MenuList //the UI representation of the menu
+                        autoFocusItem={open} //it is focused if open is true
                         id="composition-menu"
                         aria-labelledby="composition-button"
                         onKeyDown={handleListKeyDown}
@@ -189,22 +197,26 @@ export default function DashBoard(props) {
                           transform: "translateX(-20%)",
                         }}
                       >
-                        <MenuItem onClick={handleClose}>
-                          <Link
+                        <MenuItem 
+                        >
+                          <Link //clicks and directs to the profile page to allow user to edit profile 
                             style={{ textDecoration: "none" }}
                             to="/DashBoard/Profile"
                           >
                             Edit your Portfolio
                           </Link>
                         </MenuItem>
-                        <MenuItem onClick={handleOpenAccount}>
+                        <MenuItem onClick={handleOpenAccount} //clicks and directs user to the account page
+                        >
                           My account
                         </MenuItem>
-                        <MenuItem onClick={handleOnlineHelp}>
-                          Help & Services
+                        <MenuItem onClick={handleOnlineHelp} //clicks and directs user to the online help page
+                        >
+                          Online help
                         </MenuItem>
 
-                        <MenuItem onClick={logOut}>LogOut</MenuItem>
+                        <MenuItem onClick={logOut} //clicks to logout the user
+                        >LogOut</MenuItem>
                       </MenuList>
                     </ClickAwayListener>
                   </Paper>
@@ -216,33 +228,39 @@ export default function DashBoard(props) {
       </AppBar>
       <Drawer
         sx={{
-          width: drawerWidth,
+          width: drawerWidth,//the left hand side of the screen that displays the different menus
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: drawerWidth,
+            width: drawerWidth, //it's width
             boxSizing: "border-box",
           },
         }}
         variant="permanent"
-        anchor="left"
+        anchor="left" //placement
       >
         <Toolbar />
         <List className="step10">
-        <Button to="/DashBoard"
+        <Button to="/DashBoard" //Icon button that allows the user to direct to the dashboard
             component={Link} variant="contained" style={{ fontWeight: 900, letterSpacing: "2px", color: "black", backgroundColor: 'white', marginLeft: "22.5%", marginTop: "-25%", fontSize: 20}}> CrySim. </Button>
           <Divider />
-          <Typography variant="h6" sx={{ paddingLeft: 2, paddingTop: 2, pb: 2 }}>
+          <Typography variant="h6" sx={{ paddingLeft: 2, paddingTop: 2, pb: 2 }}
+          //provides context of the following sets of buttons
+          >
             {" "}
             Personal{" "}
           </Typography>
           <ListItem
           style={{paddingLeft: 20}}
-            button
+            button ///button that directs user to the dashboard
             to="/DashBoard"
             component={Link}
             button
             key="dashboard"
-            selected={props.route === "dashboard"}
+            sx={{ '&.Mui-selected': {
+              backgroundColor: "orange",
+              fontWeight: 600
+          },}}
+            selected={props.route === "dashboard"} //highlights it whether it is on that page 
           >
             <ListItemIcon>
               <DashboardIcon />
@@ -250,12 +268,19 @@ export default function DashBoard(props) {
             <ListItemText primary="Dashboard" />
           </ListItem>
           <ListItem
-            button
+            button //button that directs the user to the coinmarket price page
             style={{paddingLeft: 20}}
             component={Link}
             to="/DashBoard/CoinMarketPrices"
             key={"coinmarketprices"}
-            selected={props.route === "coinmarketprices"}
+            sx={{
+        // this is to refer to the prop provided by M-UI
+                '&.Mui-selected': {
+                  backgroundColor: "orange",
+                  fontWeight: 600
+              },
+            }}
+            selected={props.route === "coinmarketprices"}//highlights it whether it is on that page 
 
           >
             <ListItemIcon>
@@ -264,11 +289,15 @@ export default function DashBoard(props) {
             <ListItemText primary="Coin Market Prices" />
           </ListItem>
           <ListItem
-            button
+            button //button that directs the user to the trading page IE. bitcoin 
             style={{paddingLeft: 20}}
-            selected={props.route === "trading"}
+            sx={{ '&.Mui-selected': {
+              backgroundColor: "orange",
+              fontWeight: 600
+          },}}
+            selected={props.route === "trading"} //highlights it whether it is on that page 
             component={Link}
-            to="/DashBoard/ChartForm/bitcoin"
+            to="/DashBoard/ChartForm/bitcoin" 
             key={"trading"}
           >
             <ListItemIcon>
@@ -286,7 +315,7 @@ export default function DashBoard(props) {
         sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
       >
         <Toolbar />
-        {props.children}
+        {props.children} {/* everything that is wrapped between dashboard is displayed here */}
       </Box>
     </Box>
   );

@@ -10,22 +10,25 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 import Tooltip from "@mui/material/Tooltip";
 
 
-//Importing components
+//this component is responsible for constructing the row for the table section to display the coins
+//reasons is because we can see whether that individual row is watched or not 
+//and we can make adjustments to that specific row rather than have it within the main component
 
+//Importing components
 import MarketChart from "../../DashBoard/MarketChart";
 
 function TableRowCoin({ coin, watchListCoins, favoriteCoin, unFavoriteCoin }) {
-  const isWatched = watchListCoins.includes(coin.name);
+  const isWatched = watchListCoins.includes(coin.name); //see if that coin is favourited or not
 
   return (
     <TableRow
       sx={{
         textDecoration: "none",
       }}
-      key={coin.name}
+      key={coin.name} //row
     >
       <TableCell component="th" scope="row">
-        <Box
+        <Box //holds the image and name
           component={Link}
           onClick={() => handleClick()}
           to={`/DashBoard/ChartForm/${coin.id}`}
@@ -38,8 +41,10 @@ function TableRowCoin({ coin, watchListCoins, favoriteCoin, unFavoriteCoin }) {
             alignItems: "center",
           }}
         >
-          <Avatar alt="Some cryptocurrency icon" src={coin.image} />{" "}
-          <Typography style={{ marginLeft: "2.5rem" }}>
+          <Avatar alt="Some cryptocurrency icon" src={coin.image}  //image of the coin
+          />{" "}
+          <Typography style={{ marginLeft: "2.5rem" }} //name of the coin
+          >
             {" "}
             {coin.name}{" "}
           </Typography>
@@ -47,14 +52,15 @@ function TableRowCoin({ coin, watchListCoins, favoriteCoin, unFavoriteCoin }) {
       </TableCell>
       <TableCell align="right">
         {" "}
-        <Typography sx={{ fontFamily: "Times New Roman" }}>
+        <Typography sx={{ fontFamily: "Times New Roman" }} //price of the coin
+        >
           ${coin.current_price}{" "}
         </Typography>
       </TableCell>
       <TableCell align="right">
         <p
-          style={{
-            color: `${
+          style={{ 
+            color: `${ //displays the 24h market cap if it is less than 0 it will display red else it will be green
               coin.market_cap_change_percentage_24h < 0 ? "red" : "green"
             }`,
           }}
@@ -62,29 +68,35 @@ function TableRowCoin({ coin, watchListCoins, favoriteCoin, unFavoriteCoin }) {
           {coin.market_cap_change_percentage_24h}%{" "}
         </p>
       </TableCell>
-      <TableCell align="right">
+      <TableCell align="right" //total market cap
+      >
         <Typography>{coin.market_cap}</Typography>
       </TableCell>
-      <TableCell align="right">
+      <TableCell align="right" //total volume
+      >
         <Typography>{coin.total_volume}</Typography>
       </TableCell>
-      <TableCell align="right">
+      <TableCell align="right" //cell that displays the chart
+      >
         {" "}
-        <MarketChart coinName={coin.name} keyNumber={coin.current_price} />{" "}
+        <MarketChart coinName={coin.name} keyNumber={coin.current_price}  //chart
+        />{" "}
       </TableCell>
       <TableCell
         component={Button}
-        className="stepCoinMarket7"
+        className="stepCoinMarket7" //cell that holds the button to favourite
         onClick={() => {
-          if (isWatched) {
+          if (isWatched) { //if it is watched then it will give the user the option to unfavourite the coin
             unFavoriteCoin(coin.name);
-          } else {
+          } else { //else it will allow the user to favourite the coin
             favoriteCoin(coin.name);
           }
         }}
       >
       
-        <div style={{ display: isWatched ? "none" : "" }}>
+        <div style={{ display: isWatched ? "none" : "" }} //displays a tooltip to watchlist the coin? if it is not being watched
+        >
+
         <Tooltip
                 arrow
                 title="Watchlist this coin? "
@@ -98,11 +110,12 @@ function TableRowCoin({ coin, watchListCoins, favoriteCoin, unFavoriteCoin }) {
             display: isWatched ? "" : "none",
           }}
         >
-          <Tooltip
+          <Tooltip //displays tool tip if the user ihas already watched the coin that hints "unfavourite this coin"
                 arrow
                 title="unfavorite this coin? "
               >
-          <StarRateIcon />
+          <StarRateIcon  //star icon
+          />
           </Tooltip>
         </div>
         

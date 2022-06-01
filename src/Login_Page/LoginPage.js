@@ -2,14 +2,17 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import Checkbox from "@mui/material/Checkbox";
+import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Notification from "../Notification/Notification"
-import { useNavigate } from "react-router-dom"; 
+
+
+import { useNavigate } from "react-router-dom";
+
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../queries";
 
@@ -38,27 +41,25 @@ export default function LoginPage({ setToken }) {
       localStorage.setItem("user-token", token);
       navigate("/DashBoard");
     }
-  }, [result.data]); // eslint-disable-line
+  }, [result.data]);
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
     login({
       variables: {
-        username: data.get("email"),
-        password: data.get("password"),
+        username: emailAddress,
+        password: password,
       },
     });
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container>
       <Button onClick={() => {
             navigate("/");
          }}variant="contained" style={{ fontWeight: 900, letterSpacing: "2px", color: "black",    position: "fixed",
       top:30
-, left: 30, backgroundColor: 'white'}}> CrySim. </Button>
+, left: 30, backgroundColor: 'white', fontSize: '1.5rem' }}> CrySim. </Button>
       <CssBaseline />
       <Box
         sx={{
@@ -66,23 +67,34 @@ export default function LoginPage({ setToken }) {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          marginTop: '20vh'
 
         }}
       >
-        <Typography variant="h5">Sign in</Typography>
+        <Typography variant="h3" style={{color: 'orange'}}>Sign in</Typography>
         <Notification message={message}/>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 5 }}>
+        <Box component="form" onSubmit={handleSubmit} >
           <TextField
-            margin="normal"
+          sx={{mt:5}}
             required
             fullWidth
             label="Email Address"
+            onChange={(e) => {
+              setEmailAddress(e.target.value)
+            }}
+            value={emailAddress}
+            color="warning"
             name="email"
             autoComplete="email"
             type="email"
           />
           <TextField
-            margin="normal"
+            color="warning"
+            sx={{mt:5}}
+            onChange={(e) => {
+              setPassword(e.target.value)
+            }}
+            value={password}
             required
             fullWidth
             name="password"
@@ -96,6 +108,8 @@ export default function LoginPage({ setToken }) {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 , backgroundColor: 'orange'}}
+            color="warning"
+
           >
             Sign In
           </Button>

@@ -11,8 +11,8 @@ import "./MiddleSection.css";
 const MiddleSection = () => {
   return (
     <section className="middlesection-canvas"> {/*allocate a section for the home page*/}
-      <Typography variant="h3" className="middlesection-h1"> {/*text that displays the title for the section*/}
-        What makes us better
+      <Typography variant="h3" className="middlesection-h1" style={{color: 'orange'}}> {/*text that displays the title for the section*/}
+        What makes us better?
       </Typography>
       <Box
         className="touch-container" //css

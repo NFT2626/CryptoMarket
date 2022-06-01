@@ -34,13 +34,13 @@ export default function TableSectionTable({ coins }) {
           {coins.slice(0, 20).map((coin) => ( //This loops around 20 times and create rows to be displayed on the table to display 20 coins
             <TableRow key={coin.name}> {/*this is creating the row */}
               <TableCell component="th" scope="row">   {/* first cell */}
-                <>
-                  <Avatar alt="Some cryptocurrency icon" src={coin.image} />{" "} {/*The image of the coin*/}
-                  <Typography sx={{ display: "inline" }}> {/*the name of the coin afterwards*/}
+                <div style={{display:'flex', alignItems: 'center'}}>
+                  <Avatar alt="Some cryptocurrency icon" src={coin.image} style={{display: 'inline-block'}} />{" "} {/*The image of the coin*/}
+                  <Typography style={{ display: "inline", marginLeft: '1.5rem' }}> {/*the name of the coin afterwards*/}
                     {" "}
                     {coin.name}{" "}
                   </Typography> {/*The text are inline elements such that they are now next to each other*/}
-                </>
+                </div>
               </TableCell>
               <TableCell align="right"> {/*It is aligned slightly to the right*/}
                 {" "}

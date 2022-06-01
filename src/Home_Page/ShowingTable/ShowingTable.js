@@ -14,7 +14,8 @@ import TableSectionTable from "./TableSectionTable/TableSectionTable";
 const ShowingTable = ({ coins }) => {
   return (
     <section className="table-section-canvas"> {/*Wrap around as a section tag to apply css to the portion of the page */}
-      <Typography variant="h4">Current Market Trend</Typography> {/*Title of the page*/}
+      <Typography variant="h3" style={{color:"orange", textAlign: 'center', marginBottom: '10vh'
+}}>Current Market Trend</Typography> {/*Title of the page*/}
       <TableSectionTable coins={coins} /> {/*Pass in the coins as the parameter and the table to display the coins*/}
     </section>
   );

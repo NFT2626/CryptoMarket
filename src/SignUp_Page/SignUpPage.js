@@ -6,8 +6,6 @@ import React,{useState} from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -29,23 +27,22 @@ import { CREATE_USER } from "../queries";
 
 
 const SignUpPage = () => {
-  const [title, setTitle] = useState('');
-  const [name, setName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [password, setPassword] = useState('')
-  const [emailAddress, setEmailAddress] = useState('')
+  const [title, setTitle] = useState(''); //the user title
+  const [name, setName] = useState(''); //the name of th user
+  const [lastName, setLastName] = useState(''); //the last name of the user
+  const [password, setPassword] = useState('') //the password of the user
+  const [emailAddress, setEmailAddress] = useState('') //the email address of the user
   const [message, setMessage] = useState(''); //Initialise the state for the message
-  const [nameError, setNameError] = useState(false);
-  const [lastNameError, setLastNameError] = useState(false);
+  const [nameError, setNameError] = useState(false); //if there is a name error
+  const [lastNameError, setLastNameError] = useState(false); // if there is a last name error
   const [emailError, setEmailError] = useState(false); //Initialise a bool whether a message is present
   const [titleError, setTitleError] = useState(false); //Initialise a bool whether a message is present
   const handleChange = (event) => {
-    setTitle(event.target.value);
+    setTitle(event.target.value); //whenever the textfield of the title changes, change the dropdown to reflect the title 
   };
   const [createUser] = useMutation(CREATE_USER, { //A put request that crates a user 
-    
     onError: (error) => {
-      console.log(error.graphQLErrors[0].message)
+      console.log(error.graphQLErrors[0].message) //display error
       if(error.graphQLErrors[0].message.startsWith("Username already exists")){ //If the error has this starting with this sentence, then it will be a non unique username error
         messageSetter("You did not put in a unique username") //Sets the error
         setEmailError(true) //The error is present
@@ -56,11 +53,12 @@ const SignUpPage = () => {
     },
     onCompleted: () => {
       messageSetter("you have successfully created a user account") //Once completed, the user would receive the success message 
+      navigate("/Login") //send the user to login page
     }
   });
 
-
-  const navigate = useNavigate();
+ 
+  const navigate = useNavigate(); //allows the user to navigate to different page
 
   const messageSetter = (content) => { //Function that assists in setting the message
     setMessage(content); //Sets the message with the variable content
@@ -70,7 +68,6 @@ const SignUpPage = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault(); //Prevent it from reloading the page
-    const data = new FormData(event.currentTarget); //Gets the data from the form 
     setEmailError(false) //Set error to false
     setTitleError(false)
     setNameError(false)
@@ -81,18 +78,20 @@ const SignUpPage = () => {
     if(!title){
       messageSetter("You have not entered the title") 
       setTitleError(true)
-      return;
+        return;
 
     }
     if(!name){
       messageSetter("You have not entered the name") 
       setNameError(true)
+      return
     }
     if(!lastName){
       messageSetter("You have not entered the lastName") 
       setLastNameError(true)
+      return
     }
-    if(!re.test(data.get("email"))){
+    if(!re.test(emailAddress)){
       messageSetter("Incorrect format, must be in email address format") 
 
       setEmailError(true)
@@ -101,13 +100,15 @@ const SignUpPage = () => {
     createUser({ //Creates the user
       variables: {
         username: emailAddress, //Gets a label called "email" and pass it as a variable called username
-        password: data.get("password"), //Gets a field called "password" and pass it as a variable called password
+        password: password, //Gets a field called "password" and pass it as a variable called password
         name: name, //Gets a field called "firstName" and pass it as a variable called name
         lastName: lastName, // Same thing as above
       },
     }).catch((err) => {
       console.log(err); //If error, it will print out the error.
     });
+
+  
   };
 
   return (
@@ -118,7 +119,7 @@ const SignUpPage = () => {
             navigate("/");
          }}variant="contained" style={{ fontWeight: 900, letterSpacing: "2px", color: "black",    position: "fixed",
       top:30
-, left: 30, backgroundColor: 'white'}}> CrySim. </Button>
+, left: 30, backgroundColor: 'white', fontSize: '1.5rem' }}> CrySim. </Button>
       <Container
         sx={{
           backgroundColor: "white", //CSS
@@ -136,7 +137,7 @@ const SignUpPage = () => {
             alignItems: "center !important",
           }}
         >
-          <Typography variant="h5" sx={{ marginTop: "2.5rem" , fontSize: '3rem'}}>
+          <Typography variant="h5" sx={{ marginTop: "2.5rem" , fontSize: '3rem', color: 'orange'}}>
             Sign up
           </Typography> {/*This is the title*/}
           <Notification message={message} />
@@ -167,9 +168,12 @@ const SignUpPage = () => {
           value={title}
 
           onChange={handleChange}
+          color="warning"
         >
           <MenuItem value={10}>Mr.</MenuItem>
           <MenuItem value={20}>Mrs.</MenuItem>
+          <MenuItem value={20}>Ms.</MenuItem>
+          <MenuItem value={20}>Master</MenuItem>
           <MenuItem value={30}>Dr.</MenuItem>
         </Select>
         
@@ -178,6 +182,7 @@ const SignUpPage = () => {
                   name="firstName" //textfield that specifies the name
                   required
                   label="First Name"
+                  color="warning"
           fullWidth
             value={name}
             error={nameError}
@@ -195,6 +200,7 @@ const SignUpPage = () => {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
+                  color="warning"
                   value={lastName}
                   error={lastNameError}
                   onChange={(e) => {
@@ -209,6 +215,7 @@ const SignUpPage = () => {
               <TextField
                   required
                   fullWidth
+                  color="warning"
                   error={emailError}
                   label="Email Address"
                   name="email"
@@ -226,6 +233,7 @@ const SignUpPage = () => {
                 <TextField
                   required
                   fullWidth
+                  color="warning"
                   name="password"
                   label="Password"
                   type="password"

@@ -67,8 +67,8 @@ const MiniChart = ({ keyNumber }) => {
       {
         label: "Dataset 2", //name of the y axis
         data: labels.map(() => (Math.random() * keyNumber)), //creating the random numbers which generates a random number from 0 to 10 and then multiplied by the key number which is the price of the coin
-        borderColor: "rgb(53, 162, 235)", //the color of the border
-        backgroundColor: "rgba(53, 162, 235, 0.5)" //the color of the line
+        borderColor: "orange",//the color of the line 
+        backgroundColor: "orange" //the color of the dots
       }
     ]
   };
